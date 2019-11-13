@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.rmi.server.ExportException;
 
 
 /**
@@ -38,10 +40,13 @@ public class Networking {
   private static String getRequest(String address) throws IOException {
     URL url = new URL(address);
 
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-    connection.setRequestMethod("GET");
-
-    return read(connection.getInputStream());
+    try {
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("GET");
+      return read(connection.getInputStream());
+    } catch (UnknownHostException e) {
+      return "Cannot connect to specified URL!";
+    }
 
   }
 
