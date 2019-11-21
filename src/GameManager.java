@@ -31,8 +31,7 @@ public class GameManager {
 	//Waits for a key input and updates the game according to the input
 	public void update() {
 		//Requires scene.addEventFilter anonymous inner class 
-		
-		Scene scene = new Scene();(KeyEvent.KEY_PRESSED, event -> processKeyEvent(event));
+		(KeyEvent.KEY_PRESSED, event -> processKeyEvent(event));
 		//InputManager im = new InputManager();
 		//char input = im.processKeyEvent()
 	}

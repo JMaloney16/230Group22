@@ -12,31 +12,26 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * Sample application that demonstrates the use of JavaFX Canvas for a Game. This class is
- * intentionally not structured very well. This is just a starting point to show how to draw an
- * image on a canvas and respond to arrow key presses.
- * <p>
- * Do not build the whole application in this file. This file should probably remain very small.
+ * Main.java
+ * Game opens from here when launched 
  *
- * @author Liam O'Reilly
+ * @author Sam Forster
  */
 public class Main extends Application {
 
   // The dimensions of the window
-  private static final int WINDOW_WIDTH = 600;
-  private static final int WINDOW_HEIGHT = 400;
+  private static final int WINDOW_WIDTH = 1080;
+  private static final int WINDOW_HEIGHT = 600;
 
   // The dimensions of the canvas
-  private static final int CANVAS_WIDTH = 400;
-  private static final int CANVAS_HEIGHT = 400;
+  private static final int CANVAS_WIDTH = 320;
+  private static final int CANVAS_HEIGHT = 320;
 
   // The size of each cell
-  private static int GRID_CELL_WIDTH = 50;
-  private static int GRID_CELL_HEIGHT = 50;
+  private static int GRID_CELL_WIDTH = 32;
+  private static int GRID_CELL_HEIGHT = 32;
 
-  // The canvas in the GUI. This needs to be a global variable
-  // (in this setup) as we need to access it in different methods.
-  // We could use FXML to place code in the controller instead.
+  //GUI Canvas
   private Canvas canvas;
 
   // Loaded images
@@ -56,7 +51,7 @@ public class Main extends Application {
 
     // Load images
     player = new Image("player.png");
-    dirt = new Image("dirt.png");
+    dirt = new Image("StoneBrickWall + Ceiling.png");
 
     // Register an event handler for key presses
     scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> processKeyEvent(event));
@@ -74,11 +69,23 @@ public class Main extends Application {
    */
   public void processKeyEvent(KeyEvent event) {
     switch (event.getCode()) {
-
+    
       case RIGHT:
         // Right key was pressed. So move the player right by one cell.
         playerX = playerX + 1;
         break;
+        // Left key was pressed. So move the player left by one cell.
+      case LEFT:
+    	  playerX = playerX - 1;
+    	  break;
+    	// Up key was pressed. So move the player up by one cell.
+      case UP:
+    	  playerY = playerY + 1;
+    	  break;
+    	// Down key was pressed. So move the player down by one cell
+      case DOWN:
+    	  playerY = playerY - 1;
+    	  break;
       default:
         // Do nothing
         break;
@@ -104,8 +111,10 @@ public class Main extends Application {
     // Draw row of dirt images
     // We multiply by the cell width and height to turn a coordinate in our grid into a pixel coordinate.
     // We draw the row at y value 2.
-    for (int x = 0; x < 5; x++) {
-      gc.drawImage(dirt, x * GRID_CELL_WIDTH, 2 * GRID_CELL_HEIGHT);
+    for (int x = 0; x < 10; x++) {
+    	for (int y = 0; y < 10; y++) {
+    		gc.drawImage(dirt, x * GRID_CELL_WIDTH, y * GRID_CELL_HEIGHT);
+    	}
     }
 
     // Draw player at current location
@@ -126,9 +135,9 @@ public class Main extends Application {
    * Move the player to roughly the center of the grid.
    */
   public void movePlayerToCenter() {
-    // We just move the player to cell (2, 2)
-    playerX = 2;
-    playerY = 2;
+    // Moving to center of canvas
+    playerX = (int) ((canvas.getWidth()/32)/2);
+    playerY = (int) ((canvas.getHeight()/32)/2);
     drawGame();
   }
 
