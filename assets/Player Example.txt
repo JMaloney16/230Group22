@@ -1,4 +1,4 @@
-12,10
+12,10,
 ############
 #..#.....#G#
 #W##..#..#.#
@@ -9,8 +9,8 @@
 #..#.......#
 #..#.......#
 ############
-(playerX),(playerY),START
-(enemyX),(enemyY),STRAIGHT,(directionOnExit)
+10,9,START
+11,5,ENEMY,STRAIGHT,LEFT
 3,7,TELE,1
 9,7,TELE,1
 CURRENTTIME,23
