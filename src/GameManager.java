@@ -27,7 +27,7 @@ public class GameManager {
 	private InputManager im;	//InputManager - handles input events
 	
 	private final int CELL_SIZE = 32;
-	private final TEMP_VALUE = 12;
+	private final int TEMP_VALUE = 12;
 	
 	
 	private Canvas canvas;	//Canvas for drawing the game on
