@@ -1,6 +1,7 @@
 /**
- * Movable.java dictates the behaviour for all movable subclasses. Subclass of
- * Drawable.
+ * Movable.java 
+ * dictates the behaviour for all movable subclasses. 
+ * Subclass of Drawable.
  * 
  * @version 0.1
  * @author Ewan Bradford, Luke Francis

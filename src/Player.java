@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 /**
- * Player.java, stores all data ascociated with the player. Subclass of Movable.
+ * Player.java
+ * Stores all data ascociated with the player. 
+ * Subclass of Movable.
  * 
  * @version 0.1
  * @author Ewan Bradford, Luke Francis
