@@ -1,10 +1,16 @@
 import java.util.ArrayList;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+
 /**
- * Board.java Stores and updates the playing board of the game.
+ * Board.java 
+ * Stores and updates the playing board of the game.
  * 
- * @version 0.1
- * @author Ewan Bradford, Luke Francis
+ * @version 0.2
+ * @author Ewan Bradford
+ * @author Sam Forster
+ * @author Luke Francis
  */
 
 public class Board {
@@ -26,11 +32,12 @@ public class Board {
 		this.interactables = interactables;
 	}
 
-	public void drawBoard() {
+	public void drawBoard(Canvas canvas) {
+		GraphicsContext gc = canvas.getGraphicsContext2D();
 		// draws board top left to bottom right
 		for(int y=0;y<board[0].length;y++) {
 			for(int x=0;x<board.length;x++) {
-				board[x][y].draw();
+				board[x][y].draw(gc);
 			}
 		}
 	}

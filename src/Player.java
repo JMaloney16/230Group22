@@ -7,11 +7,11 @@ import java.util.ArrayList;
  * @author Ewan Bradford, Luke Francis
  */
 public class Player extends Movable {
-	int[] keys = new int[4]; // red blue yellow green
-	int tokens = 0;
-	boolean flippers = false;
-	boolean boots = false;
-	boolean killed = false;
+	private int[] keys = new int[4]; // red blue yellow green
+	private int tokens = 0;
+	private boolean flippers = false;
+	private boolean boots = false;
+	private boolean killed = false;
 
 	/**
 	 * Creates a new player from a position and image file.

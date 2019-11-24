@@ -12,32 +12,32 @@ public class InputManager {
 	///////////////////////////////////////////
 	
 	
-	public String processKeyEvent(KeyEvent event) {
+	public void processKeyEvent(KeyEvent event, Integer key) {
 		switch(event.getCode()) {
 			case RIGHT:
 				//Right key pressed
 				event.consume();
-				return "r";
+				key = new Integer(1);
 			
 			case LEFT:
 				//Left key pressed
 				event.consume();
-				return "l";
+				key = new Integer(3);
 				
 			case UP:
 				//Up key pressed
 				event.consume();
-				return "u";
+				key = new Integer(0);
 				
 			case DOWN:
 				//Down key pressed
 				event.consume();
-				return "d";
+				key = new Integer(2);
 				
 			default:
 				//Do nothing
 				System.out.println("No Keystroke Made!");
-				return "";
+				key = new Integer(-1);
 		}
 	}
 	

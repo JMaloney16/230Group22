@@ -11,7 +11,8 @@ import java.util.Scanner;
  * @author Jack Maloney
  * @version 0.1
  */
-
+// make class fully static please bb <3
+// and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
 public class FileManager {
 
     public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class FileManager {
      * Generates a board from a given scanner
      * @param in Scanner of file containing board instructions
      */
-    private static void readMapFile(Scanner in) {
+    private static void readMapFile(Scanner in) { // please make this readMapFile(String filepath, Board board) hun
         int boardX = in.nextInt();
         int boardY = in.nextInt();
         in.nextLine();
@@ -144,7 +145,7 @@ public class FileManager {
      * Generates a player and board from a save file
      * @param in Scanner of contents of save file
      */
-    private static void readPlayerFile (Scanner in) {
+    private static void readPlayerFile (Scanner in) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
         int boardX = in.nextInt();
         int boardY = in.nextInt();
         List<String> inventory = new ArrayList<>();
@@ -253,3 +254,4 @@ public class FileManager {
         System.out.println(inventory.toString());
     }
 }
+
