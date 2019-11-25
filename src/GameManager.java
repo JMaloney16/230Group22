@@ -79,7 +79,7 @@ public class GameManager {
 			playerStatus = this.player.update(this.board, keyboardIn);
 			this.time += 1;
 			
-			FileManager.saveGame(this.player, this.board);
+			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 		}
 
 		switch (playerStatus) {

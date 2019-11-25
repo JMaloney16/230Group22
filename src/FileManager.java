@@ -1,5 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -180,7 +183,6 @@ public class FileManager {
 
             board = new Board(boardDrawables, movables, interactables);
         }
-        //REMEMBER TO UPDATE WITH READMAPFILE
 
         /**
          * Loads a map and player's stats from a file
@@ -215,6 +217,32 @@ public class FileManager {
 
             }
             board = new Board(boardDrawables, movables, interactables);
+        }
+    }
+
+    public static class FileWriting {
+        public static void savePlayerFile(Player player, Board board) {
+            BufferedWriter writer = null;
+            try {
+                File file = new File("testsave.txt");
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+
+                FileWriter fw = new FileWriter(fw);
+                writer = new BufferedWriter(fw);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (writer!=null){
+                        writer.close();
+                    }
+                } catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+
         }
     }
 }
