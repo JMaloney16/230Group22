@@ -43,7 +43,7 @@ public class GameManager {
 		this.boardFile = boardFile; // 
 		this.player = null;
 		this.board = null;
-		FileManager.readPlayerFile(boardFile, this.player, this.board);
+		FileManager.FileReading.readPlayerFile(boardFile, this.player, this.board);
 		this.createGameScene();
 		this.gameState = 1; // 0 - game in play, 1 - reset, 2 - quit
 		this.im = new InputManager();
