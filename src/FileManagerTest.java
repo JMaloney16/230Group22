@@ -25,7 +25,8 @@ public class FileManagerTest.java{
 		private final String TEST_FILE_NAME_1 = "659FhjdXxXx589.txt";
 		private final String TEST_FILE_NAME_2 = "Level Example.txt";
 		private final Player TEST_PLAYER = new Player(0, 0, "textPlayerImg.png")
-		//private final Board TEST_BOARD = new Board([)
+		//Can someone please find a way to get dummy values for the test on this?
+		//private final Board TEST_BOARD = new Board
 		
 		//FILE READER TESTS
 		
@@ -46,6 +47,5 @@ public class FileManagerTest.java{
 		}
 		
 		//FILE WRITER TESTS
-		
 	}
 }
