@@ -50,7 +50,7 @@ public class FileManager {
          * @param in Scanner of file to read
          * @param divider The keyword to stop reading the file
          */
-        private static void readAnyFile(Scanner in, String divider) {
+        private static void readAnyFile(Scanner in, String divider, Player player) {
             int boardX = in.nextInt();
             int boardY = in.nextInt();
             boardDrawables = new Drawable[boardX][boardY];
@@ -64,11 +64,12 @@ public class FileManager {
                     switch (current) {
                         case "#":
                             System.out.print("#");
-                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 2);
+                            boardDrawables[j][i] = new StaticEntity(j, i,
+                                "../assets/StoneBrickWall + Ceiling.png", 2);
                             break;
                         case ".":
                             System.out.print(".");
-                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 0);
+                            boardDrawables[j][i] = new StaticEntity(j, i, "../assets/dirt.png", 0);
                             break;
                         case "F":
                             System.out.print("F");
@@ -76,7 +77,7 @@ public class FileManager {
                             break;
                         case "W":
                             System.out.print("W");
-                            boardDrawables[j][i] = new Water();
+                            boardDrawables[j][i] = new Water(j, i);
                             break;
                         case "T":
                             System.out.print("T");
@@ -105,7 +106,7 @@ public class FileManager {
                 switch (keyword) {
                     case "START":
                         System.out.println("START");
-
+                        player = new Player(posX, posY, "playerPlaceholder.png");
                         break;
                     case "ITEM":
                         String itemType = line.next();
@@ -117,7 +118,8 @@ public class FileManager {
                                 interactables.add(new Token());
                                 break;
                             case "FLIPPER":
-                                interactables.add(new Flipper());
+                                //TODO: Add difference between flipper and boots
+                                interactables.add(new Shoe());
                                 break;
                             case "BOOTS":
                                 interactables.add(new Shoe());
@@ -152,11 +154,20 @@ public class FileManager {
                             case "STRAIGHT":
                                 String direction = line.next();
                                 System.out.println("Straight type enemy starting: " + direction);
-                                movables.add(new DumbEnemy(posX, posY, "placeholder.png", 1));
+                                movables.add(new LineEnemy(posX, posY, "placeholder.png", 1));
                                 break;
                             case "SMART":
                                 System.out.println("Smart enemy");
                                 movables.add(new SmartEnemy(posX, posY, "placeholder.png", 1));
+                                break;
+                            case "FOLLOW":
+                                System.out.println("Follow enemy");
+                                movables.add(new FollowEnemy(posX, posY, "placeholder.png", 1));
+                                break;
+                            case "DUMB":
+                                System.out.println("Dumb enemy");
+                                movables.add(new DumbEnemy(posX, posY, "placeholder.png", 1));
+                                break;
                             default:
                                 System.out.print("I haven't added this enemy type to the filereader!");
                         }
@@ -174,15 +185,15 @@ public class FileManager {
          * @param filepath location of file to read from
          * @param board board to be populated
          */
-        public static void readMapFile(String filepath, Board board) {
+        public static void readMapFile(String filepath, Board board, Player player) {
             Scanner in = createFileScanner(filepath);
-            readAnyFile(in, "LEADERBOARD");
+            readAnyFile(in, "LEADERBOARD", player);
             String currentLine = in.nextLine();
 
             for (int i = 0; i < 3; i++) {
-                String[] player = currentLine.split(",");
-                String playerName = player[0];
-                int playerTime = Integer.parseInt(player[1]);
+                String[] topPlayers = currentLine.split(",");
+                String playerName = topPlayers[0];
+                int playerTime = Integer.parseInt(topPlayers[1]);
                 System.out.println(playerName + " completed the level in: " + playerTime);
                 if (i < 2) {
                     currentLine = in.nextLine();
@@ -200,7 +211,7 @@ public class FileManager {
          */
         public static void readPlayerFile(String filepath, Player player, Board board) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
             Scanner in = createFileScanner(filepath);
-            readAnyFile(in, "CURRENTTIME");
+            readAnyFile(in, "CURRENTTIME", player);
             String currentLine = in.nextLine();
             int currentTime = Integer.parseInt(currentLine.split(",")[1]);
             int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
@@ -229,7 +240,7 @@ public class FileManager {
 
     }
     public static class FileWriting {
-        public static void savePlayerFile(Player player, Board board){
+        public static void savePlayerFile(Player player, Board board) {
             savePlayerFile("testPlayerFile.txt", player, board);
         }
 
