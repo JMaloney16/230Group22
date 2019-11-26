@@ -45,4 +45,12 @@ public abstract class Drawable {
 	public void draw(GraphicsContext gc) {
 		gc.drawImage(this.spriteImage, this.xCoord*GameManager.CELL_SIZE, this.yCoord*GameManager.CELL_SIZE);
 	}
+
+	public int getxCoord() {
+		return xCoord;
+	}
+
+	public int getyCoord() {
+		return yCoord;
+	}
 }

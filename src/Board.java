@@ -120,4 +120,16 @@ public class Board {
 		}
 		return -1; // needs to raise error, maybe
 	}
+
+	public Drawable[][] getBoard() {
+		return board;
+	}
+
+	public ArrayList<Movable> getMovables() {
+		return movables;
+	}
+
+	public ArrayList<Interactable> getInteractables() {
+		return interactables;
+	}
 }
