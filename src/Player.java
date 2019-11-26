@@ -141,7 +141,14 @@ public class Player extends Movable {
 			System.out.println("Cant add that key"); // maybe raise an error?
 		}
 	}
-
+	
+	/**
+	 * Sets the killed attribute to true, killing the play next update
+	 */
+	public void kill() {
+		this.killed = true;
+	}
+	
 	/**
 	 * Adds tokens to the player.
 	 * 
@@ -184,5 +191,12 @@ public class Player extends Movable {
 	 */
 	public boolean getFlippers() {
 		return this.flippers;
+	}
+	
+	public int getPosX() {
+		return this.xCoord;
+	}
+	public int getPosY() {
+		return this.yCoord;
 	}
 }

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
  * Drawable.java 
  * Represents a single cell on the board
  * 
- * @version 0.1
+ * @version 0.2
  * @author Ewan Bradford, Luke Francis
  */
 public abstract class Drawable {
@@ -34,6 +34,15 @@ public abstract class Drawable {
 		
 		this.spriteImage = new Image(spritePath); // "../assest/sprite.png"
 	}
+	/**
+	 * Handles the movement of this object.
+	 * 
+	 * @param board,      the parent board object.
+	 * @param player,     the player object that is on the board.
+	 * @param keyboardIn, the current keypress.
+	 */
+	public void update(Board board, Player player, int keyboardIn) {
+	}
 
 	/**
 	 * @return Returns this objects blocking value.
@@ -42,6 +51,10 @@ public abstract class Drawable {
 		return this.blockable;
 	}
 
+	/**
+	 * Draws the sprite at the correct location and size
+	 * @param gc graphics context to be drawn to
+	 */
 	public void draw(GraphicsContext gc) {
 		gc.drawImage(this.spriteImage, this.xCoord*GameManager.CELL_SIZE, this.yCoord*GameManager.CELL_SIZE);
 	}
