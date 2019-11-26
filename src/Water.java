@@ -1,8 +1,8 @@
 
 public class Water extends Tile {
 
-	public Water(int x, int y, String sprite, int blockable) {
-		super(x, y, sprite, blockable);
+	public Water(int x, int y) {
+		super(x, y, "../assets/Water.png", 1);
 	}
 	
 	public void update(Board board, Player player, int keyboardIn) {
