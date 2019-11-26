@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Takes a filename and retrieves specified data from it or saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.3
+ * @version 0.5
  */
 // make class fully static please bb <3
 // and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
@@ -69,11 +69,11 @@ public class FileManager {
                             break;
                         case "F":
                             System.out.print("F");
-                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 1);
+                            boardDrawables[j][i] = new Fire();
                             break;
                         case "W":
                             System.out.print("W");
-                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 1);
+                            boardDrawables[j][i] = new Water();
                             break;
                         case "T":
                             System.out.print("T");
@@ -114,7 +114,7 @@ public class FileManager {
                                 interactables.add(new Token());
                                 break;
                             case "FLIPPER":
-                                interactables.add(new Shoe());
+                                interactables.add(new Flipper());
                                 break;
                             case "BOOTS":
                                 interactables.add(new Shoe());
@@ -137,6 +137,7 @@ public class FileManager {
                         }
                         break;
                     case "TELE":
+                        //TODO: Add teleporter partner
                         int pairValue = line.nextInt();
                         System.out.println("It's a teleporter part of pair " + pairValue);
                         boardDrawables[posX][posY] = new Teleporter();
@@ -144,11 +145,15 @@ public class FileManager {
                     case "ENEMY":
                         String enemyType = line.next();
                         switch (enemyType) {
+                            //TODO: Add all enemy types
                             case "STRAIGHT":
                                 String direction = line.next();
                                 System.out.println("Straight type enemy starting: " + direction);
                                 movables.add(new DumbEnemy(posX, posY, "placeholder.png", 1));
                                 break;
+                            case "SMART":
+                                System.out.println("Smart enemy");
+                                movables.add(new SmartEnemy(posX, posY, "placeholder.png", 1));
                             default:
                                 System.out.print("I haven't added this enemy type to the filereader!");
                         }
@@ -193,7 +198,7 @@ public class FileManager {
         public static void readPlayerFile(String filepath, Player player, Board board) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
             Scanner in = createFileScanner(filepath);
             readAnyFile(in, "CURRENTTIME");
-            String currentLine= in.nextLine();
+            String currentLine = in.nextLine();
             int currentTime = Integer.parseInt(currentLine.split(",")[1]);
             int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
             System.out.println(in.nextLine());
@@ -221,24 +226,144 @@ public class FileManager {
     }
 
     public static class FileWriting {
-        public static void savePlayerFile(Player player, Board board) {
+        /**
+         * Saves the player's game to a textfile
+         * @param filename Name of the file to save to
+         * @param player The player's object
+         * @param board The board to save
+         */
+        public static void savePlayerFile(String filename, Player player, Board board) {
             BufferedWriter writer = null;
+            Drawable[][] boardArray = board.getBoard();
+            ArrayList<Movable> movables = board.getMovables();
+            ArrayList<Interactable> interactables = board.getInteractables();
+
+            int boardX = boardArray[0].length;
+            int boardY = boardArray.length;
             try {
-                File file = new File("testsave.txt");
+                File file = new File(filename);
                 if (!file.exists()) {
                     file.createNewFile();
                 }
 
-                FileWriter fw = new FileWriter(fw);
+                FileWriter fw = new FileWriter(file);
                 writer = new BufferedWriter(fw);
+                // We use .getClass().getName() to figure out what each object is
+                writer.write(boardX + "," + boardY + ",");
+                for (int i = 0; i < boardX; i++) {
+                    String currentLine = "";
+                    for (int j = 0; j < boardY; j++) {
+                        switch (boardArray[j][i].getClass().getName()) {
+                            case "StaticEntity":
+                                if (boardArray[j][i].getBlocking() == 0) {
+                                    currentLine += "#";
+                                } else {
+                                    currentLine += ".";
+                                }
+                                break;
+                            case "Fire":
+                                currentLine += "F";
+                                break;
+                            case "Water":
+                                currentLine += "W";
+                                break;
+                            case "Teleporter":
+                                currentLine += "T";
+                                break;
+                            case "Goal":
+                                currentLine += "G";
+                            default:
+                                System.out.println("Not accounted for: " + boardArray[j][i]
+                                    .getClass().getName());
+                        }
+                    }
+                    writer.write(currentLine);
+                }
+                //TODO: Get player coords
+                int playerX = 10;
+                int playerY = 9;
+                writer.write(playerX + "," + playerY + "," + "START");
+                for (Interactable interactable: interactables) {
+                    int xValue = interactable.getxCoord();
+                    int yValue = interactable.getyCoord();
+                    String type = interactable.getClass().getName().toUpperCase();
+                    String prefix = (xValue + "," + yValue + ",");
+                    switch (type) {
+                        case "TOKENDOOR":
+                            writer.write(prefix + "DOOR,TOKEN,1");
+                            break;
+                        case "COLOURED":
+                            //TODO: Get the colour of the door
+                            writer.write(prefix + "DOOR,RED");
+                            break;
+                        case "FLIPPER":
+                            writer.write(prefix + "ITEM,FLIPPER");
+                            break;
+                        case "SHOE":
+                            writer.write(prefix + "ITEM,BOOTS");
+                            break;
+                        case "TOKEN":
+                            writer.write(prefix + "ITEM,TOKEN,1");
+                            break;
+                        case "KEY":
+                            //TODO: Get the colour of the key
+                            writer.write(prefix + "KEY,RED");
+                            break;
+                        case "TELEPORTER":
+                            //TODO: Get the teleporter's partner
+                            writer.write(prefix + "TELE,1");
+                            break;
+                        default:
+                            System.out.println("Not implemented: " + type);
+                    }
+                }
+                for (Movable moveable: movables) {
+                    int xValue = moveable.getxCoord();
+                    int yValue = moveable.getyCoord();
+                    String type = moveable.getClass().getName().toUpperCase();
+                    String prefix = (xValue + "," + yValue + "," + "ENEMY");
+                    if (!type.equals("PLAYER")) {
+                        switch (type) {
+                            case "LINEENEMY":
+                                //TODO: Add direction
+                                writer.write(prefix + "STRAIGHT,LEFT");
+                                break;
+                            case "SMARTENEMY":
+                                writer.write(prefix + "SMART");
+                                break;
+                            case "FOLLOWENEMY":
+                                writer.write(prefix + "FOLLOW");
+                                break;
+                            case "DUMBENEMY":
+                                writer.write(prefix + "DUMB");
+                                break;
+                            default:
+                                System.out.println("Not accounted for! " + type);
+                        }
+                    }
+                }
+                //TODO: Get current player time and level
+                int playerTime = 23;
+                int level = 1;
+                writer.write("CURRENTTIME,"+playerTime);
+                writer.write("LEVEL,"+level);
+                writer.write("INVENTORY");
+                if (player.getFlippers()) {
+                    writer.write("FLIPPER");
+                }
+                if (player.getBoots()) {
+                    writer.write("BOOTS");
+                }
+                int tokenAmount = player.getTokens();
+                writer.write("TOKEN," + tokenAmount);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 try {
-                    if (writer!=null){
+                    if (writer!=null) {
                         writer.close();
                     }
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     System.out.println(ex);
                 }
             }
