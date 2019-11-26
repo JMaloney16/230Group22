@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
  * @author Dylan Cole
  */
 
-public class GameManagerTest.java{
+public class GameManagerTest{
 	
 	/**
 	 * main
