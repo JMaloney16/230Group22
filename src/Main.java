@@ -1,14 +1,5 @@
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -27,18 +18,19 @@ public class Main extends Application {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 	public void start(Stage primaryStage) {
-		Pane menu = buildMenuGUI();// Build the GUI
+		Pane menu = MenuManager.Menu.buildMenuGUI(primaryStage, WINDOW_WIDTH, WINDOW_HEIGHT);	// Build the GUI
 		Scene scene = new Scene(menu, WINDOW_WIDTH, WINDOW_HEIGHT); // Create a scene from the GUI
 
 		
 		// Display the scene on the stage
 		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);	//Stops user from changing size of window
 		primaryStage.show();
 	}
 
-
+	/*
 	//Create the GUI
-	private Pane buildMenuGUI() {
+	private Pane buildMenuGUI() { 
 		// Create top-level panel that will hold all GUI
 		BorderPane root = new BorderPane();
 
@@ -60,6 +52,7 @@ public class Main extends Application {
 	
 		return root;
 	}
+	*/
 
 	public static void main(String[] args) {
 		launch(args);
