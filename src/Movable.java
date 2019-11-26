@@ -25,15 +25,4 @@ public abstract class Movable extends Drawable {
 		this.nextX = x;
 		this.nextY = y;
 	}
-
-	/**
-	 * Handles the movement and drawing of this object.
-	 * 
-	 * @param board,      the parent board object.
-	 * @param player,     the player object that is on the board.
-	 * @param keyboardIn, the current keypress.
-	 */
-	public void update(Board board, Player player, int keyboardIn) {
-
-	}
 }
