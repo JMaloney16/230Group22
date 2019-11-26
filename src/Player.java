@@ -141,7 +141,15 @@ public class Player extends Movable {
 			System.out.println("Cant add that key"); // maybe raise an error?
 		}
 	}
-
+	public void kill() {
+		this.killed = true;
+	}
+	public int getPosX() {
+		return this.xCoord;
+	}
+	public int getPosY() {
+		return this.yCoord;
+	}
 	/**
 	 * Adds tokens to the player.
 	 * 
