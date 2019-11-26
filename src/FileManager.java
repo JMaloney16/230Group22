@@ -223,9 +223,13 @@ public class FileManager {
             }
             board = new Board(boardDrawables, movables, interactables);
         }
-    }
 
+    }
     public static class FileWriting {
+        public static void savePlayerFile(Player player, Board board){
+            savePlayerFile("testPlayerFile.txt", player, board);
+        }
+
         /**
          * Saves the player's game to a textfile
          * @param filename Name of the file to save to
