@@ -1,7 +1,7 @@
 /**
  * Water.java Creates a water tile on the board
  * 
- * @version 0.3
+ * @version 0.4
  * @author Gino Sesia
  */
 public class Water extends Tile {

@@ -1,7 +1,7 @@
 /**
  * Fire.java Creates a fire tile on the board
  * 
- * @version 0.2
+ * @version 0.3
  * @author Gino Sesia
  */
 public class Fire extends Tile {
