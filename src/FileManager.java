@@ -15,6 +15,9 @@ import java.util.Scanner;
  */
 // make class fully static please bb <3
 // and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
+// needs a method to update the leaderboard
+// needs a method to get a leaderboard from a filename
+// player file needs to store filepath to the level and store the highest level achieved variable
 public class FileManager {
 
     public static class FileReading {
