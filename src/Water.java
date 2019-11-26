@@ -9,8 +9,8 @@ public class Water extends Tile {
 	/**
 	 * Creates a water tile.
 	 * 
-	 * @param x,      the x coordinate of the player.
-	 * @param y,      the y coordinate of the player.
+	 * @param x,      the x coordinate of the water tile.
+	 * @param y,      the y coordinate of the water tile.
 	 */
 	public Water(int x, int y) {
 		super(x, y, "../assets/Water.png", 1);

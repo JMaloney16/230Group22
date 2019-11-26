@@ -9,8 +9,8 @@ public class Fire extends Tile {
 	/**
 	 * Creates a fire tile.
 	 * 
-	 * @param x,      the x coordinate of the player.
-	 * @param y,      the y coordinate of the player.
+	 * @param x,      the x coordinate of the fire tile.
+	 * @param y,      the y coordinate of the fire tile.
 	 */
 	public Fire(int x, int y) {
 		super(x, y, "../assets/Fire.png", 1);
