@@ -31,6 +31,7 @@ public class FileManager {
 		private static Drawable[][] boardDrawables;
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
+		private static String dividerLine;
 
 		/**
 		 * Validates filepath given and creates a scanner if valid
@@ -190,6 +191,7 @@ public class FileManager {
 				currentLine = in.nextLine();
 				line.close();
 			}
+			dividerLine = currentLine;
 		}
 
 		/**
@@ -201,7 +203,8 @@ public class FileManager {
 		public static void readMapFile(String filepath, Board board, Player player) {
 			Scanner in = createFileScanner(filepath);
 			readAnyFile(in, "LEVEL", player);
-			int mapLevel = Integer.parseInt(in.nextLine().split(",")[1]);
+			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
+			in.nextLine();
 			String currentLine = in.nextLine();
 
 			for (int i = 0; i < 3; i++) {
