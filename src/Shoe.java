@@ -1,18 +1,20 @@
 /**
  * Shoe.java
  * Holds information about a key
- * @see Collectable
- * @see Interactable
+ *
  * @author Jack Maloney
  * @version 0.5
+ * @see Collectable
+ * @see Interactable
  */
 public class Shoe extends Collectable {
 	private String type;
 
 	/**
 	 * Creates a new shoe
-	 * @param x X-Coordinate of shoe
-	 * @param y Y-Coordinate of shoe
+	 *
+	 * @param x    X-Coordinate of shoe
+	 * @param y    Y-Coordinate of shoe
 	 * @param type Type of shoe (boots/flipper)
 	 */
 	public Shoe(int x, int y, String type) {
@@ -21,7 +23,7 @@ public class Shoe extends Collectable {
 	}
 
 	private static String getSprite(String type) {
-		String sprite = "../assets/";
+		String sprite = "assets/";
 		if (type == "boots") {
 			sprite += "placeholder.png";
 		} else {
@@ -29,17 +31,16 @@ public class Shoe extends Collectable {
 		}
 		return sprite;
 	}
-	
-	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() && this.type == flipper) {
-				addFlippers();
-				board.removeInteractable(flipper);
-			}
-	
-	public void update(Board board, Player player, int keyboardIn) {
-	if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() && this.type == boots) {
-				addBoots();
-				board.removeInteractable(boots);
-		}
 
+	public void update(Board board, Player player, int keyboardIn) {
+		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() &&
+			this.type.equals("flipper")) {
+			player.addFlippers();
+			board.removeInteractable(this);
+		} else if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() &&
+			this.type.equals("boots")) {
+			player.addBoots();
+			board.removeInteractable(this);
+		}
+	}
 }
