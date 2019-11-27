@@ -33,20 +33,20 @@ public class Key extends Collectable {
 		String sprite = "assets/";
 		switch (colour) {
 			case "red":
-				sprite += "placeholder.png";
+				sprite += "keyRed.png";
 				break;
 			case "blue":
-				sprite += "placeholder.png";
+				sprite += "keyBlue.png";
 				break;
 			case "yellow":
-				sprite += "placeholder.png";
+				sprite += "keyYellow.png";
 				break;
 			case "green":
-				sprite += "placeholder.png";
+				sprite += "keyGreen.png";
 				break;
 			default:
 				//If the colour doesn't exist just set it to one of the others?
-				sprite += "placeholder.png";
+				sprite += "keyRed.png";
 		}
 		return sprite;
 	}

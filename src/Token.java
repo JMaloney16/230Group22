@@ -9,7 +9,7 @@
 public class Token extends Collectable {
 
 	public Token(int x, int y) {
-		super(x, y, "assets/placeholder.png", 0);
+		super(x, y, "assets/Token.png", 0);
 	}
 
 }

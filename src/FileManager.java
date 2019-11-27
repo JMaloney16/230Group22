@@ -72,11 +72,11 @@ public class FileManager {
 					switch (current) {
 						case "#":
 							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "StoneBrickWall + Ceiling.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i, "StoneBrickWall.png", 2);
 							break;
 						case ".":
 							System.out.print(".");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/dirt.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
 							break;
 						case "F":
 							System.out.print("F");
