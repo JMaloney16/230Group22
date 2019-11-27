@@ -3,7 +3,8 @@
  * A class designed to hold the unique attributes
  * and methods required for a key, whilst inheriting
  * the attributes from Collectable and Interactable
- *
+ * @see Collectable
+ * @see Interactable
  * @author Dylan Cole - 980660
  * @author Jack Maloney
  * @version 0.2
