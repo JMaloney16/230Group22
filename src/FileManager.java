@@ -111,8 +111,10 @@ public class FileManager {
 				String keyword = line.next();
 				switch (keyword) {
 					case "START":
+						//TODO: Get the level number idek how, and player name - maybe set to
+						// something else in readPlayerFile
 						System.out.println("START");
-						player = new Player(posX, posY, "playerPlaceholder.png");
+						player = new Player(posX, posY, "playerPlaceholder.png", "Default", 1);
 						break;
 					case "ITEM":
 						String itemType = line.next();
@@ -198,7 +200,8 @@ public class FileManager {
 		 */
 		public static void readMapFile(String filepath, Board board, Player player) {
 			Scanner in = createFileScanner(filepath);
-			readAnyFile(in, "LEADERBOARD", player);
+			readAnyFile(in, "LEVEL", player);
+			int mapLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			String currentLine = in.nextLine();
 
 			for (int i = 0; i < 3; i++) {
@@ -212,6 +215,7 @@ public class FileManager {
 			}
 
 			board = new Board(boardDrawables, movables, interactables);
+			board.setLevelNumber(mapLevel);
 		}
 
 		/**
@@ -225,6 +229,7 @@ public class FileManager {
 			Scanner in = createFileScanner(filepath);
 			readAnyFile(in, "CURRENTTIME", player);
 			String currentLine = in.nextLine();
+			//TODO: Find a way to pass the currenttime to the game manager
 			int currentTime = Integer.parseInt(currentLine.split(",")[1]);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			System.out.println(in.nextLine());
@@ -377,7 +382,8 @@ public class FileManager {
 				}
 				//TODO: Get current player time and level
 				int playerTime = 23;
-				int level = 1;
+				//int level = player.getMaxLevel();
+				int level = board.getLevelNumber();
 				writer.write("CURRENTTIME," + playerTime);
 				writer.write("LEVEL," + level);
 				writer.write("INVENTORY");

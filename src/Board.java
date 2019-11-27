@@ -17,6 +17,7 @@ public class Board {
 	private Drawable[][] board;
 	private ArrayList<Movable> movables = new ArrayList<Movable>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
+	private int levelNumber;
 
 	/**
 	 * Creates a board with from static, movable and interactable data.
@@ -30,6 +31,7 @@ public class Board {
 		this.board = board;
 		this.movables = movables;
 		this.interactables = interactables;
+		this.levelNumber = 1;
 	}
 
 	public void drawBoard(GraphicsContext gc) {
@@ -122,14 +124,22 @@ public class Board {
 	}
 
 	public Drawable[][] getBoard() {
-		return board;
+		return this.board;
 	}
 
 	public ArrayList<Movable> getMovables() {
-		return movables;
+		return this.movables;
 	}
 
 	public ArrayList<Interactable> getInteractables() {
-		return interactables;
+		return this.interactables;
+	}
+
+	public int getLevelNumber() {
+		return this.levelNumber;
+	}
+
+	public void setLevelNumber(int number) {
+		this.levelNumber = number;
 	}
 }
