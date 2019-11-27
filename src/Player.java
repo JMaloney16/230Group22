@@ -14,6 +14,7 @@ public class Player extends Movable {
 	private boolean flippers = false;
 	private boolean boots = false;
 	private boolean killed = false;
+	private String playerName;
 
 	/**
 	 * Creates a new player from a position and image file.
@@ -22,8 +23,9 @@ public class Player extends Movable {
 	 * @param y,      the y coordinate of the player.
 	 * @param sprite, the filepath of the image for the player.
 	 */
-	public Player(int x, int y, String sprite) {
+	public Player(int x, int y, String sprite, String playerName) {
 		super(x, y, sprite, 0);
+		this.playerName = playerName;
 	}
 
 	/**
