@@ -77,11 +77,11 @@ public class FileManager {
                             break;
                         case "F":
                             System.out.print("F");
-                            boardDrawables[j][i] = new Fire();
+                            boardDrawables[j][i] = new Fire(j, i);
                             break;
                         case "W":
                             System.out.print("W");
-                            boardDrawables[j][i] = new Water();
+                            boardDrawables[j][i] = new Water(j, i);
                             break;
                         case "T":
                             System.out.print("T");
@@ -119,14 +119,14 @@ public class FileManager {
                             case "TOKEN":
                                 int tokenValue = line.nextInt();
                                 System.out.println("It's worth: " + tokenValue);
-                                interactables.add(new Token());
+                                interactables.add(new Token(posX, posY, "placeholder.png", 0));
                                 break;
                             case "FLIPPER":
                                 //TODO: Add difference between flipper and boots
-                                interactables.add(new Shoe());
+                                interactables.add(new Shoe(posX, posY, "placeholder.png", 0, "Flipper"));
                                 break;
                             case "BOOTS":
-                                interactables.add(new Shoe());
+                                interactables.add(new Shoe(posX, posY, "placeholder.png", 0, "Shoe"));
                                 break;
                             default:
                                 System.out.println("Unrecognised!");
