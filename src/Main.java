@@ -27,7 +27,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);	//Stops user from changing size of window
 		primaryStage.show();
 		GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", 448, 500, 64);
-		gm.launchGame();
+//		gm.launchGame();
 	}
 
 	/*

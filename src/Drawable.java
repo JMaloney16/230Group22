@@ -61,7 +61,7 @@ public abstract class Drawable {
 	 * @param gc graphics context to be drawn to
 	 */
 	public void draw(GraphicsContext gc) {
-		System.out.println(this.spriteImage.isError());
+//		System.out.println(this.spriteImage.isError());
 		gc.drawImage(this.spriteImage, this.xCoord*64, this.yCoord*64, 64, 64);
 	}
 
