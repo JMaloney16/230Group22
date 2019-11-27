@@ -60,9 +60,9 @@ public abstract class Drawable {
 	 * Draws the sprite at the correct location and size
 	 * @param gc graphics context to be drawn to
 	 */
-	public void draw(GraphicsContext gc) {
+	public void draw(GraphicsContext gc, int offsetX, int offsetY) {
 //		System.out.println(this.spriteImage.isError());
-		gc.drawImage(this.spriteImage, this.xCoord*64, this.yCoord*64, 64, 64);
+		gc.drawImage(this.spriteImage, (this.xCoord-offsetX)*64, (this.yCoord-offsetY)*64, 64, 64);
 	}
 
 	public int getxCoord() {

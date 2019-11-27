@@ -68,7 +68,7 @@ public class GameManager {
 	private void update() {
 		this.frameCount++;
 //		System.out.println(this.frameCount);
-		this.board.drawBoard(this.gc);
+		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
 		Integer keyPressed = new Integer(-1);
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
@@ -76,7 +76,9 @@ public class GameManager {
 			System.out.print("key: ");
 			System.out.println(this.lastKey);
 			
-			this.player.update(this.board, this.lastKey);
+			System.out.print("player move: ");
+			System.out.println(this.player.update(this.board, this.lastKey));
+			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
 		this.lastKey = -1;
 	}

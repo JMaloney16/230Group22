@@ -4,8 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 /**
- * Board.java 
- * Stores and updates the playing board of the game.
+ * Board.java Stores and updates the playing board of the game.
  * 
  * @version 0.2
  * @author Ewan Bradford
@@ -34,12 +33,13 @@ public class Board {
 		this.levelNumber = 1;
 	}
 
-	public void drawBoard(GraphicsContext gc) {
+	public void drawBoard(GraphicsContext gc, int playerX, int playerY) {
 //		GraphicsContext gc = canvas.getGraphicsContext2D();
 		// draws board top left to bottom right
-		for(int y=0;y<board[0].length;y++) {
-			for(int x=0;x<board.length;x++) {
-				board[x][y].draw(gc);
+		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length-1, playerY + 3); y++) {
+			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length-1, playerX + 3); x++) {
+//				System.out.printf("Accessing: %dx%d\n", x, y);
+				board[x][y].draw(gc, playerX-3, playerY-3);
 			}
 		}
 	}

@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 // TODO
 // -----> stores max level
 
@@ -125,6 +127,10 @@ public class Player extends Movable {
 		default: // if asked for no existent key colour
 			return false;
 		}
+	}
+	
+	public void draw(GraphicsContext gc) {
+		this.draw(gc, this.xCoord-3, this.yCoord-3);
 	}
 
 	/**
