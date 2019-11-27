@@ -15,6 +15,7 @@ public class Player extends Movable {
 	private boolean boots = false;
 	private boolean killed = false;
 	private String playerName;
+	private int maxLevel;
 
 	/**
 	 * Creates a new player from a position and image file.
@@ -23,9 +24,10 @@ public class Player extends Movable {
 	 * @param y,      the y coordinate of the player.
 	 * @param sprite, the filepath of the image for the player.
 	 */
-	public Player(int x, int y, String sprite, String playerName) {
+	public Player(int x, int y, String sprite, String playerName, int maxLevel) {
 		super(x, y, sprite, 0);
 		this.playerName = playerName;
+		this.maxLevel = maxLevel;
 	}
 
 	/**
