@@ -43,7 +43,7 @@ public class SoundEffect {
 	 * to play from the start.
 	 */
 	public void playSound() {
-		clip.setFramePosition(0);
+		//clip.setFramePosition(0);
 		clip.start();
 	}
 	
@@ -51,7 +51,7 @@ public class SoundEffect {
 	 * Method used for playing a sound on a loop. Mostly used for background music.
 	 */
 	public void playLoop() {
-		clip.setFramePosition(0);
+//		clip.setFramePosition(0);
 		clip.start();
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		

@@ -13,6 +13,7 @@ public class InputManager {
 	
 	
 	public void processKeyEvent(KeyEvent event, Integer key) {
+		System.out.println("test");
 		switch(event.getCode()) {
 			case RIGHT:
 				//Right key pressed

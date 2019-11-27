@@ -1,12 +1,17 @@
+import java.io.File;
+import java.util.ArrayList;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * GameManager.java Controls flow of game and handles Player interaction with
@@ -19,12 +24,16 @@ import javafx.scene.layout.Pane;
  */
 
 public class GameManager {
-	private Player player;      // Player object
-	private Board board;       // Current Board object
+	private Player player; // Player object
+	private Board board; // Current Board object
 	private String boardFile; // Filepath of the board (for restarts)
-	private int gameState;   //==== Current state of game, 0 - game in play, 1 - resetting, 2 - quitting game
-	private Scene gameScene;     // GUI scene for game (javaFX - Possible move to new class)
-	private InputManager im;    // InputManager - handles input events
+	private int gameState; // ==== Current state of game, 0 - game in play, 1 - resetting, 2 - quitting
+							// game
+	private Scene gameScene; // GUI scene for game (javaFX - Possible move to new class)
+	private Stage primaryStage;
+	private GraphicsContext gc;
+	private BorderPane root;
+	private InputManager im; // InputManager - handles input events
 	private int time = 0;
 
 	public static int windowWidth; // fixed cell size
@@ -35,52 +44,93 @@ public class GameManager {
 
 	///////////////////////////////////////////////////////////////////
 
-	public GameManager(String boardFile, int windowWidth, int windowHeight, int CELL_SIZE) {
+	public GameManager(Stage primaryStage, String boardFile, int windowWidth, int windowHeight, int cellSize) {
+		this.primaryStage = primaryStage;
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
 		this.cellSize = cellSize;
-		
-		this.boardFile = boardFile; // 
-		this.player = null;
-		this.board = null;
-		FileManager.FileReading.readPlayerFile(boardFile, this.player, this.board);
+
+		this.boardFile = boardFile; //
+		this.player = new Player(1, 1, "../assets/placeholder.png", "test", 0);
+
+		Drawable[][] temp = new Drawable[7][7];
+		for (int y = 0; y < 7; y++) {
+			for (int x = 0; x < 7; x++) {
+				if (x == 0 || x == 6 || y == 0 || y == 6) {
+					temp[x][y] = new StaticEntity(x, y, "D:\\Documents\\GitHub\\230Group22\\src\\Water.png", 2);
+				}
+				else {
+					temp[x][y] = new StaticEntity(x, y, "D:\\Documents\\GitHub\\230Group22\\src\\Lava.png", 0);
+				}
+			}
+		}
+		this.board = new Board(temp, new ArrayList<Movable>(), new ArrayList<Interactable>());
+
+//		FileManager.FileReading.readPlayerFile(boardFile, this.player, this.board);
 		this.createGameScene();
-		this.gameState = 1; // 0 - game in play, 1 - reset, 2 - quit
+		this.gameState = 0; // 0 - game in play, 1 - reset, 2 - quit
 		this.im = new InputManager();
+		
+		this.createGameScene();
+		this.buildGameGUI();
+		
+		this.primaryStage.setScene(this.gameScene);
+		
+//		this.canvas = new Canvas()
 	}
 
 	// Called when the game is launched from the menu
 	public void launchGame() {
-		while (this.gameState == 0) {
+		System.out.println("Launched Game");
+//		while (this.gameState == 0) {
 			this.update();
-		}
-		
-		switch(this.gameState) {
-		case 1:
-			restart();
-			break;
-		case 2:
-			System.out.println("Call quitting function");
-			break;
-		}
+			this.primaryStage.setScene(this.gameScene);
+//		}
+
+//		switch (this.gameState) {
+//		case 1:
+//			restart();
+//			break;
+//		case 2:
+//			System.out.println("Call quitting function");
+//			break;
+//		}
 		System.out.println(this.gameState);
 	}
 
 	// Waits for a key input and updates the game according to the input
 	private void update() {
-		Integer keyPressed = null;
-		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> this.im.processKeyEvent(event, keyPressed));
-		this.board.drawBoard(canvas);
+//		Integer keyPressed = null;
+//		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> this.im.processKeyEvent(event, keyPressed));
+		
+		this.canvas = (Canvas)this.root.getCenter();
+		this.gc = this.canvas.getGraphicsContext2D();
+
+		this.board.drawBoard(this.gc);
+		
+		
+		File imageLoader = new File("src\\Water.png");
+		Image test = new Image(imageLoader.toURI().toString());
+//		System.out.println(test.isError());
+//		System.out.println(test.exceptionProperty());
+		this.gc.drawImage(test, 200, 100, 64, 64);
+		
+		this.root.setCenter(this.canvas);
+		this.primaryStage.setScene(this.gameScene);
+		this.primaryStage.show();
+		
+		
 		int playerStatus = -1;
-		int keyboardIn = (int) keyPressed;
-		if (keyboardIn != -1) {
-			this.board.updateInteractables(this.player, keyboardIn);
-			this.board.updateMovable(this.player, keyboardIn);
-			playerStatus = this.player.update(this.board, keyboardIn);
-			this.time += 1;
-			
-			FileManager.FileWriting.savePlayerFile(this.player, this.board);
-		}
+		
+//		if (keyPressed != null) {
+//			int keyboardIn = (int) keyPressed;
+//			this.board.updateInteractables(this.player, keyboardIn);
+//			this.board.updateMovable(this.player, keyboardIn);
+//			playerStatus = this.player.update(this.board, keyboardIn);
+//			this.time += 1;
+//
+////			FileManager.FileWriting.savePlayerFile(this.player, this.board);
+//		}
 
 		switch (playerStatus) {
 		case 0:
@@ -107,47 +157,6 @@ public class GameManager {
 		System.out.println("dont die next time.");
 	}
 
-	// Checks availability of tile that player attempted to move to
-	// (Sorry for repeated code)
-//	private boolean checkAttemptMove(String moveToCheck) { // Getter for board2d array? maybe?
-//		switch (moveToCheck) {
-//		case "l": // Checks tile to left of player
-//			if (this.board.getBoard()[player.getXCoord() - 1][player.getYCoord()].getBlockable() == 0) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//		case "r": // Checks tile to right of player
-//			if (this.board.getBoard()[player.getXCoord() + 1][player.getYCoord()].getBlockable() == 0) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//
-//		case "u": // Checks tile above player
-//			if (this.board.getBoard()[player.getXCoord()][player.getYCoord() - 1].getBlockable() == 0) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//
-//		case "d": // Checks tile below player
-//			if (this.board.getBoard()[player.getXCoord()][player.getYCoord() + 1].getBlockable() == 0) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//
-//		case "":
-//			return false;
-//
-//		}
-//	}
-
-//	private void movePlayer(String moveToMake) {
-//		this.player.update(board, keyboardIn); // TALK TO EWAN!!!
-//	}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// JavaFX Scene
 
@@ -155,35 +164,28 @@ public class GameManager {
 	private void createGameScene() {
 
 		Pane root = this.buildGameGUI();
-		this.gameScene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-		
-		//this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> this.im.processKeyEvent(event));
+		this.gameScene = new Scene(root, windowWidth, windowHeight);
+
+		// this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event ->
+		// this.im.processKeyEvent(event));
 
 	}
 
-//	public void drawGame() {
-//		// Get the Graphic Context of the canvas
-//		GraphicsContext gc = canvas.getGraphicsContext2D();
-//
-//		// Clear canvas
-//		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//
-//		// Parse through the board and draw each respective sprite
-//		for (int x = 0; x < canvas.getHeight(); x++) {
-//			for (int y = 0; y < canvas.getWidth(); y++) {
-//				gc.drawImage(this.board.getBoard()[x][y].getSprite(), x * CELL_SIZE, y * CELL_SIZE);
-//			}
-//		}
-//
-//		// Draw player at current location
-//		gc.drawImage(player.getSprite(), player.getXCoord() * CELL_SIZE, player.getYCoord() * CELL_SIZE);
-//
-//	}
-
 	private Pane buildGameGUI() {
 		BorderPane root = new BorderPane();
-		canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT); // How to get size of map from 'board'
-		root.setCenter(canvas);
+		this.canvas = new Canvas(windowWidth, windowHeight); // How to get size of map from 'board'
+		root.setCenter(this.canvas);
+		//////////////////////////
+//		System.out.println(windowWidth);
+		this.gc = this.canvas.getGraphicsContext2D();
+		File imageLoader = new File("src\\Lava.png");
+		Image test = new Image(imageLoader.toURI().toString());
+//		System.out.println(test.isError());
+//		System.out.println(test.exceptionProperty());
+		this.gc.drawImage(test, 100, 100, 64, 64);
+		
+		this.board.drawBoard(this.gc);
+		/////////////////////////////
 
 		// HBar at top for Buttons
 		HBox toolbar = new HBox();
@@ -198,7 +200,8 @@ public class GameManager {
 		// Restart Button
 		Button restartButton = new Button("Restart Level");
 		toolbar.getChildren().add(restartButton); // REQUIRES FUNCTIONALITY
-
+		
+		this.root = root;
 		return root;
 
 	}

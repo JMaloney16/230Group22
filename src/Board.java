@@ -32,8 +32,8 @@ public class Board {
 		this.interactables = interactables;
 	}
 
-	public void drawBoard(Canvas canvas) {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+	public void drawBoard(GraphicsContext gc) {
+//		GraphicsContext gc = canvas.getGraphicsContext2D();
 		// draws board top left to bottom right
 		for(int y=0;y<board[0].length;y++) {
 			for(int x=0;x<board.length;x++) {
