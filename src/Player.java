@@ -204,4 +204,6 @@ public class Player extends Movable {
 	public int getPosY() {
 		return this.yCoord;
 	}
+
+	public int getMaxLevel() { return this.maxLevel; }
 }
