@@ -28,6 +28,8 @@ public class GameManager {
 	private int windowWidth;
 	private int windowHeight;
 	private int cellSize;
+	
+	private int lastKey = -1;
 
 	private int frameCount = 0;
 
@@ -39,18 +41,19 @@ public class GameManager {
 //		this.gc = gc;
 		this.boardFile = boardFile;
 
-		this.player = new Player(1, 1, "../assets/placeholder.png", "test", 0);
+		this.player = new Player(1, 1, "assets\\placeholder.png", "test", 0);
 
 		Drawable[][] temp = new Drawable[7][7];
 		for (int y = 0; y < 7; y++) {
 			for (int x = 0; x < 7; x++) {
 				if (x == 0 || x == 6 || y == 0 || y == 6) {
-					temp[x][y] = new StaticEntity(x, y, "D:\\Documents\\GitHub\\230Group22\\src\\Water.png", 2);
+					temp[x][y] = new StaticEntity(x, y, "assets\\Water.png", 2);
 				} else {
-					temp[x][y] = new StaticEntity(x, y, "D:\\Documents\\GitHub\\230Group22\\src\\Lava.png", 0);
+					temp[x][y] = new StaticEntity(x, y, "assets\\Lava.png", 0);
 				}
 			}
 		}
+		temp[3][3] = new StaticEntity(3, 3, "assets\\Water.png", 2);
 		this.board = new Board(temp, new ArrayList<Movable>(), new ArrayList<Interactable>());
 
 		this.createGameScene();
@@ -66,13 +69,16 @@ public class GameManager {
 		this.frameCount++;
 //		System.out.println(this.frameCount);
 		this.board.drawBoard(this.gc);
-		Integer keyPressed = null;
-		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, keyPressed));
-		if (keyPressed != null) {
+		this.player.draw(this.gc);
+		Integer keyPressed = new Integer(-1);
+		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
+		if (this.lastKey != -1) {
 			System.out.print("key: ");
-			System.out.println(keyPressed);
+			System.out.println(this.lastKey);
+			
+			this.player.update(this.board, this.lastKey);
 		}
-
+		this.lastKey = -1;
 	}
 
 	private void createGameScene() {
@@ -115,6 +121,10 @@ public class GameManager {
 
 		return root;
 
+	}
+	
+	public void setKey(int key) {
+		this.lastKey = key;
 	}
 }
 
