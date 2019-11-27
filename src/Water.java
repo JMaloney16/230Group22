@@ -13,7 +13,7 @@ public class Water extends Tile {
 	 * @param y,      the y coordinate of the water tile.
 	 */
 	public Water(int x, int y) {
-		super(x, y, "../assets/Water.png", 1);
+		super(x, y, "assets/Water.png", 1);
 	}
 
 	/**

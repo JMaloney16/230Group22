@@ -31,6 +31,7 @@ public class FileManager {
 		private static Drawable[][] boardDrawables;
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
+		private static String dividerLine;
 
 		/**
 		 * Validates filepath given and creates a scanner if valid
@@ -71,11 +72,11 @@ public class FileManager {
 					switch (current) {
 						case "#":
 							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i, "StoneBrickWall + Ceiling.png", 2);
 							break;
 						case ".":
 							System.out.print(".");
-							boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/dirt.png", 0);
 							break;
 						case "F":
 							System.out.print("F");
@@ -97,7 +98,7 @@ public class FileManager {
 							break;
 						default:
 							System.out.print("?");
-							boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/placeholder.png", 2);
 					}
 				}
 				System.out.println("");
@@ -146,18 +147,18 @@ public class FileManager {
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
 							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
-							boardDrawables[posX][posY] = new TokenDoor();
+							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
 						} else {
 							String doorColour = line.next();
 							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
-							boardDrawables[posX][posY] = new Coloured();
+							boardDrawables[posX][posY] = new Coloured(posX, posY, doorColour);
 						}
 						break;
 					case "TELE":
 						//TODO: Add teleporter partner
 						int pairValue = line.nextInt();
 						System.out.println("It's a teleporter part of pair " + pairValue);
-						boardDrawables[posX][posY] = new Teleporter();
+						boardDrawables[posX][posY] = new Teleporter(posX, posY);
 						break;
 					case "ENEMY":
 						String enemyType = line.next();
@@ -166,19 +167,19 @@ public class FileManager {
 							case "STRAIGHT":
 								String direction = line.next();
 								System.out.println("Straight type enemy starting: " + direction);
-								movables.add(new LineEnemy(posX, posY, "placeholder.png", 1));
+								movables.add(new LineEnemy(posX, posY, "assets/placeholder.png", 1));
 								break;
 							case "SMART":
 								System.out.println("Smart enemy");
-								movables.add(new SmartEnemy(posX, posY, "placeholder.png", 1));
+								movables.add(new SmartEnemy(posX, posY, "assets/placeholder.png", 1));
 								break;
 							case "FOLLOW":
 								System.out.println("Follow enemy");
-								movables.add(new FollowEnemy(posX, posY, "placeholder.png", 1));
+								movables.add(new FollowEnemy(posX, posY, "assets/placeholder.png", 1));
 								break;
 							case "DUMB":
 								System.out.println("Dumb enemy");
-								movables.add(new DumbEnemy(posX, posY, "placeholder.png", 1));
+								movables.add(new DumbEnemy(posX, posY, "assets/placeholder.png", 1));
 								break;
 							default:
 								System.out.print("I haven't added this enemy type to the filereader!");
@@ -190,6 +191,7 @@ public class FileManager {
 				currentLine = in.nextLine();
 				line.close();
 			}
+			dividerLine = currentLine;
 		}
 
 		/**
@@ -201,7 +203,8 @@ public class FileManager {
 		public static void readMapFile(String filepath, Board board, Player player) {
 			Scanner in = createFileScanner(filepath);
 			readAnyFile(in, "LEVEL", player);
-			int mapLevel = Integer.parseInt(in.nextLine().split(",")[1]);
+			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
+			in.nextLine();
 			String currentLine = in.nextLine();
 
 			for (int i = 0; i < 3; i++) {
@@ -228,9 +231,8 @@ public class FileManager {
 		public static void readPlayerFile(String filepath, Player player, Board board) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
 			Scanner in = createFileScanner(filepath);
 			readAnyFile(in, "CURRENTTIME", player);
-			String currentLine = in.nextLine();
 			//TODO: Find a way to pass the currenttime to the game manager
-			int currentTime = Integer.parseInt(currentLine.split(",")[1]);
+			int currentTime = Integer.parseInt(dividerLine.split(",")[1]);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			System.out.println(in.nextLine());
 
@@ -239,13 +241,20 @@ public class FileManager {
 				String itemType = line.next();
 				switch (itemType) {
 					case "FLIPPER":
+						System.out.println("Flippers");
 						player.addFlippers();
 						break;
 					case "BOOTS":
+						System.out.println("Boots");
 						player.addBoots();
 						break;
 					case "TOKEN":
+						System.out.println("Token");
 						player.addToken(line.nextInt());
+						break;
+					case "KEY":
+						System.out.println("Key");
+						player.addKey(line.next().toLowerCase());
 						break;
 					default:
 						System.out.println("Unrecognized!");
