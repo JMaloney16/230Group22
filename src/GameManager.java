@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +16,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * GameManager.java Controls flow of game and handles Player interaction with
+ * the world
+ * 
+ * @version 0.4
+ * @author Ewan Bradford, Sam Forster
+ */
 public class GameManager {
 	private Player player;
 	private Board board;
@@ -33,6 +39,17 @@ public class GameManager {
 
 	private int frameCount = 0;
 
+	// TODO
+	// make sure it works when a playerfile is loaded to be continued
+	// make cell size to work
+	
+	/** Creates a new GameManager with a stage, boardfile, window size and a cell size.
+	 * @param primaryStage, the stage for the game to be drawn to
+	 * @param boardFile, the file of the current level
+	 * @param windowWidth, width of the screen to be played on
+	 * @param windowHeight, height of the screen to be played on
+	 * @param cellSize, size of each tile on the screen
+	 */
 	public GameManager(Stage primaryStage, String boardFile, int windowWidth, int windowHeight, int cellSize) {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
@@ -43,10 +60,10 @@ public class GameManager {
 
 		this.player = new Player(1, 1, "assets\\placeholder.png", "test", 0);
 
-		Drawable[][] temp = new Drawable[7][7];
-		for (int y = 0; y < 7; y++) {
-			for (int x = 0; x < 7; x++) {
-				if (x == 0 || x == 6 || y == 0 || y == 6) {
+		Drawable[][] temp = new Drawable[16][16];
+		for (int y = 0; y < 16; y++) {
+			for (int x = 0; x < 16; x++) {
+				if (x == 0 || x == 15 || y == 0 || y == 15) {
 					temp[x][y] = new StaticEntity(x, y, "assets\\Water.png", 2);
 				} else {
 					temp[x][y] = new StaticEntity(x, y, "assets\\Lava.png", 0);
@@ -65,12 +82,16 @@ public class GameManager {
 		timeline.play();
 	}
 
+	/**
+	 * Draws all parts of the board, draws and handles input for the player
+	 */
 	private void update() {
 		this.frameCount++;
-//		System.out.println(this.frameCount);
+		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
+		
 		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
-		Integer keyPressed = new Integer(-1);
+
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
 			System.out.print("key: ");
@@ -83,15 +104,18 @@ public class GameManager {
 		this.lastKey = -1;
 	}
 
+	/**
+	 * Sets up the gameScene so that the gameManager can draw the board to the screen
+	 */
 	private void createGameScene() {
 		Pane root = this.buildGameGUI();
 		this.gameScene = new Scene(root, windowWidth, windowHeight);
-
-		// this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event ->
-		// this.im.processKeyEvent(event));
-
 	}
 
+	/**
+	 * Adds all components to the screen ready for the game to be played
+	 * @return Returns the constructed Pane
+	 */
 	private Pane buildGameGUI() {
 		BorderPane root = new BorderPane();
 		Canvas canvas = new Canvas(windowWidth, windowHeight); // How to get size of map from 'board'
@@ -125,6 +149,10 @@ public class GameManager {
 
 	}
 	
+	/**
+	 * Allows the keyboard to be given to the gameManager
+	 * @param key, the direction of the key inputted
+	 */
 	public void setKey(int key) {
 		this.lastKey = key;
 	}

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * Drawable.java 
  * Represents a single cell on the board
  * 
- * @version 0.2
+ * @version 0.3
  * @author Ewan Bradford, Luke Francis
  */
 public abstract class Drawable {
@@ -34,7 +34,7 @@ public abstract class Drawable {
 		this.spritePath = sprite;
 		this.blockable = blockable;
 		
-		if (sprite != "") {
+		if (sprite != "") { // add a check to make sure image has been loaded
 			File imageLoader = new File(spritePath);
 			this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
 		}

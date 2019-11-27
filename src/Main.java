@@ -17,6 +17,9 @@ public class Main extends Application {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Prepares the game to be launched
+	 */
 	public void start(Stage primaryStage) {
 		Pane menu = MenuManager.Menu.buildMenuGUI(primaryStage, WINDOW_WIDTH, WINDOW_HEIGHT);	// Build the GUI
 		Scene scene = new Scene(menu, WINDOW_WIDTH, WINDOW_HEIGHT); // Create a scene from the GUI
