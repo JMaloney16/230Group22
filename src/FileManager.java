@@ -231,9 +231,8 @@ public class FileManager {
 		public static void readPlayerFile(String filepath, Player player, Board board) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
 			Scanner in = createFileScanner(filepath);
 			readAnyFile(in, "CURRENTTIME", player);
-			String currentLine = in.nextLine();
 			//TODO: Find a way to pass the currenttime to the game manager
-			int currentTime = Integer.parseInt(currentLine.split(",")[1]);
+			int currentTime = Integer.parseInt(dividerLine.split(",")[1]);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			System.out.println(in.nextLine());
 
@@ -242,13 +241,20 @@ public class FileManager {
 				String itemType = line.next();
 				switch (itemType) {
 					case "FLIPPER":
+						System.out.println("Flippers");
 						player.addFlippers();
 						break;
 					case "BOOTS":
+						System.out.println("Boots");
 						player.addBoots();
 						break;
 					case "TOKEN":
+						System.out.println("Token");
 						player.addToken(line.nextInt());
+						break;
+					case "KEY":
+						System.out.println("Key");
+						player.addKey(line.next().toLowerCase());
 						break;
 					default:
 						System.out.println("Unrecognized!");
