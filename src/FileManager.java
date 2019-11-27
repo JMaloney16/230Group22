@@ -125,10 +125,10 @@ public class FileManager {
 								break;
 							case "FLIPPER":
 								//TODO: Add difference between flipper and boots
-								interactables.add(new Shoe(posX, posY, "placeholder.png", "Flipper"));
+								interactables.add(new Shoe(posX, posY, "Flipper"));
 								break;
 							case "BOOTS":
-								interactables.add(new Shoe(posX, posY, "placeholder.png", "Shoe"));
+								interactables.add(new Shoe(posX, posY, "Shoe"));
 								break;
 							case "KEY":
 								String colour = line.next();
@@ -326,6 +326,7 @@ public class FileManager {
 							break;
 						case "COLOURED":
 							//TODO: Get the colour of the door
+							//String colour = ((Coloured) interactable).
 							writer.write(prefix + "DOOR,RED");
 							break;
 						case "FLIPPER":
@@ -338,8 +339,8 @@ public class FileManager {
 							writer.write(prefix + "ITEM,TOKEN,1");
 							break;
 						case "KEY":
-							//TODO: Get the colour of the key
-							writer.write(prefix + "KEY,RED");
+							String colour = ((Key) interactable).getColour();
+							writer.write(prefix + "KEY," + colour.toUpperCase());
 							break;
 						case "TELEPORTER":
 							//TODO: Get the teleporter's partner
