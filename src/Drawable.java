@@ -1,3 +1,5 @@
+import java.io.File;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -32,7 +34,10 @@ public abstract class Drawable {
 		this.spritePath = sprite;
 		this.blockable = blockable;
 		
-		this.spriteImage = new Image(spritePath); // "../assest/sprite.png"
+		if (sprite != "") {
+			File imageLoader = new File(spritePath);
+			this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
+		}
 	}
 	/**
 	 * Handles the movement of this object.
@@ -56,7 +61,8 @@ public abstract class Drawable {
 	 * @param gc graphics context to be drawn to
 	 */
 	public void draw(GraphicsContext gc) {
-		gc.drawImage(this.spriteImage, this.xCoord*GameManager.CELL_SIZE, this.yCoord*GameManager.CELL_SIZE);
+		System.out.println(this.spriteImage.isError());
+		gc.drawImage(this.spriteImage, this.xCoord*64, this.yCoord*64, 64, 64);
 	}
 
 	public int getxCoord() {

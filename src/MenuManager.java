@@ -16,35 +16,33 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
- * MenuManager.java
- * Handles the creation, deletion and loading of profiles as well as calculating the leaderboard.
+ * MenuManager.java Handles the creation, deletion and loading of profiles as
+ * well as calculating the leaderboard.
+ * 
  * @version 0.1
- * @author ... 
+ * @author ...
  */
 
 // TODO
-/* how is game going to be loaded??
- * file path to level and player path
- * how to make a "continue" button work
+/*
+ * how is game going to be loaded?? file path to level and player path how to
+ * make a "continue" button work
  */
 public class MenuManager {
-	
-	public static class Menu{
+
+	public static class Menu {
 		private static Stage primaryStage;
 		private static int windowWidth;
 		private static int windowHeight;
 		private static int cellSize;
 		private static final Insets PADDING = new Insets(10, 10, 10, 10);
 		private static BorderPane rootPane;
-		
+
 		private static String profileSelected;
 		private static int levelSelected;
-		
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-		
-		
-		
 		public void loadProfile(String profileName) {
 
 		}
@@ -52,13 +50,13 @@ public class MenuManager {
 		public void deleteProfile(String profileName) {
 
 		}
-		
+
 		public static void addProfile() {
-			
+
 		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Create the GUI
+		// Create the GUI
 		public static Pane buildMenuGUI(Stage stage, int width, int height) {
 			// Create top-level panel that will hold all GUI
 			BorderPane root = new BorderPane();
@@ -127,23 +125,25 @@ public class MenuManager {
 			});
 			
 			// make buttons from array list of Player
-			Button button1 = new Button("Profile");
-			Button button2 = new Button("Profile");
-			Button button3 = new Button("Profile");
-			Button button4 = new Button("Profile");
+//			Button button1 = new Button("Profile");
+//			Button button2 = new Button("Profile");
+//			Button button3 = new Button("Profile");
+//			Button button4 = new Button("Profile");
 			
 //			Players 
-//			for(Player p: Players) {
-//				make button
-//			}
+
 			
-			/*
-			 * ArrayList<Player> players = new ArrayList<Player>();
-			 * players.add(new Player(0, 0, null, "testerNameOne", 4);
-			 * players.add(new Player(0, 0, null, "Jack is fit", 40);
-			 */
+			ArrayList<Player> players = new ArrayList<Player>();
+			players.add(new Player(0, 0, "", "testerNameOne", 4));
+			players.add(new Player(0, 0, "", "Jack is fit", 40));
 			
-			profileList.getChildren().addAll(button1, button2, button3, button4); // find way to add incrementally
+			 
+			for(Player p: players) {
+				profileList.getChildren().addAll(new Button(p.name));
+			}
+
+			
+//			profileList.getChildren().addAll(button1, button2, button3, button4); // find way to add incrementally
 			
 			
 			
@@ -152,65 +152,64 @@ public class MenuManager {
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 			
 			
-			System.out.println(root.getLeft());
+			
+			
+//			System.out.println(root.getLeft());
 			rootPane = root;
 			return root;
 		}
-		
-		//Set stage
-		public static void setStage (Stage stage) {
+
+		// Set stage
+		public static void setStage(Stage stage) {
 			MenuManager.Menu.primaryStage = stage;
 		}
-		
-		//Set window size
+
+		// Set window size
 		public static void setWindowSize(int width, int height) {
 			MenuManager.Menu.windowWidth = width;
 			MenuManager.Menu.windowHeight = height;
 		}
-		
-		//Set cell size
+
+		// Set cell size
 		public static void setCellSize(int cellSize) {
 			MenuManager.Menu.cellSize = cellSize;
 		}
-		
+
 		private static void createProfile() {
 			String returnValue = "";
-			
-			
-			//Temps
-			Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png");
-			
+
+			// Temps
+			Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png", "", 0);
+
 			Drawable[][] tempDraw = new Drawable[10][10];
 			ArrayList<Movable> move = new ArrayList<Movable>();
 			ArrayList<Interactable> interact = new ArrayList<Interactable>();
 			Board tempBoard = new Board(tempDraw, move, interact);
-			
-			
-			
+
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
 			subRoot.setPadding(PADDING);
 			subRoot.setAlignment(javafx.geometry.Pos.CENTER);
 			rootPane.setCenter(subRoot);
-			
+
 			Label profileNameLabel = new Label("Enter a New Profile Name");
 			TextField profileNameBox = new TextField();
 			Button createProfileButton = new Button("Create");
-			
+
 			createProfileButton.setOnAction(e -> {
-				
-				//FileManager.FileWriting.savePlayerFile("../assets/" + profileNameBox.getText() + ".txt", tempPlayer, tempBoard);
-				//rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+
+				// FileManager.FileWriting.savePlayerFile("../assets/" +
+				// profileNameBox.getText() + ".txt", tempPlayer, tempBoard);
+				// rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 			});
-			
+
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton);
-			
-						
+
 		}
-		
+
 		private static void deleteProfile() {
 			VBox profileList = (VBox) rootPane.getLeft();
-			if(profileList.getChildren().size() != 0) {
+			if (profileList.getChildren().size() != 0) {
 				profileList.getChildren().remove(profileList.getChildren().size() - 1);
 			}
 		}
