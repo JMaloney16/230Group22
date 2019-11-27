@@ -29,5 +29,17 @@ public class Shoe extends Collectable {
 		}
 		return sprite;
 	}
+	
+	public void update(Board board, Player player, int keyboardIn) {
+		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() && this.type == flipper) {
+				addFlippers();
+				board.removeInteractable(flipper);
+			}
+	
+	public void update(Board board, Player player, int keyboardIn) {
+	if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() && this.type == boots) {
+				addBoots();
+				board.removeInteractable(boots);
+		}
 
 }
