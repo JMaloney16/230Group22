@@ -13,11 +13,16 @@ import java.util.Scanner;
  * @author Jack Maloney
  * @version 0.5
  */
+
+//TODO
 // make class fully static please bb <3
 // and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
 // needs a method to update the leaderboard
 // needs a method to get a leaderboard from a filename
 // player file needs to store filepath to the level and store the highest level achieved variable
+
+// ----> needs get all profiles method too
+// sorry boo
 public class FileManager {
 
     public static class FileReading {
@@ -64,12 +69,11 @@ public class FileManager {
                     switch (current) {
                         case "#":
                             System.out.print("#");
-                            boardDrawables[j][i] = new StaticEntity(j, i,
-                                "../assets/StoneBrickWall + Ceiling.png", 2);
+                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 2);
                             break;
                         case ".":
                             System.out.print(".");
-                            boardDrawables[j][i] = new StaticEntity(j, i, "../assets/dirt.png", 0);
+                            boardDrawables[j][i] = new StaticEntity(j, i, "placeholder.png", 0);
                             break;
                         case "F":
                             System.out.print("F");
@@ -77,7 +81,7 @@ public class FileManager {
                             break;
                         case "W":
                             System.out.print("W");
-                            boardDrawables[j][i] = new Water(j, i);
+                            boardDrawables[j][i] = new Water();
                             break;
                         case "T":
                             System.out.print("T");

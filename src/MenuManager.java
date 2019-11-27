@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -20,23 +21,24 @@ import javafx.stage.Stage;
  * @version 0.1
  * @author ... 
  */
+
+// TODO
+/* how is game going to be loaded??
+ * file path to level and player path
+ * how to make a "continue" button work
+ */
 public class MenuManager {
 	
 	public static class Menu{
 		private static Stage primaryStage;
 		private static int windowWidth;
 		private static int windowHeight;
-		private static int CELL_SIZE;
+		private static int cellSize;
 		private static final Insets PADDING = new Insets(10, 10, 10, 10);
 		private static BorderPane rootPane;
 		
 		private static String profileSelected;
 		private static int levelSelected;
-		
-		
-		
-		
-		
 		
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +62,8 @@ public class MenuManager {
 		public static Pane buildMenuGUI(Stage stage, int width, int height) {
 			// Create top-level panel that will hold all GUI
 			BorderPane root = new BorderPane();
-			
+			MenuManager.Menu.windowWidth = width;
+			MenuManager.Menu.windowHeight = height;
 			
 			//Set JavaFX elements
 			setStage(stage);
@@ -123,13 +126,24 @@ public class MenuManager {
 				deleteProfile();
 			});
 			
-			
+			// make buttons from array list of Player
 			Button button1 = new Button("Profile");
 			Button button2 = new Button("Profile");
 			Button button3 = new Button("Profile");
 			Button button4 = new Button("Profile");
 			
-			profileList.getChildren().addAll(button1, button2, button3, button4);
+//			Players 
+//			for(Player p: Players) {
+//				make button
+//			}
+			
+			/*
+			 * ArrayList<Player> players = new ArrayList<Player>();
+			 * players.add(new Player(0, 0, null, "testerNameOne", 4);
+			 * players.add(new Player(0, 0, null, "Jack is fit", 40);
+			 */
+			
+			profileList.getChildren().addAll(button1, button2, button3, button4); // find way to add incrementally
 			
 			
 			
@@ -156,15 +170,20 @@ public class MenuManager {
 		
 		//Set cell size
 		public static void setCellSize(int cellSize) {
-			MenuManager.Menu.CELL_SIZE = cellSize;
+			MenuManager.Menu.cellSize = cellSize;
 		}
 		
 		private static void createProfile() {
 			String returnValue = "";
-			Player tempPlayer = new Player(0, 0, "playerPlaceholder.png");
+			
+			
+			//Temps
+			Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png");
 			
 			Drawable[][] tempDraw = new Drawable[10][10];
-			Board tempBoard = new Board();
+			ArrayList<Movable> move = new ArrayList<Movable>();
+			ArrayList<Interactable> interact = new ArrayList<Interactable>();
+			Board tempBoard = new Board(tempDraw, move, interact);
 			
 			
 			
@@ -180,8 +199,8 @@ public class MenuManager {
 			
 			createProfileButton.setOnAction(e -> {
 				
-				FileManager.FileWriting.savePlayerFile("../assets/" + profileNameBox.getText(), null, null);
-				rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+				//FileManager.FileWriting.savePlayerFile("../assets/" + profileNameBox.getText() + ".txt", tempPlayer, tempBoard);
+				//rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 			});
 			
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton);

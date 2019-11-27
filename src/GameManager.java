@@ -27,18 +27,18 @@ public class GameManager {
 	private InputManager im;    // InputManager - handles input events
 	private int time = 0;
 
-	public final static int WINDOW_WIDTH; // fixed cell size
-	public final static int WINDOW_HEIGHT; // fixed cell size
-	public final static int CELL_SIZE; // fixed cell size
+	public static int windowWidth; // fixed cell size
+	public static int windowHeight; // fixed cell size
+	public static int cellSize; // fixed cell size
 
 	private Canvas canvas; // Canvas for drawing the game on
 
 	///////////////////////////////////////////////////////////////////
 
-	public GameManager(String boardFile, int WINDOW_WIDTH, int WINDOW_HEIGHT, int CELL_SIZE) {
-		this.WINDOW_WIDTH = WINDOW_WIDTH;
-		this.WINDOW_HEIGHT = WINDOW_HEIGHT;
-		this.CELL_SIZE = CELL_SIZE;
+	public GameManager(String boardFile, int windowWidth, int windowHeight, int CELL_SIZE) {
+		this.windowWidth = windowWidth;
+		this.windowHeight = windowHeight;
+		this.cellSize = cellSize;
 		
 		this.boardFile = boardFile; // 
 		this.player = null;
