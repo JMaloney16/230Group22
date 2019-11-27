@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author Dylan Cole
  */
 
-public class FileManagerTest.java{
+public class FileManagerTest{
 	
 	/**
 	 * main
@@ -22,16 +22,16 @@ public class FileManagerTest.java{
 	 * of the FileManager and the static FileReading class
 	 */
 	public static void main(String[] args){
-		private final String TEST_FILE_NAME_1 = "659FhjdXxXx589.txt";
-		private final String TEST_FILE_NAME_2 = "Level Example.txt";
-		private final Player TEST_PLAYER = new Player(0, 0, "textPlayerImg.png")
+		final String TEST_FILE_NAME_1 = "659FhjdXxXx589.txt";
+		final String TEST_FILE_NAME_2 = "Level Example.txt";
+		final Player TEST_PLAYER = new Player(0, 0, "textPlayerImg.png");
 		//Can someone please find a way to get dummy values for the test on this?
 		//private final Board TEST_BOARD = new Board
 		
 		//FILE READER TESTS
 		
 		//Check that the exceptions work properly.
-		System.out.println("TEST 1 -- File should not be found --")
+		System.out.println("TEST 1 -- File should not be found --");
 		try {
 			FileManager.FileReading.createFileScanner(TEST_FILE_NAME_1);
 		} catch (FileNotFoundException e) {
@@ -39,7 +39,7 @@ public class FileManagerTest.java{
 		}
 		
 		//Check that the FileReader takes in the valid file as Expected
-		System.out.println("TEST 2 -- File should be recognized by Reader --")
+		System.out.println("TEST 2 -- File should be recognized by Reader --");
 		try { 
 			FileManager.FileReading.createFileScanner(TEST_FILE_NAME_2);
 		} catch (FileNotFoundException e) {
