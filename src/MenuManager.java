@@ -37,9 +37,11 @@ public class MenuManager {
 		private static int cellSize;
 		private static final Insets PADDING = new Insets(10, 10, 10, 10);
 		private static BorderPane rootPane;
+		private static VBox profileList;
 
 		private static String profileSelected;
 		private static int levelSelected;
+		private static ArrayList<Player> players = new ArrayList<Player>();
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,7 +81,7 @@ public class MenuManager {
 			toolbarBottom.setPadding(PADDING);
 			root.setBottom(toolbarBottom);
 			
-			VBox profileList = new VBox();
+			profileList = new VBox();
 			profileList.setSpacing(10);
 			profileList.setPadding(PADDING);
 			root.setLeft(profileList);		
@@ -113,41 +115,24 @@ public class MenuManager {
 			
 			//Button for creating a new Profile
 			Button newProfileButton = new Button("New Profile");
-			
-			
 			newProfileButton.setOnAction(e -> {
 				createProfile();
 			});
 			
+			//Button for deleting a profile
 			Button deleteProfileButton = new Button("Delete Profile");
 			deleteProfileButton.setOnAction(e -> {
 				deleteProfile();
 			});
-			
-			// make buttons from array list of Player
-//			Button button1 = new Button("Profile");
-//			Button button2 = new Button("Profile");
-//			Button button3 = new Button("Profile");
-//			Button button4 = new Button("Profile");
-			
-//			Players 
 
 			
-			ArrayList<Player> players = new ArrayList<Player>();
 			players.add(new Player(0, 0, "", "testerNameOne", 4));
 			players.add(new Player(0, 0, "", "Jack is fit", 40));
 			
 			 
 			for(Player p: players) {
-				profileList.getChildren().addAll(new Button(p.name));
-			}
-
-			
-//			profileList.getChildren().addAll(button1, button2, button3, button4); // find way to add incrementally
-			
-			
-			
-			
+				profileList.getChildren().add(new Button(p.name));
+			}		
 			
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 			
@@ -176,8 +161,6 @@ public class MenuManager {
 		}
 
 		private static void createProfile() {
-			String returnValue = "";
-
 			// Temps
 			Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png", "", 0);
 
@@ -197,11 +180,12 @@ public class MenuManager {
 			Button createProfileButton = new Button("Create");
 
 			createProfileButton.setOnAction(e -> {
-
-				// FileManager.FileWriting.savePlayerFile("../assets/" +
-				// profileNameBox.getText() + ".txt", tempPlayer, tempBoard);
-				// rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+				createProfileButton.setText("Clicked");
+				players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
+				profileList.getChildren().add(new Button(profileNameBox.getText()));
+				rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 			});
+
 
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton);
 
