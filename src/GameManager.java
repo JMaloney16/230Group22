@@ -58,15 +58,15 @@ public class GameManager {
 //		this.gc = gc;
 		this.boardFile = boardFile;
 
-		this.player = new Player(1, 1, "assets\\placeholder.png", "test", 0);
+		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
 
 		Drawable[][] temp = new Drawable[16][16];
 		for (int y = 0; y < 16; y++) {
 			for (int x = 0; x < 16; x++) {
 				if (x == 0 || x == 15 || y == 0 || y == 15) {
-					temp[x][y] = new StaticEntity(x, y, "assets\\Water.png", 2);
+					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
 				} else {
-					temp[x][y] = new StaticEntity(x, y, "assets\\Lava.png", 0);
+					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
 				}
 			}
 		}
