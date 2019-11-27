@@ -93,7 +93,7 @@ public class FileManager {
 							break;
 						case "G":
 							System.out.print("G");
-							boardDrawables[j][i] = new Goal();
+							boardDrawables[j][i] = new Goal(j, i);
 							break;
 						default:
 							System.out.print("?");
@@ -121,15 +121,19 @@ public class FileManager {
 							case "TOKEN":
 								int tokenValue = line.nextInt();
 								System.out.println("It's worth: " + tokenValue);
-								interactables.add(new Token(posX, posY, "placeholder.png", 0));
+								interactables.add(new Token(posX, posY));
 								break;
 							case "FLIPPER":
 								//TODO: Add difference between flipper and boots
-								interactables.add(new Shoe(posX, posY, "placeholder.png", 0, "Flipper"));
+								interactables.add(new Shoe(posX, posY, "placeholder.png", "Flipper"));
 								break;
 							case "BOOTS":
-								interactables.add(new Shoe(posX, posY, "placeholder.png", 0, "Shoe"));
+								interactables.add(new Shoe(posX, posY, "placeholder.png", "Shoe"));
 								break;
+							case "KEY":
+								String colour = line.next();
+								System.out.println("It's a " + colour + " key");
+								interactables.add(new Key(posX, posY, colour));
 							default:
 								System.out.println("Unrecognised!");
 								break;

@@ -8,8 +8,8 @@
  */
 public class Token extends Collectable {
 
-	public Token(int x, int y, String sprite, int blockable) {
-		super(x, y, sprite, blockable);
+	public Token(int x, int y) {
+		super(x, y, "../assets/placeholder.png", 0);
 	}
 
 }
