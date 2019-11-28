@@ -30,6 +30,7 @@ public class GameManager {
 
 	private GraphicsContext gc;
 	private Scene gameScene;
+	private Stage stage;
 
 	private int windowWidth;
 	private int windowHeight;
@@ -76,6 +77,7 @@ public class GameManager {
 		this.createGameScene();
 
 		primaryStage.setScene(this.gameScene);
+		this.stage = primaryStage;
 
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5), ae -> update()));
 		timeline.setCycleCount(Animation.INDEFINITE);
@@ -139,14 +141,21 @@ public class GameManager {
 
 		// Exit Button
 		Button exitButton = new Button("Exit");
-		toolbar.getChildren().add(exitButton); // REQUIRES FUNCTIONALITY
+		toolbar.getChildren().add(exitButton);
+		exitButton.setOnAction(e -> {
+			Pane menu = MenuManager.Menu.buildMenuGUI(this.stage, this.windowWidth, this.windowHeight);	// Build the GUI
+			Scene scene = new Scene(menu, this.windowWidth, this.windowHeight); // Create a scene from the GUI
+			this.stage.setScene(scene);
+		});
 
 		// Restart Button
 		Button restartButton = new Button("Restart Level");
-		toolbar.getChildren().add(restartButton); // REQUIRES FUNCTIONALITY
+		toolbar.getChildren().add(restartButton);
+		restartButton.setOnAction(e -> {
+			this.restart();
+		});
 
 		return root;
-
 	}
 	
 	/**
@@ -155,6 +164,9 @@ public class GameManager {
 	 */
 	public void setKey(int key) {
 		this.lastKey = key;
+	}
+	private void restart() {
+		System.out.println("dont die next time.");
 	}
 }
 
