@@ -36,7 +36,7 @@ public class Sounds {
 				clip.start();
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 				
-				JOptionPane.showMessageDialog(null, "Press ok to stop playing");
+				//JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 			}
 			else {
 				System.out.println("can't find file");
@@ -62,7 +62,7 @@ public class Sounds {
 				clip.open(audioinput);
 				clip.start();
 				
-				JOptionPane.showMessageDialog(null, "Press ok to stop playing");
+				//JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 			}
 			else {
 				System.out.println("can't find file");
