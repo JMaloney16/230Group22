@@ -263,7 +263,26 @@ public class FileManager {
 			}
 			board = new Board(boardDrawables, movables, interactables);
 		}
+		
+		/** Gets all the player profile
+		 * @return ArrayList<String> of all the player profile names
+		 */
+		public static ArrayList<String> getAllProfiles(){
+			ArrayList<String> results = new ArrayList<String>();
 
+			File[] files = new File("profiles").listFiles();
+			//If this pathname does not denote a directory, then listFiles() returns null. 
+
+			for (File file : files) {
+			    if (file.isFile()) {
+			    	if (file.getName().contains(".txt")) {
+			    		String profileName = file.getName().replace(".txt", "");
+			    		results.add(profileName);
+			    	}
+			    }
+			}
+			return results;
+		}
 	}
 
 	public static class FileWriting {
