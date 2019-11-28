@@ -17,7 +17,7 @@ public class Player extends Movable {
 	private boolean flippers = false;
 	private boolean boots = false;
 	private boolean killed = false;
-	public String name;
+	private String name;
 	private int maxLevel;
 
 	/**
@@ -211,5 +211,11 @@ public class Player extends Movable {
 		return this.yCoord;
 	}
 
-	public int getMaxLevel() { return this.maxLevel; }
+	public int getMaxLevel() { 
+		return this.maxLevel;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
 }

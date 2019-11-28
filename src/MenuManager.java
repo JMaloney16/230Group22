@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,9 +131,7 @@ public class MenuManager {
 			players.add(new Player(0, 0, "", "Jack is fit", 40));
 			
 			 
-			for(Player p: players) {
-				profileList.getChildren().add(new Button(p.name));
-			}		
+			drawProfileList();		
 			
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 			
@@ -192,9 +191,58 @@ public class MenuManager {
 		}
 
 		private static void deleteProfile() {
-			VBox profileList = (VBox) rootPane.getLeft();
-			if (profileList.getChildren().size() != 0) {
-				profileList.getChildren().remove(profileList.getChildren().size() - 1);
+			VBox subRoot = new VBox();
+			subRoot.setSpacing(10);
+			subRoot.setPadding(PADDING);
+			subRoot.setAlignment(javafx.geometry.Pos.CENTER);
+			rootPane.setCenter(subRoot);
+
+			Label profileNameLabel = new Label("Enter a Profile Name to Delete");
+			TextField profileNameBox = new TextField();
+			Button deleteProfileButton = new Button("Delete");
+
+			deleteProfileButton.setOnAction(e -> {
+				deleteProfileButton.setText("Clicked");
+				if(!delete(profileNameBox.getText())){
+					profileNameLabel.setText("That is not a profile");
+					
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}else {
+					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+				}
+			});
+
+
+			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, deleteProfileButton);
+		}
+		
+		private static boolean delete(String profile) {
+			int i = 0;
+			boolean found = false;
+			while(i <= players.size() && found == false) {
+				if(players.get(i).getName().equals(profile)) {
+					players.remove(i);
+					found = true;
+					drawProfileList();
+				}
+				
+				i++;
+			}
+			
+			return found;
+		}
+		
+		private static void drawProfileList() {
+			profileList.getChildren().clear();
+			
+			for(Player p : players) {
+				profileList.getChildren().add(new Button(p.getName()));
 			}
 		}
 	}
