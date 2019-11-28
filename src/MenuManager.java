@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -55,7 +56,7 @@ public class MenuManager {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Create the GUI
-		public static Pane buildMenuGUI(Stage stage, int width, int height) {
+		public static Pane buildMenuGUI(Stage stage, int width, int height) throws IOException {
 			// Create top-level panel that will hold all GUI
 			BorderPane root = new BorderPane();
 			MenuManager.Menu.windowWidth = width;
@@ -120,19 +121,18 @@ public class MenuManager {
 			deleteProfileButton.setOnAction(e -> {
 				deleteProfile();
 			});
-
 			
 			players.add(new Player(0, 0, "", "testerNameOne", 4));
 			players.add(new Player(0, 0, "", "Jack is fit", 40));
 			
 			 
-			drawProfileList();		
-			
+			drawProfileList();
+
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
-			
-			
-			
-			
+
+
+
+
 //			System.out.println(root.getLeft());
 			rootPane = root;
 			return root;

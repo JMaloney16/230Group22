@@ -64,7 +64,7 @@ public class GameManager {
 		for (int y = 0; y < 16; y++) {
 			for (int x = 0; x < 16; x++) {
 				if (x == 0 || x == 15 || y == 0 || y == 15) {
-					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
+					temp[x][y] = new StaticEntity(x, y, "assets\\StoneBrickWall.png", 2);
 				} else {
 					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
 				}
@@ -72,7 +72,8 @@ public class GameManager {
 		}
 		temp[3][3] = new StaticEntity(3, 3, "assets\\Water.png", 2);
 		this.board = new Board(temp, new ArrayList<Movable>(), new ArrayList<Interactable>());
-
+//		FileManager.FileReading.readMapFile("levels\\LevelExample.txt", this.board, this.player);
+		//FileManager.FileReading.readPlayerFile("levels\\PLayer Example.txt", this.player, this.board);
 		this.createGameScene();
 
 		primaryStage.setScene(this.gameScene);

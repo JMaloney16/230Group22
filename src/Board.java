@@ -142,4 +142,11 @@ public class Board {
 	public void setLevelNumber(int number) {
 		this.levelNumber = number;
 	}
+
+	public void setNewBoard(Drawable[][] newBoard, ArrayList<Movable> newMovables,
+							ArrayList<Interactable> newInteractables) {
+		this.board = newBoard;
+		this.movables = newMovables;
+		this.interactables = newInteractables;
+	}
 }

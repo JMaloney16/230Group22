@@ -218,4 +218,10 @@ public class Player extends Movable {
 	public String getName() {
 		return this.name;
 	}
+
+	public void setPosition(int x, int y) {
+		this.xCoord = x;
+		this.yCoord = y;
+	}
+
 }

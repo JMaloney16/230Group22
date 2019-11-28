@@ -72,7 +72,7 @@ public class FileManager {
 					switch (current) {
 						case "#":
 							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "StoneBrickWall.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/StoneBrickWall.png", 2);
 							break;
 						case ".":
 							System.out.print(".");
@@ -88,6 +88,7 @@ public class FileManager {
 							break;
 						case "T":
 							System.out.print("T");
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/placeholder.png", 0);
 							break;
 						case "D":
 							System.out.print("D");
@@ -110,12 +111,13 @@ public class FileManager {
 				int posY = line.nextInt();
 				System.out.println(posX + ", " + posY);
 				String keyword = line.next();
+				System.out.println(keyword);
 				switch (keyword) {
 					case "START":
 						//TODO: Get the level number idek how, and player name - maybe set to
 						// something else in readPlayerFile
 						System.out.println("START");
-						player = new Player(posX, posY, "playerPlaceholder.png", "Default", 1);
+						//player.setPosition(posX, posY);
 						break;
 					case "ITEM":
 						String itemType = line.next();
@@ -156,9 +158,15 @@ public class FileManager {
 						break;
 					case "TELE":
 						//TODO: Add teleporter partner
-						int pairValue = line.nextInt();
-						System.out.println("It's a teleporter part of pair " + pairValue);
-						boardDrawables[posX][posY] = new Teleporter(posX, posY);
+						int pairX = line.nextInt();
+						int pairY = line.nextInt();
+						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
+						Teleporter tele1 = new Teleporter(posX, posY);
+						Teleporter tele2 = new Teleporter(pairX, pairY);
+						tele1.setPartner(tele2);
+						tele2.setPartner(tele1);
+						boardDrawables[posX][posY] = tele1;
+						boardDrawables[pairX][pairY] = tele2;
 						break;
 					case "ENEMY":
 						String enemyType = line.next();
@@ -191,6 +199,7 @@ public class FileManager {
 				currentLine = in.nextLine();
 				line.close();
 			}
+
 			dividerLine = currentLine;
 		}
 
@@ -217,7 +226,7 @@ public class FileManager {
 				}
 			}
 
-			board = new Board(boardDrawables, movables, interactables);
+			board.setNewBoard(boardDrawables, movables, interactables);
 			board.setLevelNumber(mapLevel);
 		}
 
@@ -261,7 +270,7 @@ public class FileManager {
 				}
 
 			}
-			board = new Board(boardDrawables, movables, interactables);
+			board.setNewBoard(boardDrawables, movables, interactables);
 		}
 
 	}
