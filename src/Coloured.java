@@ -1,9 +1,19 @@
-
+/**
+ * Coloured.java 
+ * 
+ * @version 0.1
+ * @author ginosesia
+ *
+ */
 public class Coloured extends Door {
 
-	public Coloured(int x, int y, String colour) {
+	/**
+	 * @param x,      the x coordinate of the fire tile.
+	 * @param y,      the y coordinate of the fire tile.
+	 */
+	public Coloured(int x, int y) {
 		// TODO Auto-generated constructor stub
-		super(x, y, "assets/placeholder.png", 2);
+		super(x, y);
 	}
 
 }
