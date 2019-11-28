@@ -1,9 +1,10 @@
 /**
- * Water.java Creates a water tile on the board
+ * Water.java creates a water tile on the board
  * 
  * @version 0.4
  * @author Gino Sesia
  */
+
 public class Water extends Tile {
 
 	/**
@@ -21,7 +22,7 @@ public class Water extends Tile {
 	 * 
 	 * @param board,      	the board object for the player to be "placed" in.
 	 * @param player, 		the player.
-	 * @param keyboardIn, 	the current keypress.
+	 * @param keyboardIn, 	the current key pressed.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
