@@ -113,13 +113,17 @@ public class MenuManager {
 			//Button for creating a new Profile
 			Button newProfileButton = new Button("New Profile");
 			newProfileButton.setOnAction(e -> {
-				createProfile();
+				if(players.size() <= 10) {
+					createProfile();
+				}
 			});
 			
 			//Button for deleting a profile
 			Button deleteProfileButton = new Button("Delete Profile");
 			deleteProfileButton.setOnAction(e -> {
-				deleteProfile();
+				if(players.size() != 0) {
+					deleteProfile();
+				}	
 			});
 			
 			players.add(new Player(0, 0, "", "testerNameOne", 4));
