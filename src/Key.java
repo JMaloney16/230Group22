@@ -15,7 +15,7 @@ public class Key extends Collectable {
 	/**
 	 * Constructs a new Key
 	 *
-	 * @param x,y,    the co-ordinates of the Key
+	 * @param x,y,    the coordinates of the Key
 	 * @param colour, the colour of the key.
 	 */
 	public Key(int x, int y, String colour) {

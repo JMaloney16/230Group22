@@ -145,13 +145,18 @@ public class Player extends Movable {
 		switch (keyColour) {
 		case "red":
 			this.keys[0] += 1;
+			break;
 		case "blue":
 			this.keys[1] += 1;
+			break;
 		case "yellow":
 			this.keys[2] += 1;
+			break;
 		case "green":
 			this.keys[3] += 1;
+			break;
 		default:
+			System.out.println(keyColour);
 			System.out.println("Cant add that key"); // maybe raise an error?
 		}
 	}
@@ -207,6 +212,12 @@ public class Player extends Movable {
 		return this.flippers;
 	}
 	
+	public void setPosX(int x) {
+		this.xCoord = x;
+	}
+	public void setPosY(int y) {
+		this.yCoord = y;
+	}	
 	public int getPosX() {
 		return this.xCoord;
 	}

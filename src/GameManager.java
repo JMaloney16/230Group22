@@ -70,8 +70,15 @@ public class GameManager {
 				}
 			}
 		}
-		temp[3][3] = new Water(3, 3);
-		this.board = new Board(temp, new ArrayList<Movable>(), new ArrayList<Interactable>());
+		Teleporter t1 = new Teleporter(3, 3);
+		Teleporter t2 = new Teleporter(10, 10);
+		t1.setPartner(t2);
+		temp[3][3] = t1;
+		temp[10][10] = t2;
+		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
+//		temp2.add(new Key(3, 3, "red"));
+		temp2.add(new Token(4, 4));
+		this.board = new Board(temp, new ArrayList<Movable>(), temp2);
 
 		this.createGameScene();
 
@@ -107,10 +114,16 @@ public class GameManager {
 			this.board.updateInteractables(this.player, this.lastKey);
 			if (this.player.update(this.board, this.lastKey) == 2) {
 				this.restart();
-			};
+			}
+			else {
+				this.board.updateInteractables(this.player, this.lastKey);
+				
+			}
 //			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
 		this.lastKey = -1;
+
+		this.player.draw(this.gc);
 	}
 
 	/**

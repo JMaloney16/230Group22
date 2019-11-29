@@ -111,8 +111,10 @@ public class Board {
 	 */
 	public void updateInteractables(Player player, int keyboardIn) {
 		// individually updates the interactables
-		for (Interactable i : this.interactables) {
-			i.update(this, player, keyboardIn);
+		// this is required over a for each loop as this way does not
+		// result in checkForComodification being called, raising an error
+		for (int i = 0; i < this.interactables.size(); i++) {
+			this.interactables.get(i).update(this, player, keyboardIn);
 		}
 	}
 
