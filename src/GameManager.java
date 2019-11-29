@@ -56,7 +56,6 @@ public class GameManager {
 		this.windowHeight = windowHeight;
 		this.cellSize = cellSize;
 
-//		this.gc = gc;
 		this.boardFile = boardFile;
 
 		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
@@ -85,13 +84,15 @@ public class GameManager {
 	}
 
 	/**
-	 * Draws all parts of the board, draws and handles input for the player
+	 * Draws and Updates all parts of the board, draws and handles input for the player
 	 */
 	private void update() {
 		this.frameCount++;
 		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
 		
 		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
+		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
+		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
@@ -102,6 +103,8 @@ public class GameManager {
 //			System.out.print("player move: ");
 //			System.out.println(this.player.update(this.board, this.lastKey));
 			this.board.updateBoard(this.player, this.lastKey);
+			this.board.updateMovables(this.player, this.lastKey);
+			this.board.updateInteractables(this.player, this.lastKey);
 			if (this.player.update(this.board, this.lastKey) == 2) {
 				this.restart();
 			};

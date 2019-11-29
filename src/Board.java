@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Board.java Stores and updates the playing board of the game.
  * 
- * @version 0.3
+ * @version 0.4
  * @author Ewan Bradford
  * @author Sam Forster
  * @author Luke Francis
@@ -33,22 +33,46 @@ public class Board {
 		this.levelNumber = 1;
 	}
 
+	/**
+	 * Draws all the static tiles of the board
+	 * 
+	 * @param gc,      the graphics context to be drawn to
+	 * @param playerX, the current x coordinate of the player
+	 * @param playerY, the current y coordinate of the player
+	 */
 	public void drawBoard(GraphicsContext gc, int playerX, int playerY) {
-//		GraphicsContext gc = canvas.getGraphicsContext2D();
 		// draws board top left to bottom right
-		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length-1, playerY + 3); y++) {
-			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length-1, playerX + 3); x++) {
-//				System.out.printf("Accessing: %dx%d\n", x, y);
-				board[x][y].draw(gc, playerX-3, playerY-3);
+		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length - 1, playerY + 3); y++) {
+			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length - 1, playerX + 3); x++) {
+				board[x][y].draw(gc, playerX - 3, playerY - 3);
 			}
 		}
 	}
-	
+
+	/**
+	 * Updates all the static tiles of the board
+	 * 
+	 * @param player,     the player object playing the level
+	 * @param keyboardIn, the current key press from the user
+	 */
 	public void updateBoard(Player player, int keyboardIn) {
 		for (int y = 0; y < board[0].length; y++) {
 			for (int x = 0; x < board.length; x++) {
 				board[x][y].update(this, player, keyboardIn);
 			}
+		}
+	}
+
+	/**
+	 * Draws all the movables to the screen
+	 * 
+	 * @param gc,      graphics context to be drawn to
+	 * @param playerX, the current x coordinate of the player
+	 * @param playerY, the current y coordinate of the player
+	 */
+	public void drawMovables(GraphicsContext gc, int playerX, int playerY) {
+		for (Movable m : this.movables) {
+			m.draw(gc, playerX - 3, playerY - 3);
 		}
 	}
 
@@ -59,11 +83,24 @@ public class Board {
 	 * @param keyboardIn, the current input from the keyboard. (0 representing noon,
 	 *                    1 three o'clock etc)
 	 */
-	public void updateMovable(Player player, int keyboardIn) {
+	public void updateMovables(Player player, int keyboardIn) {
 		// individually updates each movable (potential bug depending on order of this
 		// arraylist)
 		for (Movable m : this.movables) {
 			m.update(this, player, keyboardIn);
+		}
+	}
+
+	/**
+	 * Draws all the interactables to the screen
+	 * 
+	 * @param gc,      graphics context to be drawn to
+	 * @param playerX, the current x coordinate of the player
+	 * @param playerY, the current y coordinate of the player
+	 */
+	public void drawInteractables(GraphicsContext gc, int playerX, int playerY) {
+		for (Interactable i : this.interactables) {
+			i.draw(gc, playerX - 3, playerY - 3);
 		}
 	}
 

@@ -26,7 +26,6 @@ public class Water extends Tile {
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
-		System.out.println("teasdst");
 		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
 			if (player.getFlippers() == false) {
 				System.out.println("teasdst");

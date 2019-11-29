@@ -129,6 +129,9 @@ public class Player extends Movable {
 		}
 	}
 	
+	/** draws the player
+	 * @param gc, graphics context to be drawn to
+	 */
 	public void draw(GraphicsContext gc) {
 		this.draw(gc, this.xCoord-3, this.yCoord-3);
 	}
@@ -157,7 +160,6 @@ public class Player extends Movable {
 	 * Sets the killed attribute to true, killing the play next update
 	 */
 	public void kill() {
-		System.out.println("test");
 		this.killed = true;
 	}
 	
