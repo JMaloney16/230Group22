@@ -71,7 +71,7 @@ public class GameManager {
 				}
 			}
 		}
-		temp[3][3] = new StaticEntity(3, 3, "assets\\Water.png", 2);
+		temp[3][3] = new Water(3, 3);
 		this.board = new Board(temp, new ArrayList<Movable>(), new ArrayList<Interactable>());
 
 		this.createGameScene();
@@ -96,12 +96,16 @@ public class GameManager {
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
-			System.out.print("key: ");
-			System.out.println(this.lastKey);
-			
-			System.out.print("player move: ");
-			System.out.println(this.player.update(this.board, this.lastKey));
-			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
+//			System.out.print("key: ");
+//			System.out.println(this.lastKey);
+//			
+//			System.out.print("player move: ");
+//			System.out.println(this.player.update(this.board, this.lastKey));
+			this.board.updateBoard(this.player, this.lastKey);
+			if (this.player.update(this.board, this.lastKey) == 2) {
+				this.restart();
+			};
+//			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
 		this.lastKey = -1;
 	}

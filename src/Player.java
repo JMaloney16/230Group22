@@ -157,6 +157,7 @@ public class Player extends Movable {
 	 * Sets the killed attribute to true, killing the play next update
 	 */
 	public void kill() {
+		System.out.println("test");
 		this.killed = true;
 	}
 	

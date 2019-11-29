@@ -43,6 +43,14 @@ public class Board {
 			}
 		}
 	}
+	
+	public void updateBoard(Player player, int keyboardIn) {
+		for (int y = 0; y < board[0].length; y++) {
+			for (int x = 0; x < board.length; x++) {
+				board[x][y].update(this, player, keyboardIn);
+			}
+		}
+	}
 
 	/**
 	 * Updates all of the movables on the board
