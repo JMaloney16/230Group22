@@ -34,9 +34,11 @@ public class MenuManager {
 		private static final Insets PADDING = new Insets(10, 10, 10, 10);
 		private static BorderPane rootPane;
 		private static VBox profileList;
-
-		private static String profileSelected;
-		private static int levelSelected;
+		private static Label selectedProfile;	//Label displayed in menu GUI
+		private static Label selectedLevel;		//Label displayed in menu GUI
+		
+		private static String profileSelected;	//String used to check user has chosen a profile
+		private static int levelSelected;		//int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,9 +104,9 @@ public class MenuManager {
 				GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", windowWidth, windowHeight, cellSize);
 			});
 			
-			Label selectedProfile = new Label("Profile: " + profileSelected);
+			selectedProfile = new Label("Profile: ");
 			selectedProfile.setFont(new Font("Ariel", 20));
-			Label selectedLevel = new Label("Level: " + levelSelected);
+			selectedLevel = new Label("Level: ");
 			selectedLevel.setFont(new Font("Ariel", 20));
 			
 			toolbarTop.getChildren().addAll(selectedProfile, selectedLevel);
@@ -199,14 +201,9 @@ public class MenuManager {
 			deleteProfileButton.setOnAction(e -> {
 				deleteProfileButton.setText("Clicked");
 				if(!delete(profileNameBox.getText())){
-					profileNameLabel.setText("That is not a profile");
-					
-					try {
-						Thread.sleep(3000);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					System.out.println("Delete Failed");
+					profileNameLabel.setText("Enter a Profile Name to Delete");
+					deleteProfileButton.setText("Delete");
 					
 				}else {
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
@@ -220,11 +217,16 @@ public class MenuManager {
 		private static boolean delete(String profile) {
 			int i = 0;
 			boolean found = false;
-			while(i <= players.size() && found == false) {
+			while(i <= players.size() - 1 && found == false) {
 				if(players.get(i).getName().equals(profile)) {
 					players.remove(i);
 					found = true;
 					drawProfileList();
+					if(profileSelected.equals(profile)) {
+						profileSelected = null;
+						selectedProfile.setText("Profile: ");
+						selectedLevel.setText("Level: ");
+					}
 				}
 				
 				i++;
@@ -237,7 +239,15 @@ public class MenuManager {
 			profileList.getChildren().clear();
 			
 			for(Player p : players) {
-				profileList.getChildren().add(new Button(p.getName()));
+				Button button = new Button(p.getName());
+				button.setOnAction(e -> {
+					selectedProfile.setText("Profile: " + button.getText());
+					profileSelected = button.getText();
+				});
+				
+				profileList.getChildren().add(button);
+						
+				
 			}
 		}
 	}

@@ -30,38 +30,9 @@ public class Main extends Application {
 		primaryStage.setResizable(false);	//Stops user from changing size of window
 		primaryStage.show();
 
-		//GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", 448, 500, 64);
 
-		//GameManager gm = new GameManager(primaryStage, "levels/LevelExample.txt", 448, 500, 64);
-
-//		gm.launchGame();
 	}
 
-	/*
-	//Create the GUI
-	private Pane buildMenuGUI() { 
-		// Create top-level panel that will hold all GUI
-		BorderPane root = new BorderPane();
-
-		//HBar at top for Buttons
-				HBox toolbar = new HBox();
-				toolbar.setSpacing(10);
-				toolbar.setPadding(new Insets(10, 10, 10, 10)); 
-				root.setTop(toolbar);
-		
-		
-		//Button to launch game
-		Button launchButton = new Button("Launch Game");
-		toolbar.getChildren().add(launchButton);
-	
-		// Add button event handlers
-		launchButton.setOnAction(e -> {
-			System.out.println("TRIGGERED");
-		});
-	
-		return root;
-	}
-	*/
 
 	public static void main(String[] args) {
 		launch(args);
