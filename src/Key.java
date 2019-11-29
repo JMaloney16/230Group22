@@ -58,6 +58,7 @@ public class Key extends Collectable {
 	 * @param player,     the player object that is on the board.
 	 * @param keyboardIn, the current keypress.
 	 */
+	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		if ((player.getPosX() == this.xCoord) && (player.getPosY() == this.yCoord)) {
 			player.addKey(this.colour);

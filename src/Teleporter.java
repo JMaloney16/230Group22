@@ -17,13 +17,19 @@ public class Teleporter extends Tile {
 	private Teleporter partner;
 
 	public Teleporter(int x, int y) {
-		super(x, y, "assets/Teleporter.png", 0);
+		super(x, y, "assets/Teleporter.png", 1);
 	}
 
+	/** Adds the destination teleporter
+	 * @param partner, teleporter object to be taken to
+	 */
 	public void setPartner(Teleporter partner) {
 		this.partner = partner;
 	}
 
+	/**
+	 * Updates the teleporter and moves the player if needed
+	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		// used to detected when the player is moving onto the tile

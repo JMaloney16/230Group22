@@ -1,23 +1,23 @@
-/**
- * Water.java creates a water tile on the board
- * 
- * @version 0.4
- * @author Gino Sesia
- */
 
-public class Water extends Tile {
+/**
+ * Lava.java implements the lava tile
+ * 
+ * @version 0.1
+ * @author Ewan Bradford
+ *
+ */
+public class Lava extends Tile {	
 	/**
 	 * Creates a water tile.
 	 * 
 	 * @param x,      the x coordinate of the water tile.
 	 * @param y,      the y coordinate of the water tile.
 	 */
-	public Water(int x, int y) {
-		super(x, y, "assets/Water.png", 1);
+	public Lava(int x, int y) {
+		super(x, y, "assets/Lava.png", 1);
 	}
-
 	/**
-	 * Checks if the player is standing on this water tile.
+	 * Checks if the player is standing on this lava tile.
 	 * 
 	 * @param board,      	the board object for the player to be "placed" in.
 	 * @param player, 		the player.
@@ -26,9 +26,10 @@ public class Water extends Tile {
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
-			if (player.getFlippers() == false) {
+			if (player.getBoots() == false) {
 				player.kill();
 			}
 		}
 	}
+
 }

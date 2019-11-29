@@ -12,6 +12,7 @@ public class Token extends Collectable {
 		super(x, y, "assets/Token.png", 0);
 	}
 	
+	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		if (player.getxCoord() == this.xCoord && player.getyCoord() == this.yCoord) {
 			player.addToken(1);

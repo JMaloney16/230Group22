@@ -73,8 +73,11 @@ public class GameManager {
 		Teleporter t1 = new Teleporter(3, 3);
 		Teleporter t2 = new Teleporter(10, 10);
 		t1.setPartner(t2);
+		t2.setPartner(t1);
 		temp[3][3] = t1;
 		temp[10][10] = t2;
+		
+		temp[5][1] = new Lava(5, 1);
 		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
 //		temp2.add(new Key(3, 3, "red"));
 		temp2.add(new Token(4, 4));
