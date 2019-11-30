@@ -129,6 +129,33 @@ public class Player extends Movable {
 		}
 	}
 	
+	public boolean checkKey(String keyColour) {
+		switch (keyColour) {
+		case "red":
+			if (this.keys[0] > 0) {
+				return true;
+			}
+			return false;
+		case "blue":
+			if (this.keys[1] > 0) {
+				return true;
+			}
+			return false;
+		case "yellow":
+			if (this.keys[2] > 0) {
+				return true;
+			}
+			return false;
+		case "green":
+			if (this.keys[2] > 0) {
+				return true;
+			}
+			return false;
+		default: // if asked for no existent key colour
+			return false;
+		}
+	}
+	
 	/** draws the player
 	 * @param gc, graphics context to be drawn to
 	 */
@@ -159,6 +186,7 @@ public class Player extends Movable {
 			System.out.println(keyColour);
 			System.out.println("Cant add that key"); // maybe raise an error?
 		}
+		System.out.println(this.keys[0]);
 	}
 	
 	/**

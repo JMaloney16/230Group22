@@ -1,26 +1,26 @@
 /**
- * TokenDoor.java
+ * Coloured.java 
  * 
  * @version 0.1
  * @author Gino Sesia
  *
  */
-public class TokenDoor extends Door {
-	private int threshold;
+public class ColouredDoor extends Door {
+	
+	private String colour;
 
 	/**
-	 * Creates a water tile.
-	 * 
-	 * @param x, the x coordinate of the water tile.
-	 * @param y, the y coordinate of the water tile.
+	 * @param x,      the x coordinate of the fire tile.
+	 * @param y,      the y coordinate of the fire tile.
 	 */
-	public TokenDoor(int x, int y, int amount) {
+	public ColouredDoor(int x, int y, String colour) {
+		// TODO Auto-generated constructor stub
 		super(x, y);
-		this.threshold = amount;
+		this.colour = colour;
 	}
-
+	
 	public void update(Board board, Player player, int keyboardIn) {
-		if (player.getTokens() >= this.threshold && this.opened == false) {
+		if(player.checkKey(this.colour) == true && this.opened == false) {
 			switch (keyboardIn) {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
@@ -45,12 +45,10 @@ public class TokenDoor extends Door {
 			}
 		}
 	}
+	
 	private void open(Player player) {
 		this.setBlocking(0);
 		this.opened = true;
-		player.addToken(-this.threshold);
-		
 		this.updateSprite("assets\\Floor.png");
 	}
-
 }

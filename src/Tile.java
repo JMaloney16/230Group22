@@ -7,10 +7,12 @@
  */
 
 public class Tile extends Interactable {
+	
 
 	public Tile(int x, int y, String sprite, int blockable) {
 		super(x, y, sprite, blockable);
-		
+		this.xCoord = x;
+		this.yCoord = y;
 	}
 	
 }

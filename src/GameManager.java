@@ -77,10 +77,12 @@ public class GameManager {
 		temp[3][3] = t1;
 		temp[10][10] = t2;
 		
-		temp[5][1] = new Lava(5, 1);
+		temp[3][6] = new ColouredDoor(3, 6, "blue");
+		
 		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
 //		temp2.add(new Key(3, 3, "red"));
 		temp2.add(new Token(4, 4));
+		temp2.add(new Key(1, 2, "blue"));
 		this.board = new Board(temp, new ArrayList<Movable>(), temp2);
 
 		this.createGameScene();

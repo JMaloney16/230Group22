@@ -2,20 +2,20 @@
  * Teleporter.java
  * 
  * @version 0.2
- * @author ginosesia
+ * @author Gino Sesia
  * @author Ewan Bradford
  *
  */
 public class Teleporter extends Tile {
 
+	private Teleporter partner;
+	
 	/**
 	 * Creates a teleporter tile.
 	 * 
 	 * @param x, the x coordinate of the teleporter tile.
 	 * @param y, the y coordinate of the teleporter tile.
 	 */
-	private Teleporter partner;
-
 	public Teleporter(int x, int y) {
 		super(x, y, "assets/Teleporter.png", 1);
 	}
@@ -62,5 +62,4 @@ public class Teleporter extends Tile {
 			}
 		}
 	}
-
 }

@@ -35,10 +35,15 @@ public abstract class Drawable {
 		this.blockable = blockable;
 		
 		if (sprite != "") { // add a check to make sure image has been loaded
-			File imageLoader = new File(spritePath);
-			this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
+			this.updateSprite(sprite);
 		}
 	}
+	protected void updateSprite(String sprite) {
+		this.spritePath = sprite;
+		File imageLoader = new File(spritePath);
+		this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
+	}
+	
 	/**
 	 * Handles the movement of this object.
 	 * 
@@ -54,6 +59,12 @@ public abstract class Drawable {
 	 */
 	public int getBlocking() {
 		return this.blockable;
+	}
+	
+	public void setBlocking(int newBlocking) {
+		if (newBlocking >= 0 && newBlocking <= 2) {
+			this.blockable = newBlocking;
+		}
 	}
 
 	/**

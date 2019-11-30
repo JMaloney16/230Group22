@@ -1,32 +1,32 @@
 /**
  * Door.java creates a door on the board
  * 
- * @version 0.1
+ * @version 0.2
  * @author Gino Sesia
  */
 
 public abstract class Door extends Tile {
-
+	protected boolean opened = false;
 	/**
 	 * Creates a Door tile.
 	 * 
-	 * @param x,      the x coordinate of the water tile.
-	 * @param y,      the y coordinate of the water tile.
+	 * @param x, the x coordinate of the Door tile.
+	 * @param y, the y coordinate of the Door tile.
 	 */
 	public Door(int x, int y) {
-		super(x, y, "assets/Door.png", 0);
+		super(x, y, "assets/Door.png", 2);
 	}
 
 	/**
 	 * Checks if the player is standing on a Door tile.
 	 * 
-	 * @param board,      	the board object for the player to be "placed" in.
-	 * @param player, 		the player.
-	 * @param keyboardIn, 	the current key pressed.
+	 * @param board,      the board object for the player to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
-	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
-			
-		}
+
+	@Override
+	public void update(Board board, Player player, int keyboardIn) {		
+
 	}
 }
