@@ -24,7 +24,7 @@ public class Fire extends Tile {
 	 * @param keyboardIn, the current keypress.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getBoots() == false) {
 				player.kill();
 			}

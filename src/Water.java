@@ -25,7 +25,7 @@ public class Water extends Tile {
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY()) {
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getFlippers() == false) {
 				player.kill();
 			}

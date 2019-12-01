@@ -100,7 +100,6 @@ public class MenuManager {
 		
 			// Launch Button event handler
 			launchButton.setOnAction(e -> {
-				System.out.println("TRIGGERED");
 				GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", windowWidth, windowHeight, cellSize);
 			});
 			
