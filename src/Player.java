@@ -86,8 +86,8 @@ public class Player extends Movable {
 			}
 			break;
 		}
-		this.xCoord = this.nextX;
-		this.yCoord = this.nextY;
+		this.setPosX(this.nextX);
+		this.setPosY(this.nextY);
 		return 1;
 	}
 

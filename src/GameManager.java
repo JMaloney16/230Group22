@@ -77,6 +77,7 @@ public class GameManager {
 		Teleporter t2 = new Teleporter(10, 10);
 		t1.setPartner(t2);
 		t2.setPartner(t1);
+		temp[13][14] = new StaticEntity(13, 14, "assets\\Lava.png", 1);
 		temp[3][3] = t1;
 		temp[10][10] = t2;
 
@@ -91,7 +92,7 @@ public class GameManager {
 		temp2.add(new Shoe(3, 1, "boots"));
 
 		ArrayList<Movable> temp3 = new ArrayList<Movable>();
-		temp3.add(new FollowEnemy(1, 4, 0, -1));
+		temp3.add(new DumbEnemy(1, 4, 0, -1));
 		this.board = new Board(temp, temp3, temp2);
 
 		this.createGameScene();

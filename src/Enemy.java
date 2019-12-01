@@ -10,6 +10,7 @@ public abstract class Enemy extends Movable {
 	}
 
 	protected boolean getDirBlocking(int dir, Board board) {
+		dir = normaliseDir(dir);
 		if (this.xCoord < 1 || this.xCoord > board.getBoard().length - 1 || this.yCoord < 1 || this.yCoord > board.getBoard()[0].length - 1) {
 			return true;
 		}

@@ -83,4 +83,11 @@ public abstract class Drawable {
 	public int getyCoord() {
 		return yCoord;
 	}
+	
+	public void sexCoord(int x) {
+		this.xCoord = x;
+	}
+	public void seyCoord(int y) {
+		this.yCoord = y;
+	}
 }
