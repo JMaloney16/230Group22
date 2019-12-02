@@ -1,4 +1,3 @@
-
 25,15
 #########################
 #....F..........#.......#
@@ -31,3 +30,8 @@
 16,2,ENEMY,WALL,DOWN
 2,4,ITEM,TOKEN,1
 12,12,ITEM,BOOTS
+LEVEL,2
+LEADERBOARD
+PLAYER1,23
+PLAYER2,45
+PLAYER3,66
