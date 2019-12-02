@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Takes a filename and retrieves specified data from it or saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.5
+ * @version 0.7
  */
 
 //TODO
@@ -162,24 +162,42 @@ public class FileManager {
 						break;
 					case "ENEMY":
 						String enemyType = line.next();
+						String direction = "";
+						int directionInt = 0;
+						if (!enemyType.equals("SMART")) {
+							direction = line.next();
+							switch (direction) {
+								case "LEFT":
+									directionInt = 3;
+									break;
+								case "RIGHT":
+									directionInt = 1;
+									break;
+								case "UP":
+									directionInt = 2;
+									break;
+								case "DOWN":
+									directionInt = 0;
+									break;
+							}
+						}
 						switch (enemyType) {
 							//TODO: Add all enemy types
 							case "STRAIGHT":
-								String direction = line.next();
 								System.out.println("Straight type enemy starting: " + direction);
-								movables.add(new LineEnemy(posX, posY, "assets/placeholder.png", 1));
+								movables.add(new LineEnemy(posX, posY, directionInt));
 								break;
 							case "SMART":
 								System.out.println("Smart enemy");
-								movables.add(new SmartEnemy(posX, posY, "assets/placeholder.png", 1));
+								movables.add(new SmartEnemy(posX, posY));
 								break;
 							case "FOLLOW":
 								System.out.println("Follow enemy");
-								movables.add(new FollowEnemy(posX, posY, "assets/placeholder.png", 1));
+								movables.add(new FollowEnemy(posX, posY, directionInt, 1));
 								break;
 							case "DUMB":
 								System.out.println("Dumb enemy");
-								movables.add(new DumbEnemy(posX, posY, "assets/placeholder.png", 1));
+								movables.add(new DumbEnemy(posX, posY, directionInt, 1));
 								break;
 							default:
 								System.out.print("I haven't added this enemy type to the filereader!");
@@ -217,7 +235,7 @@ public class FileManager {
 				}
 			}
 
-			board = new Board(boardDrawables, movables, interactables);
+			board.setNewBoard(boardDrawables, movables, interactables);
 			board.setLevelNumber(mapLevel);
 		}
 

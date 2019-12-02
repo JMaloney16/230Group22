@@ -191,4 +191,10 @@ public class Board {
 	public void setLevelNumber(int number) {
 		this.levelNumber = number;
 	}
+
+	public void setNewBoard(Drawable[][] boardDrawables, ArrayList<Movable> movables, ArrayList<Interactable> interactables) {
+		this.board = boardDrawables;
+		this.movables = movables;
+		this.interactables = interactables;
+	}
 }
