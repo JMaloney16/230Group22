@@ -197,7 +197,7 @@ public class FileManager {
 								break;
 							case "DUMB":
 								System.out.println("Dumb enemy");
-								movables.add(new DumbEnemy(posX, posY, directionInt);
+								movables.add(new DumbEnemy(posX, posY, directionInt));
 								break;
 							default:
 								System.out.print("I haven't added this enemy type to the filereader!");
