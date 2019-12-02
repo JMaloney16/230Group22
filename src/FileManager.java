@@ -72,7 +72,7 @@ public class FileManager {
 					switch (current) {
 						case "#":
 							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "StoneBrickWall.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/StoneBrickWall.png", 2);
 							break;
 						case ".":
 							System.out.print(".");
@@ -156,9 +156,15 @@ public class FileManager {
 //						break;
 					case "TELE":
 						//TODO: Add teleporter partner
-						int pairValue = line.nextInt();
-						System.out.println("It's a teleporter part of pair " + pairValue);
-						boardDrawables[posX][posY] = new Teleporter(posX, posY);
+						int pairX = line.nextInt();
+						int pairY = line.nextInt();
+						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
+						Teleporter tele1 = new Teleporter(posX, posY);
+						Teleporter tele2 = new Teleporter(pairX, pairY);
+						tele1.setPartner(tele2);
+						tele2.setPartner(tele1);
+						boardDrawables[posX][posY] = tele1;
+						boardDrawables[pairX][pairY] = tele2;
 						break;
 					case "ENEMY":
 						String enemyType = line.next();
@@ -279,7 +285,7 @@ public class FileManager {
 				}
 
 			}
-			board = new Board(boardDrawables, movables, interactables);
+			board.setNewBoard(boardDrawables, movables, interactables);
 		}
 		
 		/** Gets all the player profile
