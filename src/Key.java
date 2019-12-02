@@ -60,7 +60,7 @@ public class Key extends Collectable {
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
-		if ((player.getPosX() == this.xCoord) && (player.getPosY() == this.yCoord)) {
+		if ((player.getxCoord() == this.xCoord) && (player.getyCoord() == this.yCoord)) {
 			player.addKey(this.colour);
 			board.removeInteractable(this);
 		}

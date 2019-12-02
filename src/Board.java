@@ -71,6 +71,8 @@ public class Board {
 	 * @param playerY, the current y coordinate of the player
 	 */
 	public void drawMovables(GraphicsContext gc, int playerX, int playerY) {
+		// TODO
+		// movables still draw even if off screen, causes weirdness
 		for (Movable m : this.movables) {
 			m.draw(gc, playerX - 3, playerY - 3);
 		}

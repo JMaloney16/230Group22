@@ -86,8 +86,8 @@ public class Player extends Movable {
 			}
 			break;
 		}
-		this.xCoord = this.nextX;
-		this.yCoord = this.nextY;
+		this.setPosX(this.nextX);
+		this.setPosY(this.nextY);
 		return 1;
 	}
 
@@ -246,12 +246,12 @@ public class Player extends Movable {
 	public void setPosY(int y) {
 		this.yCoord = y;
 	}	
-	public int getPosX() {
-		return this.xCoord;
-	}
-	public int getPosY() {
-		return this.yCoord;
-	}
+//	public int getPosX() {
+//		return this.xCoord;
+//	}
+//	public int getPosY() {
+//		return this.yCoord;
+//	}
 
 	public int getMaxLevel() { 
 		return this.maxLevel;

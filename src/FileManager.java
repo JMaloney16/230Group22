@@ -142,18 +142,18 @@ public class FileManager {
 								break;
 						}
 						break;
-					case "DOOR":
-						String doorType = line.next();
-						if (doorType.equals("TOKEN")) {
-							int tokensRequired = line.nextInt();
-							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
-							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
-						} else {
-							String doorColour = line.next();
-							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
-							boardDrawables[posX][posY] = new Coloured(posX, posY, doorColour);
-						}
-						break;
+//					case "DOOR":
+//						String doorType = line.next();
+//						if (doorType.equals("TOKEN")) {
+//							int tokensRequired = line.nextInt();
+//							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
+//							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
+//						} else {
+//							String doorColour = line.next();
+//							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
+//							boardDrawables[posX][posY] = new Coloured(posX, posY, doorColour);
+//						}
+//						break;
 					case "TELE":
 						//TODO: Add teleporter partner
 						int pairValue = line.nextInt();

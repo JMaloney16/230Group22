@@ -35,7 +35,7 @@ public class GameManager {
 	private int windowWidth;
 	private int windowHeight;
 	private int cellSize;
-	
+
 	private int lastKey = -1;
 
 	private int frameCount = 0;
@@ -43,13 +43,16 @@ public class GameManager {
 	// TODO
 	// make sure it works when a playerfile is loaded to be continued
 	// make cell size to work
-	
-	/** Creates a new GameManager with a stage, boardfile, window size and a cell size.
+
+	/**
+	 * Creates a new GameManager with a stage, boardfile, window size and a cell
+	 * size.
+	 * 
 	 * @param primaryStage, the stage for the game to be drawn to
-	 * @param boardFile, the file of the current level
-	 * @param windowWidth, width of the screen to be played on
+	 * @param boardFile,    the file of the current level
+	 * @param windowWidth,  width of the screen to be played on
 	 * @param windowHeight, height of the screen to be played on
-	 * @param cellSize, size of each tile on the screen
+	 * @param cellSize,     size of each tile on the screen
 	 */
 	public GameManager(Stage primaryStage, String boardFile, int windowWidth, int windowHeight, int cellSize) {
 		this.windowWidth = windowWidth;
@@ -74,16 +77,23 @@ public class GameManager {
 		Teleporter t2 = new Teleporter(10, 10);
 		t1.setPartner(t2);
 		t2.setPartner(t1);
+		temp[13][14] = new StaticEntity(13, 14, "assets\\Lava.png", 1);
 		temp[3][3] = t1;
 		temp[10][10] = t2;
-		
+
 		temp[3][6] = new ColouredDoor(3, 6, "blue");
-		
+
+		temp[4][1] = new Lava(4, 1);
+
 		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
 //		temp2.add(new Key(3, 3, "red"));
 		temp2.add(new Token(4, 4));
 		temp2.add(new Key(1, 2, "blue"));
-		this.board = new Board(temp, new ArrayList<Movable>(), temp2);
+		temp2.add(new Shoe(3, 1, "boots"));
+
+		ArrayList<Movable> temp3 = new ArrayList<Movable>();
+		temp3.add(new DumbEnemy(1, 4, 0, -1));
+		this.board = new Board(temp, temp3, temp2);
 
 		this.createGameScene();
 
@@ -96,12 +106,13 @@ public class GameManager {
 	}
 
 	/**
-	 * Draws and Updates all parts of the board, draws and handles input for the player
+	 * Draws and Updates all parts of the board, draws and handles input for the
+	 * player
 	 */
 	private void update() {
 		this.frameCount++;
 		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
-		
+
 		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
@@ -119,10 +130,8 @@ public class GameManager {
 			this.board.updateInteractables(this.player, this.lastKey);
 			if (this.player.update(this.board, this.lastKey) == 2) {
 				this.restart();
-			}
-			else {
+			} else {
 				this.board.updateInteractables(this.player, this.lastKey);
-				
 			}
 //			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
@@ -132,7 +141,8 @@ public class GameManager {
 	}
 
 	/**
-	 * Sets up the gameScene so that the gameManager can draw the board to the screen
+	 * Sets up the gameScene so that the gameManager can draw the board to the
+	 * screen
 	 */
 	private void createGameScene() {
 		Pane root = this.buildGameGUI();
@@ -141,6 +151,7 @@ public class GameManager {
 
 	/**
 	 * Adds all components to the screen ready for the game to be played
+	 * 
 	 * @return Returns the constructed Pane
 	 */
 	private Pane buildGameGUI() {
@@ -168,7 +179,7 @@ public class GameManager {
 		Button exitButton = new Button("Exit");
 		toolbar.getChildren().add(exitButton);
 		exitButton.setOnAction(e -> {
-			Pane menu = MenuManager.Menu.buildMenuGUI(this.stage, this.windowWidth, this.windowHeight);	// Build the GUI
+			Pane menu = MenuManager.Menu.buildMenuGUI(this.stage, this.windowWidth, this.windowHeight); // Build the GUI
 			Scene scene = new Scene(menu, this.windowWidth, this.windowHeight); // Create a scene from the GUI
 			this.stage.setScene(scene);
 		});
@@ -182,14 +193,16 @@ public class GameManager {
 
 		return root;
 	}
-	
+
 	/**
 	 * Allows the keyboard to be given to the gameManager
+	 * 
 	 * @param key, the direction of the key inputted
 	 */
 	public void setKey(int key) {
 		this.lastKey = key;
 	}
+
 	private void restart() {
 		System.out.println("dont die next time.");
 	}

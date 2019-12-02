@@ -33,11 +33,12 @@ public class Shoe extends Collectable {
 	}
 
 	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() &&
-			this.type.equals("flipper")) {
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() &&
+			this.type.equals("flippers")) {
+			System.out.println("tester");
 			player.addFlippers();
 			board.removeInteractable(this);
-		} else if (this.xCoord == player.getPosX() && this.yCoord == player.getPosY() &&
+		} else if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() &&
 			this.type.equals("boots")) {
 			player.addBoots();
 			board.removeInteractable(this);

@@ -100,7 +100,6 @@ public class MenuManager {
 		
 			// Launch Button event handler
 			launchButton.setOnAction(e -> {
-				System.out.println("TRIGGERED");
 				GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", windowWidth, windowHeight, cellSize);
 			});
 			
@@ -122,15 +121,20 @@ public class MenuManager {
 			deleteProfileButton.setOnAction(e -> {
 				deleteProfile();
 			});
+			
+			Button tempDrawProfiles = new Button("Draw ProfileList");
+			tempDrawProfiles.setOnAction(e -> {
+				drawProfileList();
+			});
 
 			
 			players.add(new Player(0, 0, "", "testerNameOne", 4));
-			players.add(new Player(0, 0, "", "Jack is fit", 40));
+			players.add(new Player(0, 0, "", "Jack is fit", 7));
 			
 			 
 			drawProfileList();		
 			
-			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
+			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton, tempDrawProfiles);
 			
 			
 			
@@ -199,11 +203,8 @@ public class MenuManager {
 			Button deleteProfileButton = new Button("Delete");
 
 			deleteProfileButton.setOnAction(e -> {
-				deleteProfileButton.setText("Clicked");
 				if(!delete(profileNameBox.getText())){
 					System.out.println("Delete Failed");
-					profileNameLabel.setText("Enter a Profile Name to Delete");
-					deleteProfileButton.setText("Delete");
 					
 				}else {
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
@@ -241,6 +242,7 @@ public class MenuManager {
 			for(Player p : players) {
 				Button button = new Button(p.getName());
 				button.setOnAction(e -> {
+					System.out.println("Button Action Activated");
 					selectedProfile.setText("Profile: " + button.getText());
 					profileSelected = button.getText();
 				});
