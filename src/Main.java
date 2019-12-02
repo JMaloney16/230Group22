@@ -37,7 +37,7 @@ public class Main extends Application {
 	public static void PlaySound(){
 		SoundEffect test = new SoundEffect();
 		
-		String soundplay = "../CS230Group22/230Group22/assets/Sounds/Dungeon_004.wav";
+		String soundplay = "assets/Sounds/Dungeon_004.wav";
 		
 		//single play sound
 		//test.playSound(soundplay);

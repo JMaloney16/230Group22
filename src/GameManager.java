@@ -92,7 +92,7 @@ public class GameManager {
 		temp2.add(new Shoe(3, 1, "boots"));
 
 		ArrayList<Movable> temp3 = new ArrayList<Movable>();
-		temp3.add(new DumbEnemy(1, 4, 0, -1));
+		temp3.add(new SmartEnemy(1, 9));
 		this.board = new Board(temp, temp3, temp2);
 
 		this.createGameScene();
