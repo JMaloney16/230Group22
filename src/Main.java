@@ -29,12 +29,24 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);	//Stops user from changing size of window
 		primaryStage.show();
+		
 
 
 	}
 
+	public static void PlaySound(){
+		SoundEffect test = new SoundEffect();
+		
+		String soundplay = "../CS230Group22/230Group22/assets/Sounds/Dungeon_004.wav";
+		
+		//single play sound
+		//test.playSound(soundplay);
+		//play loop
+		test.playLoop(soundplay);
+	}
 
 	public static void main(String[] args) {
+		PlaySound();
 		launch(args);
 	}
 }

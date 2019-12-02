@@ -3,6 +3,7 @@ import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JOptionPane;
 
@@ -38,7 +39,12 @@ public class SoundEffect {
 				clip.start();
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 				
-				JOptionPane.showMessageDialog(null, "Press ok to stop playing");
+				//Volume Control for. Default is reduced by -15dB. 
+				FloatControl gainControl = (FloatControl) clip.getControl
+						(FloatControl.Type.MASTER_GAIN);
+				gainControl.setValue(-15.0f);
+				
+				//JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 			}
 			else {
 				System.out.println("can't find file");
@@ -54,13 +60,14 @@ public class SoundEffect {
 	 * @param filepath,		Location of the sound file that is required.
 	 */
 	public static void playSound(String filepath) {
+		Clip clip = null;
 		
 		try {
 			File musicpath = new File(filepath);
 			
 			if(musicpath.exists()) {
 				AudioInputStream audioinput = AudioSystem.getAudioInputStream(musicpath);
-				Clip clip = AudioSystem.getClip();
+				clip = AudioSystem.getClip();
 				clip.open(audioinput);
 				clip.start();
 				
@@ -73,6 +80,7 @@ public class SoundEffect {
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
+	
 	}
 	
 	/**
