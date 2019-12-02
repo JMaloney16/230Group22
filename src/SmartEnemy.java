@@ -2,7 +2,19 @@ import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * SmartEnemy.java, implements the smart enemy behaviour
+ * 
+ * @version 0.1
+ * @author Ewan Bradford
+ */
 public class SmartEnemy extends Enemy {
+	/**
+	 * Holds all the data required to perform a star in one object for convenience
+	 * 
+	 * @version 0.1
+	 * @author Ewan Bradford
+	 */
 	private class Cell {
 		public int x;
 		public int y;
@@ -22,10 +34,18 @@ public class SmartEnemy extends Enemy {
 	Cell[][] cells;
 	ArrayList<Cell> path = new ArrayList<Cell>();
 
+	/** Creates a new smart enemy using just a starting position
+	 * @param x, x coordinate of the enemy
+	 * @param y, y coordinate of the enemy
+	 */
 	public SmartEnemy(int x, int y) {
 		super(x, y, "assets\\placeholder.png", 1, 0);
 	}
 
+	/** Returns the cell with the minimum f value in the arraylist
+	 * @param cs, cells to be searched
+	 * @return the cell with the lowest f value
+	 */
 	private Cell getMin(ArrayList<Cell> cs) {
 		Cell minF = cs.get(0);
 		for (int i = 1; i < cs.size(); i++) {
@@ -36,6 +56,12 @@ public class SmartEnemy extends Enemy {
 		return minF;
 	}
 
+	/** Gets a cell that occupies a position
+	 * @param cs, arraylist to be searched
+	 * @param x, x position of the search cell
+	 * @param y, y position of the search cell
+	 * @return the cell at the x,y position, null otherwise
+	 */
 	private Cell getCell(ArrayList<Cell> cs, int x, int y) {
 		Cell r = null;
 		for (Cell s : cs) {
@@ -46,6 +72,12 @@ public class SmartEnemy extends Enemy {
 		return r;
 	}
 
+	/** Perform the a star algorithm on the cell data
+	 * @param sx, start x coordinate
+	 * @param sy, start y coordinate
+	 * @param gx, goal x coordinate
+	 * @param gy, goal y coordinate
+	 */
 	private void doAStar(int sx, int sy, int gx, int gy) {
 		ArrayList<Cell> unsearched = new ArrayList<Cell>();
 		ArrayList<Cell> searched = new ArrayList<Cell>();
@@ -96,6 +128,9 @@ public class SmartEnemy extends Enemy {
 		}
 	}
 
+	/**
+	 * Does one step of the dumb enemy's behaviour
+	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		this.cells = new Cell[board.getBoard().length][board.getBoard()[0].length];
 		for (int y = 0; y < board.getBoard()[0].length; y++) {

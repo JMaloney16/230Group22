@@ -1,9 +1,23 @@
 
+/**
+ * DumbEnemy.java, implements the dumb enemy behaviour
+ * 
+ * @version
+ * @author Ewan Bradford
+ */
 public class DumbEnemy extends Enemy {
-	public DumbEnemy(int x, int y, int direction, int bias) {
+	/** Creates a new dumb enemy using a position and a direction
+	 * @param x, x coordinate of the enemy
+	 * @param y, y coordinate of the enemy
+	 * @param direction, the starting direction of the enemy
+	 */
+	public DumbEnemy(int x, int y, int direction) {
 		super(x, y, "assets\\placeholder.png", 1, direction);
 	}
 
+	/**
+	 * Does one step of the dumb enemy's behaviour
+	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		normaliseDir();
 //float deltax = player.xCoord - this.xCoord;

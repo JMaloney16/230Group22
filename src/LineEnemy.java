@@ -1,9 +1,23 @@
 
+/**
+ * LineEnemy.java implements the line enemy behaviour
+ * 
+ * @version 0.1
+ * @author Ewan bradford
+ */
 public class LineEnemy extends Enemy {
+	/** Creates a new line enemy using a position and a starting direction
+	 * @param x, x coordinate of the enemy
+	 * @param y, y coordinate of the enemy
+	 * @param direction, the starting direction of the enemy
+	 */
 	public LineEnemy(int x, int y, int direction) {
 		super(x, y, "assets\\placeholder.png", 1, direction);
 	}
 
+	/**
+	 * Does one step of the line enemy's behaviour
+	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		normaliseDir();
 
