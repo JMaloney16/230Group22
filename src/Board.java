@@ -164,6 +164,7 @@ public class Board {
 	 * @return Returns the highest blocking value that is present at that position.
 	 */
 	public int getBlocking(int x, int y) {
+		// TODO
 		// needs to go through board[][] and movables[] and return the highest factor of
 		// blockings
 		if (x < this.board.length && y < this.board[0].length && x >= 0 && y >= 0) {
