@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -257,6 +259,7 @@ public class FileManager {
 		 */
 		public static void readPlayerFile(String filepath, Player player, Board board) { // please make it readPlayerFile(String filepath, Player player, Board board) thanks x
 			Scanner in = createFileScanner(filepath);
+			String playerName = filepath.substring(0, filepath.length() - 4);
 			readAnyFile(in, "CURRENTTIME", player);
 			//TODO: Find a way to pass the currenttime to the game manager
 			int currentTime = Integer.parseInt(dividerLine.split(",")[1]);
@@ -463,6 +466,32 @@ public class FileManager {
 				}
 			}
 
+		}
+
+		/**
+		 * Replaces a specified string in a text file
+		 * @param filepath File to be edited
+		 * @param oldText String to be replaced
+		 * @param newText New string to add
+		 * @throws IOException
+		 */
+		public static void replaceText(String filepath, String oldText, String newText)
+			throws IOException {
+			File file = new File(filepath);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			FileWriter writer = new FileWriter(file);
+
+			String oldFile = "";
+			String currentline = br.readLine();
+			while (currentline != null) {
+				oldFile = oldFile + currentline + System.lineSeparator();
+				currentline = br.readLine();
+			}
+
+			String newFile = oldFile.replaceAll(oldText, newText);
+			writer.write(newFile);
+			br.close();
+			writer.close();
 		}
 	}
 }
