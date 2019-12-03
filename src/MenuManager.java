@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -40,6 +41,8 @@ public class MenuManager {
 		private static final String PROFILE = "Profile: ";	//Constant shown in selectProfile label
 		private static final String PROFILE_ERROR = "Choose Profile";
 		private static final String LEVEL_ERROR = "Choose Level";
+		private static final String NETWORK_ERROR = "Network Error - No Word Of The Day :(";
+		
 		
 		
 		private static String profileSelected;	//String used to check user has chosen a profile
@@ -69,15 +72,22 @@ public class MenuManager {
 			toolbarTop.setPadding(PADDING); 
 			root.setTop(toolbarTop);
 			
+			VBox lower = new VBox();
+			root.setBottom(lower);
+			
 			HBox toolbarBottom = new HBox();
 			toolbarBottom.setSpacing(10);
 			toolbarBottom.setPadding(PADDING);
-			root.setBottom(toolbarBottom);
+			lower.getChildren().add(toolbarBottom);
+			
 			
 			profileList = new VBox();
 			profileList.setSpacing(10);
 			profileList.setPadding(PADDING);
-			root.setLeft(profileList);		
+			root.setLeft(profileList);
+			
+			
+			
 			
 			
 			//Button to quit game
@@ -128,7 +138,18 @@ public class MenuManager {
 			players.add(new Player(0, 0, "", "Jack is fit", 7));
 			
 			 
-			drawProfileList();		
+			drawProfileList();
+			Label wordOfDay = new Label("");
+			try {
+				wordOfDay.setText(Networking.getMessage());
+			}catch(IOException e){
+				wordOfDay.setText(NETWORK_ERROR);
+			}
+			
+			wordOfDay.setWrapText(true);
+			wordOfDay.setFont(new Font("Arial", 12));
+			wordOfDay.setPadding(new Insets(10));
+			lower.getChildren().add(wordOfDay);
 			
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 			
