@@ -61,6 +61,8 @@ public class FileManager {
 		private static void readAnyFile(Scanner in, String divider, Player player) {
 			int boardX = in.nextInt();
 			int boardY = in.nextInt();
+			System.out.println(boardX);
+			System.out.println(boardY);
 			boardDrawables = new Drawable[boardX][boardY];
 			movables = new ArrayList<>();
 			interactables = new ArrayList<>();
@@ -115,7 +117,8 @@ public class FileManager {
 						//TODO: Get the level number idek how, and player name - maybe set to
 						// something else in readPlayerFile
 						System.out.println("START");
-						player = new Player(posX, posY, "playerPlaceholder.png", "Default", 1);
+						player.setPosX(posX);
+						player.setPosY(posY);
 						break;
 					case "ITEM":
 						String itemType = line.next();
@@ -142,18 +145,18 @@ public class FileManager {
 								break;
 						}
 						break;
-//					case "DOOR":
-//						String doorType = line.next();
-//						if (doorType.equals("TOKEN")) {
-//							int tokensRequired = line.nextInt();
-//							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
-//							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
-//						} else {
-//							String doorColour = line.next();
-//							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
-//							boardDrawables[posX][posY] = new Coloured(posX, posY, doorColour);
-//						}
-//						break;
+					case "DOOR":
+						String doorType = line.next();
+						if (doorType.equals("TOKEN")) {
+							int tokensRequired = line.nextInt();
+							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
+							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
+						} else {
+							String doorColour = line.next();
+							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
+							boardDrawables[posX][posY] = new ColouredDoor(posX, posY, doorColour);
+						}
+						break;
 					case "TELE":
 						//TODO: Add teleporter partner
 						int pairX = line.nextInt();
@@ -285,6 +288,7 @@ public class FileManager {
 				}
 
 			}
+
 			board.setNewBoard(boardDrawables, movables, interactables);
 		}
 		
