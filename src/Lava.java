@@ -8,10 +8,10 @@
  */
 public class Lava extends Tile {	
 	/**
-	 * Creates a water tile.
+	 * Creates a Lava tile.
 	 * 
-	 * @param x,      the x coordinate of the water tile.
-	 * @param y,      the y coordinate of the water tile.
+	 * @param x,      the x coordinate of the lava tile.
+	 * @param y,      the y coordinate of the lava tile.
 	 */
 	public Lava(int x, int y) {
 		super(x, y, "assets/Lava.png", 1);
