@@ -36,24 +36,19 @@ public class MenuManager {
 		private static VBox profileList;
 		private static Label selectedProfile;	//Label displayed in menu GUI
 		private static Label selectedLevel;		//Label displayed in menu GUI
+		private static final String LEVEL = "Level: ";	//Constant shown in selectedLevel label
+		private static final String PROFILE = "Profile: ";	//Constant shown in selectProfile label
+		private static final String PROFILE_ERROR = "Choose Profile";
+		private static final String LEVEL_ERROR = "Choose Level";
+		
 		
 		private static String profileSelected;	//String used to check user has chosen a profile
 		private static int levelSelected;		//int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
+		
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-		public void loadProfile(String profileName) {
-
-		}
-
-		public void deleteProfile(String profileName) {
-
-		}
-
-		public static void addProfile() {
-
-		}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Create the GUI
@@ -100,13 +95,17 @@ public class MenuManager {
 		
 			// Launch Button event handler
 			launchButton.setOnAction(e -> {
-				GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", windowWidth, windowHeight, cellSize);
+				if(profileSelected != "" && levelSelected != 0) {
+					GameManager gm = new GameManager(primaryStage, "../levels/LevelExample.txt", windowWidth, windowHeight, cellSize);
+				}
 			});
 			
-			selectedProfile = new Label("Profile: ");
-			selectedProfile.setFont(new Font("Ariel", 20));
-			selectedLevel = new Label("Level: ");
-			selectedLevel.setFont(new Font("Ariel", 20));
+			selectedProfile = new Label(PROFILE_ERROR);
+			selectedProfile.setAlignment(javafx.geometry.Pos.CENTER);
+			selectedProfile.setFont(new Font("Arial", 15));
+			selectedLevel = new Label(LEVEL_ERROR);
+			selectedProfile.setAlignment(javafx.geometry.Pos.CENTER);
+			selectedLevel.setFont(new Font("Arial", 15));
 			
 			toolbarTop.getChildren().addAll(selectedProfile, selectedLevel);
 			
@@ -122,10 +121,7 @@ public class MenuManager {
 				deleteProfile();
 			});
 			
-			Button tempDrawProfiles = new Button("Draw ProfileList");
-			tempDrawProfiles.setOnAction(e -> {
-				drawProfileList();
-			});
+			
 
 			
 			players.add(new Player(0, 0, "", "testerNameOne", 4));
@@ -134,7 +130,7 @@ public class MenuManager {
 			 
 			drawProfileList();		
 			
-			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton, tempDrawProfiles);
+			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 			
 			
 			
@@ -162,13 +158,15 @@ public class MenuManager {
 
 		private static void createProfile() {
 			// Temps
-			Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png", "", 0);
+			/*Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png", "", 0);
 
 			Drawable[][] tempDraw = new Drawable[10][10];
 			ArrayList<Movable> move = new ArrayList<Movable>();
 			ArrayList<Interactable> interact = new ArrayList<Interactable>();
 			Board tempBoard = new Board(tempDraw, move, interact);
 
+			*/
+			
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
 			subRoot.setPadding(PADDING);
@@ -178,16 +176,19 @@ public class MenuManager {
 			Label profileNameLabel = new Label("Enter a New Profile Name");
 			TextField profileNameBox = new TextField();
 			Button createProfileButton = new Button("Create");
+			Label warning = new Label("Max of 15 characters");
 
 			createProfileButton.setOnAction(e -> {
-				createProfileButton.setText("Clicked");
-				players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
-				profileList.getChildren().add(new Button(profileNameBox.getText()));
-				rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+				if(profileNameBox.getText().length() < 16) {
+					createProfileButton.setText("Clicked");
+					players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
+					drawProfileList();
+					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
+				}
 			});
 
 
-			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton);
+			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton, warning);
 
 		}
 
@@ -225,8 +226,9 @@ public class MenuManager {
 					drawProfileList();
 					if(profileSelected.equals(profile)) {
 						profileSelected = null;
-						selectedProfile.setText("Profile: ");
-						selectedLevel.setText("Level: ");
+						levelSelected = 0;
+						selectedProfile.setText(PROFILE);
+						selectedLevel.setText(LEVEL);
 					}
 				}
 				
@@ -238,19 +240,57 @@ public class MenuManager {
 		
 		private static void drawProfileList() {
 			profileList.getChildren().clear();
-			
 			for(Player p : players) {
+				
 				Button button = new Button(p.getName());
 				button.setOnAction(e -> {
-					System.out.println("Button Action Activated");
-					selectedProfile.setText("Profile: " + button.getText());
+					selectedProfile.setText(PROFILE + button.getText());
 					profileSelected = button.getText();
+					selectedLevel.setText(LEVEL);
+					levelSelected = 0;
+					
+					buildLevelSelectPane(p);
 				});
 				
 				profileList.getChildren().add(button);
 						
-				
 			}
+		}
+		
+		public static void buildLevelSelectPane(Player p) {
+			
+			
+			
+			BorderPane innerRoot = new BorderPane();
+			VBox levelList = new VBox();
+			 
+			levelList.getChildren().add(new Label("Select Level"));
+			if(p.getMaxLevel() == 0) {
+				Button button = new Button("1");
+				button.setOnAction(e -> {
+					int level = Integer.parseInt(button.getText());
+					levelSelected = level;
+					selectedLevel.setText(LEVEL + level);
+				});
+				levelList.getChildren().add(button);
+			}else {
+			
+				for(int i = 1; i <= p.getMaxLevel(); i++) {
+					Button button = new Button(Integer.toString(i));
+
+					
+					button.setOnAction(e -> {
+						int level = Integer.parseInt(button.getText());
+						levelSelected = level;
+						selectedLevel.setText(LEVEL + level);
+						
+					});
+					levelList.getChildren().add(button);
+				}
+			}
+			
+			innerRoot.setLeft(levelList);
+			rootPane.setCenter(innerRoot);			
 		}
 	}
 
