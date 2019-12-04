@@ -101,14 +101,17 @@ public class MenuManager {
 				}
 			});
 			
-			selectedProfile = new Label(PROFILE_ERROR);
+			selectedProfile = new Label(PROFILE);
 			selectedProfile.setAlignment(javafx.geometry.Pos.CENTER);
 			selectedProfile.setFont(new Font("Arial", 15));
-			selectedLevel = new Label(LEVEL_ERROR);
+			selectedLevel = new Label(LEVEL);
 			selectedProfile.setAlignment(javafx.geometry.Pos.CENTER);
 			selectedLevel.setFont(new Font("Arial", 15));
 			
 			toolbarTop.getChildren().addAll(selectedProfile, selectedLevel);
+			profileSelected = "";
+			levelSelected = 0;
+			
 			
 			//Button for creating a new Profile
 			Button newProfileButton = new Button("New Profile");
@@ -121,17 +124,16 @@ public class MenuManager {
 			deleteProfileButton.setOnAction(e -> {
 				deleteProfile();
 			});
-			
 
-// 			Yeah idk what these are so cant change the constructor for you hun
-			// comment youre code more bb x
-//			players.add(new Player(0, 0, 0, "testerNameOne", 4));
-//			players.add(new Player(0, 0, 0, "Jack is fit", 7));
-
-//			players.add(new Player(0, 0, 0));
 			
 			 
 			drawProfileList();
+			
+			
+			
+			
+			
+			
 			Label wordOfDay = new Label("");
 			try {
 				wordOfDay.setText(Networking.getMessage());
@@ -244,17 +246,22 @@ public class MenuManager {
 		}
 		
 		private static void drawProfileList() {
-			ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
-			for (String s : profiles) {
-				System.out.println(s);
-				Player p = new Player(0, 0, 0);
-				p.setName(s);
-				players.add(p);
+				
+			if(players.size() == 0) {
+				ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
+				for (String s : profiles) {
+					System.out.println(s);
+					Player p = new Player(0, 0, 0);
+					p.setName(s);
+					players.add(p);
+				}
 			}
 			
+			
 			profileList.getChildren().clear();
+			
+			
 			for(Player p : players) {
-				
 				Button button = new Button(p.getName());
 				button.setOnAction(e -> {
 					selectedProfile.setText(PROFILE + button.getText());
