@@ -20,7 +20,7 @@ import javafx.util.Duration;
  * GameManager.java Controls flow of game and handles Player interaction with
  * the world
  * 
- * @version 0.4
+ * @version 0.5
  * @author Ewan Bradford, Sam Forster
  */
 public class GameManager {
@@ -98,7 +98,7 @@ public class GameManager {
 //		ArrayList<Movable> temp3 = new ArrayList<Movable>();
 //		temp3.add(new SmartEnemy(1, 9));
 //		this.board = new Board(temp, temp3, temp2);
-		this.boardFile = "levels\\LevelExample.txt";
+		this.boardFile = "levels\\BigLevel.txt";
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 //		System.out.println(this.board.getBoard()[2][6]);
 		this.createGameScene();

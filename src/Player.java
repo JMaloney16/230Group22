@@ -277,7 +277,9 @@ public class Player extends Movable {
 	public int getMaxLevel() {
 		return this.maxLevel;
 	}
-
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getName() {
 		return this.name;
 	}
