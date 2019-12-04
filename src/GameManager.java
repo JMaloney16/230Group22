@@ -97,7 +97,7 @@ public class GameManager {
 //		temp3.add(new SmartEnemy(1, 9));
 //		this.board = new Board(temp, temp3, temp2);
 		FileManager.FileReading.readMapFile("levels\\BigLevel", board, player);
-		System.out.println(this.board.getBoard()[2][6]);
+//		System.out.println(this.board.getBoard()[2][6]);
 		this.createGameScene();
 
 		primaryStage.setScene(this.gameScene);

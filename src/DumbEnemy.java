@@ -27,8 +27,8 @@ public class DumbEnemy extends Enemy {
 		float theta = (float) (Math.atan2(-deltay, deltax) * (180.0 / Math.PI));
 		int angle = convertAngle(theta);
 
-		System.out.println(angle); // convertAngle((float) (Math.atan2(-1, 0)* (180.0 / Math.PI))));
-		System.out.printf("%f, %f\n", deltax, (float) (this.xCoord - player.xCoord));
+//		System.out.println(angle); // convertAngle((float) (Math.atan2(-1, 0)* (180.0 / Math.PI))));
+//		System.out.printf("%f, %f\n", deltax, (float) (this.xCoord - player.xCoord));
 
 		if ((angle > 315 && angle <= 360) || (angle > 0 && angle <= 45)) {
 			this.setDir(0);

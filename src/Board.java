@@ -168,8 +168,19 @@ public class Board {
 		// TODO
 		// needs to go through board[][] and movables[] and return the highest factor of
 		// blockings
+		int highestBlocking = 0;
 		if (x < this.board.length && y < this.board[0].length && x >= 0 && y >= 0) {
-			return this.board[x][y].getBlocking();
+			highestBlocking = this.board[x][y].getBlocking();
+			
+			Movable mSearch = this.searchMovavbles(x, y);
+			if (mSearch != null) {
+				if (mSearch.getBlocking() > highestBlocking) {
+					highestBlocking = mSearch.getBlocking();
+				}
+			}
+			
+			Interactable iSearch = this.searchInteractables(x, y);
+			return highestBlocking;
 		}
 		return -1; // needs to raise error, maybe
 	}
@@ -181,9 +192,29 @@ public class Board {
 	public ArrayList<Movable> getMovables() {
 		return this.movables;
 	}
+	
+	private Movable searchMovavbles(int x, int y) {
+		Movable result = null;
+		for (Movable m : this.movables) {
+			if (m.getxCoord() == x && m.getyCoord() == y) {
+				result = m;
+			}
+		}
+		return result;
+	}
 
 	public ArrayList<Interactable> getInteractables() {
 		return this.interactables;
+	}
+	
+	private Interactable searchInteractables(int x, int y) {
+		Interactable result = null;
+		for (Interactable i : this.interactables) {
+			if (i.getxCoord() == x && i.getyCoord() == y) {
+				result = i;
+			}
+		}
+		return result;
 	}
 
 	public int getLevelNumber() {

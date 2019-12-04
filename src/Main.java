@@ -42,7 +42,7 @@ public class Main extends Application {
 		//single play sound
 		//test.playSound(soundplay);
 		//play loop
-		test.playLoop(soundplay);
+//		test.playLoop(soundplay);
 	}
 
 	public static void main(String[] args) {
