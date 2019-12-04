@@ -180,6 +180,11 @@ public class Board {
 			}
 			
 			Interactable iSearch = this.searchInteractables(x, y);
+			if (iSearch != null) {
+				if (iSearch.getBlocking() > highestBlocking) {
+					highestBlocking = iSearch.getBlocking();
+				}
+			}
 			return highestBlocking;
 		}
 		return -1; // needs to raise error, maybe

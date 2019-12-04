@@ -16,7 +16,7 @@ public class ColouredDoor extends Door {
 	public ColouredDoor(int x, int y, String colour) {
 		// TODO Auto-generated constructor stub
 		super(x, y);
-		this.colour = colour;
+		this.colour = colour.toLowerCase();
 	}
 	
 	public void update(Board board, Player player, int keyboardIn) {
@@ -24,31 +24,32 @@ public class ColouredDoor extends Door {
 			switch (keyboardIn) {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 1:
 				if (this.xCoord == player.getxCoord() + 1 && this.yCoord == player.getyCoord()) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 2:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() + 1) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 3:
 				if (this.xCoord == player.getxCoord() - 1 && this.yCoord == player.getyCoord()) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			}
 		}
 	}
 	
-	private void open(Player player) {
+	private void open(Player player, Board board) {
 		this.setBlocking(0);
-		this.opened = true;
+	 	this.opened = true;
 		this.updateSprite("assets\\Floor.png");
+		board.removeInteractable(this);
 	}
 }
