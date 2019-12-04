@@ -336,7 +336,7 @@ public class FileManager {
 		 * @param player   The player's object
 		 * @param board    The board to save
 		 */
-		public static void savePlayerFile(String filename, Player player, Board board) {
+		public static void savePlayerFile(String filename, Player player, Board board) {	//TODO Have saveProfileFile for new profile (no board available)
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
 			ArrayList<Movable> movables = board.getMovables();
