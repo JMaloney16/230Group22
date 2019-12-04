@@ -16,6 +16,7 @@ public class Player extends Movable {
 	private boolean boots = false;
 	private boolean katanna = false;
 	private boolean killed = false;
+	private boolean completed = false;
 	private String name;
 	private int maxLevel;
 
@@ -41,8 +42,10 @@ public class Player extends Movable {
 	 * @return Returns a code, 0-player could no perform move, 1 successfully moved,
 	 *         2-player is dead.
 	 */
-	public int update(Board board, int keyboardIn) { // return codes, 0 didn't move, 1 moved, 2 dead
-		// keyboard in 0 noon through to 3 at 9 o'clock
+	public int update(Board board, int keyboardIn) { // return codes, 0 didn't move, 1 moved, 2 dead, 3 level completed
+		if (this.completed == true) {
+			return 3;
+		}
 		if (this.killed == true) {
 			return 2;
 		}
@@ -198,6 +201,10 @@ public class Player extends Movable {
 	 */
 	public void kill() {
 		this.killed = true;
+	}
+	
+	public void completeLevel() {
+		this.completed = true;
 	}
 
 	/**

@@ -1,8 +1,9 @@
 /**
- * Goal.java 
+ * Goal.java, implements the goal for the player to complete the level
  * 
- * @version 0.1
+ * @version 0.2
  * @author Gino Sesia
+ * @author Ewan Bradford
  *
  */
 
@@ -16,9 +17,13 @@ public class Goal extends Tile {
 	 */
 	public Goal(int x, int y) {
 		super(x, y, "assets/Goal.png", 0);
-		// TODO Auto-generated constructor stub
 	}
 	
+	public void update(Board board, Player player, int keyboardIn) {
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+			player.completeLevel();
+		}
+	}
 	
 	
 

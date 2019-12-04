@@ -135,8 +135,12 @@ public class GameManager {
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
 			this.board.updateInteractables(this.player, this.lastKey);
-			if (this.player.update(this.board, this.lastKey) == 2) {
+			int playerState = this.player.update(this.board, this.lastKey);
+			if (playerState == 2) {
 				this.restart();
+			}
+			if (playerState == 3) {
+				this.nextLevel();
 			} else {
 				this.board.updateInteractables(this.player, this.lastKey);
 			}
@@ -220,5 +224,9 @@ public class GameManager {
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
 		this.player = new Player(0, 0, 0);
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
+	}
+	
+	private void nextLevel() {
+		System.out.println("Level has been completed");
 	}
 }
