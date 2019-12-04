@@ -205,7 +205,6 @@ public class MenuManager {
 			createProfileButton.setOnAction(e -> {
 				if(profileNameBox.getText().length() < 16) {
 					createProfileButton.setText("Clicked");
-//					players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
 					players.add(new Player(0, 0, 0));
 					drawProfileList();
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
