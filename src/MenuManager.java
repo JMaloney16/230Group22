@@ -26,7 +26,6 @@ import javafx.stage.Stage;
  * make a "continue" button work
  */
 public class MenuManager {
-
 	public static class Menu {
 		private static Stage primaryStage;
 		private static int windowWidth;
@@ -42,8 +41,6 @@ public class MenuManager {
 		private static final String PROFILE_ERROR = "Choose Profile";
 		private static final String LEVEL_ERROR = "Choose Level";
 		private static final String NETWORK_ERROR = "Network Error - No Word Of The Day :(";
-		
-		
 		
 		private static String profileSelected;	//String used to check user has chosen a profile
 		private static int levelSelected;		//int used to check if user has chosen a level
@@ -65,7 +62,6 @@ public class MenuManager {
 			setStage(stage);
 			setWindowSize(width, height);
 			
-			
 			//HBar at top for Buttons
 			HBox toolbarTop = new HBox();
 			toolbarTop.setSpacing(10);
@@ -79,17 +75,12 @@ public class MenuManager {
 			toolbarBottom.setSpacing(10);
 			toolbarBottom.setPadding(PADDING);
 			lower.getChildren().add(toolbarBottom);
-			
-			
+
 			profileList = new VBox();
 			profileList.setSpacing(10);
 			profileList.setPadding(PADDING);
 			root.setLeft(profileList);
-			
-			
-			
-			
-			
+
 			//Button to quit game
 			Button quitButton = new Button("Quit");
 			toolbarTop.getChildren().add(quitButton);
@@ -131,14 +122,13 @@ public class MenuManager {
 				deleteProfile();
 			});
 			
-			
 
 // 			Yeah idk what these are so cant change the constructor for you hun
 			// comment youre code more bb x
 //			players.add(new Player(0, 0, 0, "testerNameOne", 4));
 //			players.add(new Player(0, 0, 0, "Jack is fit", 7));
 
-			players.add(new Player(0, 0, 0));
+//			players.add(new Player(0, 0, 0));
 			
 			 
 			drawProfileList();
@@ -155,10 +145,7 @@ public class MenuManager {
 			lower.getChildren().add(wordOfDay);
 			
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
-			
-			
-			
-			
+
 //			System.out.println(root.getLeft());
 			rootPane = root;
 			return root;
@@ -211,8 +198,6 @@ public class MenuManager {
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 				}
 			});
-
-
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton, warning);
 
 		}
@@ -236,8 +221,6 @@ public class MenuManager {
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 				}
 			});
-
-
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, deleteProfileButton);
 		}
 		
@@ -256,14 +239,20 @@ public class MenuManager {
 						selectedLevel.setText(LEVEL);
 					}
 				}
-				
 				i++;
 			}
-			
 			return found;
 		}
 		
 		private static void drawProfileList() {
+			ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
+			for (String s : profiles) {
+				System.out.println(s);
+				Player p = new Player(0, 0, 0);
+				p.setName(s);
+				players.add(p);
+			}
+			
 			profileList.getChildren().clear();
 			for(Player p : players) {
 				
@@ -278,14 +267,10 @@ public class MenuManager {
 				});
 				
 				profileList.getChildren().add(button);
-						
 			}
 		}
 		
-		public static void buildLevelSelectPane(Player p) {
-			
-			
-			
+		public static void buildLevelSelectPane(Player p) {			
 			BorderPane innerRoot = new BorderPane();
 			VBox levelList = new VBox();
 			 
@@ -318,5 +303,4 @@ public class MenuManager {
 			rootPane.setCenter(innerRoot);			
 		}
 	}
-
 }
