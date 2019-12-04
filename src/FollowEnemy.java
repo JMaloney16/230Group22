@@ -16,7 +16,7 @@ public class FollowEnemy extends Enemy {
 	 * @param bias, the searching bias of the enemy (-1 for left bias, 1 for right bias)
 	 */
 	public FollowEnemy(int x, int y, int direction, int bias) {
-		super(x, y, "assets\\placeholder.png", 1, direction);
+		super(x, y, "assets\\Mummy.png", 1, direction);
 		this.bias = bias;
 		this.forceMove = false;
 	}
@@ -42,6 +42,7 @@ public class FollowEnemy extends Enemy {
 		
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getKatanna()){
+				SoundEffect.playSound("assets/Sounds/ClangBabeeyyy.wav");
 				board.removeMovable(this);
 				player.removeKatanna();
 			} else {

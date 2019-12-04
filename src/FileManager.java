@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Takes a filename and retrieves specified data from it or saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.7
+ * @version 0.8
  */
 
 //TODO
@@ -427,20 +427,38 @@ public class FileManager {
 					int yValue = moveable.getyCoord();
 					String type = moveable.getClass().getName().toUpperCase();
 					String prefix = (xValue + "," + yValue + "," + "ENEMY");
+					int dirInt = 0;
+					String direction = "";
 					if (!type.equals("PLAYER")) {
+						if(!type.equals("SMARTENEMY")) {
+							switch (((Enemy) moveable).getDir()) {
+								case 0:
+									direction = "DOWN";
+									break;
+								case 1:
+									direction = "RIGHT";
+									break;
+								case 2:
+									direction = "UP";
+									break;
+								case 3:
+									direction = "LEFT";
+									break;
+							}
+						}
 						switch (type) {
 							case "LINEENEMY":
 								//TODO: Add direction
-								writer.write(prefix + "STRAIGHT,LEFT");
+								writer.write(prefix + "STRAIGHT," + direction);
 								break;
 							case "SMARTENEMY":
 								writer.write(prefix + "SMART");
 								break;
 							case "FOLLOWENEMY":
-								writer.write(prefix + "FOLLOW");
+								writer.write(prefix + "FOLLOW," + direction);
 								break;
 							case "DUMBENEMY":
-								writer.write(prefix + "DUMB");
+								writer.write(prefix + "DUMB," + direction);
 								break;
 							default:
 								System.out.println("Not accounted for! " + type);

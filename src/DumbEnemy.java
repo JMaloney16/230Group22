@@ -12,7 +12,7 @@ public class DumbEnemy extends Enemy {
 	 * @param direction, the starting direction of the enemy
 	 */
 	public DumbEnemy(int x, int y, int direction) {
-		super(x, y, "assets\\placeholder.png", 1, direction);
+		super(x, y, "assets\\Mummy.png", 1, direction);
 	}
 
 	/**
@@ -54,6 +54,7 @@ public class DumbEnemy extends Enemy {
 
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getKatanna()){
+				SoundEffect.playSound("assets/Sounds/ClangBabeeyyy.wav");
 				board.removeMovable(this);
 				player.removeKatanna();
 			} else {
