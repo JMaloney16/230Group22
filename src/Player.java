@@ -78,6 +78,7 @@ public class Player extends Movable {
 			break;
 		case 3:
 			search = board.getBlocking(this.xCoord - 1, this.yCoord);
+			System.out.println(search);
 			if (search == -1) {
 				return 0;
 			} else if (search < 2) {
