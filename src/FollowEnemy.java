@@ -41,7 +41,12 @@ public class FollowEnemy extends Enemy {
 		}
 		
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			player.kill();
+			if (player.getKatanna()){
+				board.removeMovable(this);
+				player.removeKatanna();
+			} else {
+				player.kill();
+			}
 		}
 	}
 }

@@ -24,33 +24,34 @@ public class TokenDoor extends Door {
 			switch (keyboardIn) {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 1:
 				if (this.xCoord == player.getxCoord() + 1 && this.yCoord == player.getyCoord()) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 2:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() + 1) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			case 3:
 				if (this.xCoord == player.getxCoord() - 1 && this.yCoord == player.getyCoord()) {
-					this.open(player);
+					this.open(player, board);
 				}
 				break;
 			}
 		}
 	}
-	private void open(Player player) {
+	private void open(Player player, Board board) {
 		this.setBlocking(0);
 		this.opened = true;
 		player.addToken(-this.threshold);
 		
 		this.updateSprite("assets\\Floor.png");
+		board.removeInteractable(this);
 	}
 
 }

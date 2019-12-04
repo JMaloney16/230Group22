@@ -16,6 +16,7 @@ public class Player extends Movable {
 	private int tokens = 0;
 	private boolean flippers = false;
 	private boolean boots = false;
+	private boolean katanna = false;
 	private boolean killed = false;
 	private String name;
 	private int maxLevel;
@@ -239,7 +240,19 @@ public class Player extends Movable {
 	public boolean getFlippers() {
 		return this.flippers;
 	}
-	
+
+	public void addKatanna() {
+		this.katanna = true;
+	}
+
+	public void removeKatanna() {
+		this.katanna = false;
+	}
+
+	public boolean getKatanna() {
+		return this.katanna;
+	}
+
 	public void setPosX(int x) {
 		this.xCoord = x;
 	}

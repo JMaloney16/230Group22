@@ -289,6 +289,9 @@ public class FileManager {
 						System.out.println("Key");
 						player.addKey(line.next().toLowerCase());
 						break;
+					case "KATANNA":
+						System.out.println("Katanna");
+						player.addKatanna();
 					default:
 						System.out.println("Unrecognized!");
 				}
