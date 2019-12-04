@@ -25,7 +25,7 @@ public class Shoe extends Collectable {
 	private static String getSprite(String type) {
 		String sprite = "assets/";
 		if (type == "boots") {
-			sprite += "player.png";
+			sprite += "Boots.png";
 		} else {
 			sprite += "placeholder.png";
 		}
