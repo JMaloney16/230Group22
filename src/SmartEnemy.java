@@ -39,7 +39,7 @@ public class SmartEnemy extends Enemy {
 	 * @param y, y coordinate of the enemy
 	 */
 	public SmartEnemy(int x, int y) {
-		super(x, y, "assets\\placeholder.png", 1, 0);
+		super(x, y, "assets\\Mummy.png", 1, 0);
 	}
 
 	/** Returns the cell with the minimum f value in the arraylist
@@ -149,6 +149,7 @@ public class SmartEnemy extends Enemy {
 		
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getKatanna()){
+				SoundEffect.playSound("assets/Sounds/ClangBabeeyyy.wav");
 				board.removeMovable(this);
 				player.removeKatanna();
 			} else {
