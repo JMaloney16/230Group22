@@ -18,7 +18,9 @@ public class Player extends Movable {
 	private boolean killed = false;
 	private boolean completed = false;
 	private String name;
+	private int currentLevel;
 	private int maxLevel;
+	private int currentMoves;
 
 	/**
 	 * Creates a new player from a position and image file.
@@ -276,11 +278,23 @@ public class Player extends Movable {
 //	public int getPosY() {
 //		return this.yCoord;
 //	}
+	public void setCurrentMoves(int moves) {
+		this.currentMoves = moves;
+	}	
+	public int getCurrentMoves() {
+		return this.currentMoves;
+	}
+	
+	public void setCurrentLevel(int level) {
+		this.currentLevel = level;
+	}
+	public int getCurrentLevel() {
+		return this.currentLevel;
+	}
 
 	public void setMaxLevel(int maxLevel) {
 		this.maxLevel = maxLevel;
 	}
-
 	public int getMaxLevel() {
 		return this.maxLevel;
 	}
