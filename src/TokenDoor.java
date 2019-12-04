@@ -15,7 +15,7 @@ public class TokenDoor extends Door {
 	 * @param y, the y coordinate of the water tile.
 	 */
 	public TokenDoor(int x, int y, int amount) {
-		super(x, y);
+		super(x, y, "assets\\Door.png");
 		this.threshold = amount;
 	}
 

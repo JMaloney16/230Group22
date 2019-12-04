@@ -15,7 +15,21 @@ public class ColouredDoor extends Door {
 	 */
 	public ColouredDoor(int x, int y, String colour) {
 		// TODO Auto-generated constructor stub
-		super(x, y);
+		super(x, y, "assets\\Door.png");
+		switch (colour.toLowerCase()) {
+		case "red":
+			this.updateSprite("assets\\DoorRed.png");
+			break;
+		case "blue":
+			this.updateSprite("assets\\DoorBlue.png");
+			break;
+		case "green":
+			this.updateSprite("assets\\DoorGreen.png");
+			break;
+		case "yellow":
+			this.updateSprite("assets\\DoorYellow.png");
+			break;
+		}
 		this.colour = colour.toLowerCase();
 	}
 	

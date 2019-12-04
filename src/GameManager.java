@@ -27,7 +27,7 @@ public class GameManager {
 	private Player player;
 	private Board board;
 	private String boardFile;
-//TODO CREATE TIME
+	
 	private GraphicsContext gc;
 	private Scene gameScene;
 	private Stage stage;
@@ -35,6 +35,8 @@ public class GameManager {
 	private int windowWidth;
 	private int windowHeight;
 	private int cellSize;
+	
+	private int moves = 0;
 
 	private int lastKey = -1;
 
@@ -96,7 +98,7 @@ public class GameManager {
 //		ArrayList<Movable> temp3 = new ArrayList<Movable>();
 //		temp3.add(new SmartEnemy(1, 9));
 //		this.board = new Board(temp, temp3, temp2);
-		this.boardFile = "levels\\BigLevel";
+		this.boardFile = "levels\\LevelExample.txt";
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 //		System.out.println(this.board.getBoard()[2][6]);
 		this.createGameScene();
@@ -124,6 +126,7 @@ public class GameManager {
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
+			this.moves += 1;
 //			System.out.print("key: ");
 //			System.out.println(this.lastKey);
 //			
@@ -201,13 +204,18 @@ public class GameManager {
 	/**
 	 * Allows the keyboard to be given to the gameManager
 	 * 
-	 * @param key, the direction of the key inputted
+	 * @param key, the direction of the key inputed
 	 */
 	public void setKey(int key) {
 		this.lastKey = key;
 	}
+	
+	public int getMoves() {
+		return this.moves;
+	}
 
 	private void restart() {
+		this.moves = 0;
 		System.out.println("dont die next time.");
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
 		this.player = new Player(0, 0, 0);

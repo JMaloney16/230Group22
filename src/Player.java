@@ -4,9 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 // -----> stores max level
 
 /**
- * Player.java
- * Stores all data ascociated with the player. 
- * Subclass of Movable.
+ * Player.java Stores all data ascociated with the player. Subclass of Movable.
  * 
  * @version 0.1
  * @author Ewan Bradford, Luke Francis
@@ -23,8 +21,8 @@ public class Player extends Movable {
 	/**
 	 * Creates a new player from a position and image file.
 	 * 
-	 * @param x,      the x coordinate of the player.
-	 * @param y,      the y coordinate of the player.
+	 * @param x,        the x coordinate of the player.
+	 * @param y,        the y coordinate of the player.
 	 * @param maxLevel, highest level reached by the player
 	 */
 	public Player(int x, int y, int maxLevel) {
@@ -129,39 +127,44 @@ public class Player extends Movable {
 			return false;
 		}
 	}
-	
+
 	public boolean checkKey(String keyColour) {
-		switch (keyColour) {
-		case "red":
-			if (this.keys[0] > 0) {
-				return true;
+		if (keyColour != null) {
+			switch (keyColour) {
+			case "red":
+				if (this.keys[0] > 0) {
+					return true;
+				}
+				return false;
+			case "blue":
+				if (this.keys[1] > 0) {
+					return true;
+				}
+				return false;
+			case "yellow":
+				if (this.keys[2] > 0) {
+					return true;
+				}
+				return false;
+			case "green":
+				if (this.keys[2] > 0) {
+					return true;
+				}
+				return false;
+			default: // if asked for no existent key colour
+				return false;
 			}
-			return false;
-		case "blue":
-			if (this.keys[1] > 0) {
-				return true;
-			}
-			return false;
-		case "yellow":
-			if (this.keys[2] > 0) {
-				return true;
-			}
-			return false;
-		case "green":
-			if (this.keys[2] > 0) {
-				return true;
-			}
-			return false;
-		default: // if asked for no existent key colour
-			return false;
 		}
+		return false;
 	}
-	
-	/** draws the player
+
+	/**
+	 * draws the player
+	 * 
 	 * @param gc, graphics context to be drawn to
 	 */
 	public void draw(GraphicsContext gc) {
-		this.draw(gc, this.xCoord-3, this.yCoord-3);
+		this.draw(gc, this.xCoord - 3, this.yCoord - 3);
 	}
 
 	/**
@@ -187,16 +190,15 @@ public class Player extends Movable {
 			System.out.println(keyColour);
 			System.out.println("Cant add that key"); // maybe raise an error?
 		}
-		System.out.println(this.keys[0]);
 	}
-	
+
 	/**
 	 * Sets the killed attribute to true, killing the play next update
 	 */
 	public void kill() {
 		this.killed = true;
 	}
-	
+
 	/**
 	 * Adds tokens to the player.
 	 * 
@@ -240,20 +242,20 @@ public class Player extends Movable {
 	public boolean getFlippers() {
 		return this.flippers;
 	}
-	
+
 	public void setPosX(int x) {
 		this.xCoord = x;
 	}
+
 	public void setPosY(int y) {
 		this.yCoord = y;
-	}	
+	}
 //	public int getPosX() {
 //		return this.xCoord;
 //	}
 //	public int getPosY() {
 //		return this.yCoord;
 //	}
-
 
 	public void setMaxLevel(int maxLevel) {
 		this.maxLevel = maxLevel;
@@ -262,7 +264,7 @@ public class Player extends Movable {
 	public int getMaxLevel() {
 		return this.maxLevel;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}

@@ -13,8 +13,8 @@ public abstract class Door extends Tile {
 	 * @param x, the x coordinate of the Door tile.
 	 * @param y, the y coordinate of the Door tile.
 	 */
-	public Door(int x, int y) {
-		super(x, y, "assets/Door.png", 2);
+	public Door(int x, int y, String sprite) {
+		super(x, y, sprite, 2);
 	}
 
 	/**
