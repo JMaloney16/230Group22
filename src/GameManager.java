@@ -27,7 +27,7 @@ public class GameManager {
 	private Player player;
 	private Board board;
 	private String boardFile;
-
+//TODO CREATE TIME
 	private GraphicsContext gc;
 	private Scene gameScene;
 	private Stage stage;
@@ -61,7 +61,9 @@ public class GameManager {
 
 		this.boardFile = boardFile;
 
-		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
+//		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
+		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
+		this.player = new Player(0, 0, 0);
 
 		Drawable[][] temp = new Drawable[16][16];
 		for (int y = 0; y < 16; y++) {
@@ -73,28 +75,29 @@ public class GameManager {
 				}
 			}
 		}
-		Teleporter t1 = new Teleporter(3, 3);
-		Teleporter t2 = new Teleporter(10, 10);
-		t1.setPartner(t2);
-		t2.setPartner(t1);
-		temp[13][14] = new StaticEntity(13, 14, "assets\\Lava.png", 1);
-		temp[3][3] = t1;
-		temp[10][10] = t2;
-
-		temp[3][6] = new ColouredDoor(3, 6, "blue");
-
-		temp[4][1] = new Lava(4, 1);
-
-		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
-//		temp2.add(new Key(3, 3, "red"));
-		temp2.add(new Token(4, 4));
-		temp2.add(new Key(1, 2, "blue"));
-		temp2.add(new Shoe(3, 1, "boots"));
-
-		ArrayList<Movable> temp3 = new ArrayList<Movable>();
-		temp3.add(new SmartEnemy(1, 9));
-		this.board = new Board(temp, temp3, temp2);
-
+//		Teleporter t1 = new Teleporter(3, 3);
+//		Teleporter t2 = new Teleporter(10, 10);
+//		t1.setPartner(t2);
+//		t2.setPartner(t1);
+//		temp[13][14] = new StaticEntity(13, 14, "assets\\Lava.png", 1);
+//		temp[3][3] = t1;
+//		temp[10][10] = t2;
+//
+//		temp[3][6] = new ColouredDoor(3, 6, "blue");
+//
+//		temp[4][1] = new Lava(4, 1);
+//
+//		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
+////		temp2.add(new Key(3, 3, "red"));
+//		temp2.add(new Token(4, 4));
+//		temp2.add(new Key(1, 2, "blue"));
+//		temp2.add(new Shoe(3, 1, "boots"));
+//
+//		ArrayList<Movable> temp3 = new ArrayList<Movable>();
+//		temp3.add(new SmartEnemy(1, 9));
+//		this.board = new Board(temp, temp3, temp2);
+		FileManager.FileReading.readMapFile("levels\\BigLevel", board, player);
+		System.out.println(this.board.getBoard()[2][6]);
 		this.createGameScene();
 
 		primaryStage.setScene(this.gameScene);

@@ -44,7 +44,8 @@ public class Board {
 		// draws board top left to bottom right
 		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length - 1, playerY + 3); y++) {
 			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length - 1, playerX + 3); x++) {
-				board[x][y].draw(gc, playerX - 3, playerY - 3);
+					board[x][y].draw(gc, playerX - 3, playerY - 3);
+
 			}
 		}
 	}

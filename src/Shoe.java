@@ -25,7 +25,7 @@ public class Shoe extends Collectable {
 	private static String getSprite(String type) {
 		String sprite = "assets/";
 		if (type == "boots") {
-			sprite += "placeholder.png";
+			sprite += "player.png";
 		} else {
 			sprite += "placeholder.png";
 		}
@@ -35,7 +35,6 @@ public class Shoe extends Collectable {
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() &&
 			this.type.equals("flippers")) {
-			System.out.println("tester");
 			player.addFlippers();
 			board.removeInteractable(this);
 		} else if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() &&

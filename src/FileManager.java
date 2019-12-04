@@ -66,8 +66,8 @@ public class FileManager {
 			System.out.println(boardX);
 			System.out.println(boardY);
 			boardDrawables = new Drawable[boardX][boardY];
-			movables = new ArrayList<>();
-			interactables = new ArrayList<>();
+			movables = new ArrayList<Movable>();
+			interactables = new ArrayList<Interactable>();
 			in.nextLine();
 			for (int i = 0; i < boardY; i++) {
 				String currentTileLine = in.nextLine();
@@ -92,9 +92,11 @@ public class FileManager {
 							break;
 						case "T":
 							System.out.print("T");
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 1);
 							break;
 						case "D":
 							System.out.print("D");
+							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
 							break;
 						case "G":
 							System.out.print("G");
@@ -110,8 +112,8 @@ public class FileManager {
 			String currentLine = in.nextLine();
 			while (!currentLine.startsWith(divider)) {
 				Scanner line = new Scanner(currentLine).useDelimiter(",");
-				int posX = line.nextInt();
-				int posY = line.nextInt();
+				int posX = (line.nextInt() - 1);
+				int posY = (line.nextInt() - 1);
 				System.out.println(posX + ", " + posY);
 				String keyword = line.next();
 				switch (keyword) {
@@ -133,10 +135,10 @@ public class FileManager {
 								break;
 							case "FLIPPER":
 								//TODO: Add difference between flipper and boots
-								interactables.add(new Shoe(posX, posY, "Flipper"));
+								interactables.add(new Shoe(posX, posY, "flippers"));
 								break;
 							case "BOOTS":
-								interactables.add(new Shoe(posX, posY, "Shoe"));
+								interactables.add(new Shoe(posX, posY, "boots"));
 								break;
 							case "KEY":
 								String colour = line.next();
@@ -152,17 +154,17 @@ public class FileManager {
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
 							System.out.println("It's a door that uses " + tokensRequired + " tokens!");
-							boardDrawables[posX][posY] = new TokenDoor(posX, posY, tokensRequired);
+							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
 							String doorColour = line.next();
 							System.out.println("It's a " + doorColour.toLowerCase() + " door!");
-							boardDrawables[posX][posY] = new ColouredDoor(posX, posY, doorColour);
+							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
 					case "TELE":
 						//TODO: Add teleporter partner
-						int pairX = line.nextInt();
-						int pairY = line.nextInt();
+						int pairX = line.nextInt() - 1;
+						int pairY = line.nextInt() - 1;
 						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
 						Teleporter tele1 = new Teleporter(posX, posY);
 						Teleporter tele2 = new Teleporter(pairX, pairY);
@@ -264,6 +266,7 @@ public class FileManager {
 			//TODO: Find a way to pass the currenttime to the game manager
 			int currentTime = Integer.parseInt(dividerLine.split(",")[1]);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
+			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
 			System.out.println(in.nextLine());
 
 			while (in.hasNextLine()) {
@@ -294,23 +297,25 @@ public class FileManager {
 
 			board.setNewBoard(boardDrawables, movables, interactables);
 		}
-		
-		/** Gets all the player profile
+
+		/**
+		 * Gets all the player profile
+		 *
 		 * @return ArrayList<String> of all the player profile names
 		 */
-		public static ArrayList<String> getAllProfiles(){
+		public static ArrayList<String> getAllProfiles() {
 			ArrayList<String> results = new ArrayList<String>();
 
 			File[] files = new File("profiles").listFiles();
 			//If this pathname does not denote a directory, then listFiles() returns null. 
 
 			for (File file : files) {
-			    if (file.isFile()) {
-			    	if (file.getName().contains(".txt")) {
-			    		String profileName = file.getName().replace(".txt", "");
-			    		results.add(profileName);
-			    	}
-			    }
+				if (file.isFile()) {
+					if (file.getName().contains(".txt")) {
+						String profileName = file.getName().replace(".txt", "");
+						results.add(profileName);
+					}
+				}
 			}
 			return results;
 		}
@@ -470,13 +475,15 @@ public class FileManager {
 
 		/**
 		 * Replaces a specified string in a text file
+		 *
 		 * @param filepath File to be edited
-		 * @param oldText String to be replaced
-		 * @param newText New string to add
+		 * @param oldText  String to be replaced
+		 * @param newText  New string to add
 		 * @throws IOException
 		 */
 		public static void replaceText(String filepath, String oldText, String newText)
 			throws IOException {
+
 			File file = new File(filepath);
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			FileWriter writer = new FileWriter(file);

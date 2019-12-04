@@ -133,9 +133,12 @@ public class MenuManager {
 			
 			
 
-			
-			players.add(new Player(0, 0, "", "testerNameOne", 4));
-			players.add(new Player(0, 0, "", "Jack is fit", 7));
+// 			Yeah idk what these are so cant change the constructor for you hun
+			// comment youre code more bb x
+//			players.add(new Player(0, 0, 0, "testerNameOne", 4));
+//			players.add(new Player(0, 0, 0, "Jack is fit", 7));
+
+			players.add(new Player(0, 0, 0));
 			
 			 
 			drawProfileList();
@@ -202,7 +205,8 @@ public class MenuManager {
 			createProfileButton.setOnAction(e -> {
 				if(profileNameBox.getText().length() < 16) {
 					createProfileButton.setText("Clicked");
-					players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
+//					players.add(new Player(0, 0, "", profileNameBox.getText(), 0));
+					players.add(new Player(0, 0, 0));
 					drawProfileList();
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 				}

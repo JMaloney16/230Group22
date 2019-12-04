@@ -25,10 +25,10 @@ public class Player extends Movable {
 	 * 
 	 * @param x,      the x coordinate of the player.
 	 * @param y,      the y coordinate of the player.
-	 * @param sprite, the filepath of the image for the player.
+	 * @param maxLevel, highest level reached by the player
 	 */
-	public Player(int x, int y, String sprite, String name, int maxLevel) {
-		super(x, y, sprite, 0);
+	public Player(int x, int y, int maxLevel) {
+		super(x, y, "assets\\player.png", 0);
 		this.name = name;
 		this.maxLevel = maxLevel;
 	}
@@ -253,7 +253,12 @@ public class Player extends Movable {
 //		return this.yCoord;
 //	}
 
-	public int getMaxLevel() { 
+
+	public void setMaxLevel(int maxLevel) {
+		this.maxLevel = maxLevel;
+	}
+
+	public int getMaxLevel() {
 		return this.maxLevel;
 	}
 	
