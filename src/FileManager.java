@@ -107,7 +107,7 @@ public class FileManager {
 							boardDrawables[j][i] = new StaticEntity(j, i, "assets/placeholder.png", 2);
 					}
 				}
-				System.out.println("");
+				System.out.println();
 			}
 			String currentLine = in.nextLine();
 			while (!currentLine.startsWith(divider)) {
@@ -144,6 +144,11 @@ public class FileManager {
 								String colour = line.next();
 								System.out.println("It's a " + colour + " key");
 								interactables.add(new Key(posX, posY, colour));
+								break;
+							case "KATANNA":
+								System.out.println("It's a katanna!");
+								interactables.add(new Katanna(posX, posY));
+								break;
 							default:
 								System.out.println("Unrecognised!");
 								break;
@@ -263,10 +268,13 @@ public class FileManager {
 			Scanner in = createFileScanner(filepath);
 			String playerName = filepath.substring(0, filepath.length() - 4);
 			readAnyFile(in, "CURRENTTIME", player);
-			//TODO: Find a way to pass the currenttime to the game manager
-			int currentTime = Integer.parseInt(dividerLine.split(",")[1]);
+
+			int currentMoves = Integer.parseInt(dividerLine.split(",")[1]);
+			player.setCurrentMoves(currentMoves);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
+			player.setCurrentLevel(playerLevel);
 			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
+			player.setMaxLevel(playerMaxLevel);
 			System.out.println(in.nextLine());
 
 			while (in.hasNextLine()) {
@@ -292,6 +300,7 @@ public class FileManager {
 					case "KATANNA":
 						System.out.println("Katanna");
 						player.addKatanna();
+						break;
 					default:
 						System.out.println("Unrecognized!");
 				}
@@ -330,13 +339,39 @@ public class FileManager {
 		}
 
 		/**
+		 * Creates a new player's save file
+		 * @param playerName The player's name
+		 */
+		public static void createNewPlayer(String playerName) {
+			BufferedWriter writer = null;
+			File file = new File(playerName + ".txt");
+			try {
+				file.createNewFile();
+				FileWriter fw = new FileWriter(file, false);
+				writer = new BufferedWriter(fw);
+				writer.write(copyFileContents("assets/newplayer.txt"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (writer != null) {
+						writer.close();
+					}
+				} catch (Exception ex) {
+					System.out.println(ex);
+				}
+			}
+
+		}
+
+		/**
 		 * Saves the player's game to a textfile
 		 *
 		 * @param filename Name of the file to save to
 		 * @param player   The player's object
 		 * @param board    The board to save
 		 */
-		public static void savePlayerFile(String filename, Player player, Board board) {	//TODO Have saveProfileFile for new profile (no board available)
+		public static void savePlayerFile(String filename, Player player, Board board) {    //TODO Have saveProfileFile for new profile (no board available)
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
 			ArrayList<Movable> movables = board.getMovables();
@@ -350,7 +385,7 @@ public class FileManager {
 					file.createNewFile();
 				}
 
-				FileWriter fw = new FileWriter(file);
+				FileWriter fw = new FileWriter(file, false);
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
 				writer.write(boardX + "," + boardY + ",");
@@ -359,10 +394,16 @@ public class FileManager {
 					for (int j = 0; j < boardY; j++) {
 						switch (boardArray[j][i].getClass().getName()) {
 							case "StaticEntity":
-								if (boardArray[j][i].getBlocking() == 0) {
-									currentLine += "#";
-								} else {
-									currentLine += ".";
+								switch (boardArray[j][i].getBlocking()) {
+									case 2:
+										currentLine += "#";
+										break;
+									case 0:
+										currentLine += ".";
+										break;
+									default:
+										currentLine += "T";
+										break;
 								}
 								break;
 							case "Fire":
@@ -384,12 +425,12 @@ public class FileManager {
 					writer.write(currentLine);
 				}
 				//TODO: Get player coords
-				int playerX = 10;
-				int playerY = 9;
+				int playerX = player.getxCoord() + 1;
+				int playerY = player.getyCoord() + 1;
 				writer.write(playerX + "," + playerY + "," + "START");
 				for (Interactable interactable : interactables) {
-					int xValue = interactable.getxCoord();
-					int yValue = interactable.getyCoord();
+					int xValue = interactable.getxCoord() + 1;
+					int yValue = interactable.getyCoord() + 1;
 					String type = interactable.getClass().getName().toUpperCase();
 					String prefix = (xValue + "," + yValue + ",");
 					switch (type) {
@@ -418,19 +459,21 @@ public class FileManager {
 							//TODO: Get the teleporter's partner
 							writer.write(prefix + "TELE,1");
 							break;
+						case "KATANNA":
+							writer.write(prefix + "KATANNA");
+							break;
 						default:
 							System.out.println("Not implemented: " + type);
 					}
 				}
 				for (Movable moveable : movables) {
-					int xValue = moveable.getxCoord();
-					int yValue = moveable.getyCoord();
+					int xValue = moveable.getxCoord() + 1;
+					int yValue = moveable.getyCoord() + 1;
 					String type = moveable.getClass().getName().toUpperCase();
 					String prefix = (xValue + "," + yValue + "," + "ENEMY");
-					int dirInt = 0;
 					String direction = "";
 					if (!type.equals("PLAYER")) {
-						if(!type.equals("SMARTENEMY")) {
+						if (!type.equals("SMARTENEMY")) {
 							switch (((Enemy) moveable).getDir()) {
 								case 0:
 									direction = "DOWN";
@@ -466,17 +509,21 @@ public class FileManager {
 					}
 				}
 				//TODO: Get current player time and level
-				int playerTime = 23;
-				//int level = player.getMaxLevel();
-				int level = board.getLevelNumber();
-				writer.write("CURRENTTIME," + playerTime);
+				int playerMoves = player.getCurrentMoves();
+				int level = player.getCurrentLevel();
+				int maxLevel = player.getMaxLevel();
+				writer.write("CURRENTTIME," + playerMoves);
 				writer.write("LEVEL," + level);
+				writer.write("MAXLEVEL," + maxLevel);
 				writer.write("INVENTORY");
 				if (player.getFlippers()) {
 					writer.write("FLIPPER");
 				}
 				if (player.getBoots()) {
 					writer.write("BOOTS");
+				}
+				if (player.getKatanna()) {
+					writer.write("KATANNA");
 				}
 				int tokenAmount = player.getTokens();
 				writer.write("TOKEN," + tokenAmount);
@@ -504,22 +551,37 @@ public class FileManager {
 		 */
 		public static void replaceText(String filepath, String oldText, String newText)
 			throws IOException {
-
 			File file = new File(filepath);
-			BufferedReader br = new BufferedReader(new FileReader(file));
+
 			FileWriter writer = new FileWriter(file);
 
-			String oldFile = "";
-			String currentline = br.readLine();
-			while (currentline != null) {
-				oldFile = oldFile + currentline + System.lineSeparator();
-				currentline = br.readLine();
-			}
+			String oldFile = copyFileContents(filepath);
+
 
 			String newFile = oldFile.replaceAll(oldText, newText);
 			writer.write(newFile);
-			br.close();
+
 			writer.close();
+		}
+
+		/**
+		 * Copies all text in a file to a string
+		 *
+		 * @param filepath file to copy
+		 * @return String containing file's contents
+		 * @throws IOException
+		 */
+		private static String copyFileContents(String filepath) throws IOException {
+			File file = new File(filepath);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String contents = "";
+			String currentline = br.readLine();
+			while (currentline != null) {
+				contents = contents + currentline + System.lineSeparator();
+				currentline = br.readLine();
+			}
+			br.close();
+			return contents;
 		}
 	}
 }
