@@ -61,6 +61,7 @@ public class ColouredDoor extends Door {
 	}
 	
 	private void open(Player player, Board board) {
+		SoundEffect.playSound("assets\\sounds\\Door.wav");
 		this.setBlocking(0);
 	 	this.opened = true;
 		this.updateSprite("assets\\Floor.png");

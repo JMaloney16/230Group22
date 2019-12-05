@@ -178,6 +178,7 @@ public class Player extends Movable {
 	 * @param keyColour, the colour of the key to add. (red, blue, yellow or green)
 	 */
 	public void addKey(String keyColour) {
+		SoundEffect.playSound("assets\\sounds\\Key.wav");
 		switch (keyColour) {
 		case "red":
 			this.keys[0] += 1;
@@ -201,6 +202,7 @@ public class Player extends Movable {
 	 * Sets the killed attribute to true, killing the play next update
 	 */
 	public void kill() {
+		SoundEffect.playSound("assets\\sounds\\Death.wav");
 		this.killed = true;
 	}
 	
@@ -228,6 +230,7 @@ public class Player extends Movable {
 	 * Gives the player boots
 	 */
 	public void addBoots() {
+		SoundEffect.playSound("assets\\sounds\\Boots.wav");
 		this.boots = true;
 	}
 

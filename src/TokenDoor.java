@@ -46,6 +46,7 @@ public class TokenDoor extends Door {
 		}
 	}
 	private void open(Player player, Board board) {
+		SoundEffect.playSound("assets\\sounds\\Door.wav");
 		this.setBlocking(0);
 		this.opened = true;
 		player.addToken(-this.threshold);

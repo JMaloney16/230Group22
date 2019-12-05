@@ -35,7 +35,7 @@ public class LineEnemy extends Enemy {
 		
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getKatanna()){
-				SoundEffect.playSound("assets/Sounds/ClangBabeeyyy.wav");
+				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
 				board.removeMovable(this);
 				player.removeKatanna();
 			} else {
