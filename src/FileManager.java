@@ -344,7 +344,7 @@ public class FileManager {
 		 */
 		public static void createNewPlayer(String playerName) {
 			BufferedWriter writer = null;
-			File file = new File(playerName + ".txt");
+			File file = new File("profiles/" + playerName + ".txt");
 			try {
 				file.createNewFile();
 				FileWriter fw = new FileWriter(file, false);
