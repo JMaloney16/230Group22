@@ -275,7 +275,7 @@ public class MenuManager {
 					int level = Integer.parseInt(button.getText());
 					levelSelected = level;
 					selectedLevel.setText(LEVEL + level);
-					buildLeaderboardPane(FileManager.FileReading.getLeaderboard("levels\\" + level +".txt"));
+					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + level +".txt"));
 				});
 				levelList.getChildren().add(button);
 			} else {
@@ -287,7 +287,7 @@ public class MenuManager {
 						int level = Integer.parseInt(button.getText());
 						levelSelected = level;
 						selectedLevel.setText(LEVEL + level);
-
+						buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + level +".txt"));
 					});
 					levelList.getChildren().add(button);
 				}
@@ -299,13 +299,19 @@ public class MenuManager {
 		}
 		
 		
-		private static void buildLeaderboardPane(ArrayList<String> leaderboard) {
+		private static void buildLeaderboardPane(BorderPane innerRoot, ArrayList<String> leaderboard) {
 			VBox leaderBoardPane = new VBox();
-			System.out.println("Activated");
-			for(String s: leaderboard) {
-				System.out.println(s);
+			leaderBoardPane.setPadding(PADDING);
+			Label leaderboardLabel = new Label("Leaderboard");
+			leaderBoardPane.getChildren().add(leaderboardLabel);
+			for(int i = 0; i < leaderboard.size(); i+= 2) {
+				HBox box = new HBox();
+				Label nameLabel = new Label(leaderboard.get(i) + ": ");
+				Label timeLabel = new Label(leaderboard.get(i + 1));
+				box.getChildren().addAll(nameLabel, timeLabel);
+				leaderBoardPane.getChildren().add(box);
 			}
-
+			innerRoot.setRight(leaderBoardPane);
 		}
 	}
 }
