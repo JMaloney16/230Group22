@@ -56,7 +56,7 @@ public class GameManager {
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
 	 */
-	public GameManager(Stage primaryStage, String boardFile, int windowWidth, int windowHeight, int cellSize) {
+	public GameManager(Stage primaryStage, String boardFile, String playerName, int windowWidth, int windowHeight, int cellSize) {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
 		this.cellSize = cellSize;
