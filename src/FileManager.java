@@ -267,15 +267,28 @@ public class FileManager {
 		 * @param player   player to edit
 		 * @param board    board to edit
 		 */
-		public static void readPlayerFile(String filepath, Player player, Board board) { // please make it
-																							// readPlayerFile(String
-																							// filepath, Player player,
-																							// Board board) thanks x
+		public static void readPlayerFile(String filepath, Player player, Board board) {
 			Scanner in = createFileScanner(filepath);
 			String playerName = filepath.substring(0, filepath.length() - 4);
 			readAnyFile(in, "CURRENTTIME", player);
 
-			int currentMoves = Integer.parseInt(dividerLine.split(",")[1]);
+			getPlayerDetails(player, in, dividerLine);
+
+			board.setNewBoard(boardDrawables, movables, interactables);
+		}
+
+		public static void readPlayerFile(String filepath, Player player) {
+			Scanner in = createFileScanner(filepath);
+			String currentLine = in.nextLine();
+
+			while (!currentLine.startsWith("CURRENTTIME")) {
+				currentLine = in.nextLine();
+			}
+			getPlayerDetails(player, in, currentLine);
+		}
+
+		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
+			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
 			player.setCurrentMoves(currentMoves);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			player.setCurrentLevel(playerLevel);
@@ -287,33 +300,31 @@ public class FileManager {
 				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
 				String itemType = line.next();
 				switch (itemType) {
-				case "FLIPPER":
-					System.out.println("Flippers");
-					player.addFlippers();
-					break;
-				case "BOOTS":
-					System.out.println("Boots");
-					player.addBoots();
-					break;
-				case "TOKEN":
-					System.out.println("Token");
-					player.addToken(line.nextInt());
-					break;
-				case "KEY":
-					System.out.println("Key");
-					player.addKey(line.next().toLowerCase());
-					break;
-				case "KATANNA":
-					System.out.println("Katanna");
-					player.addKatanna();
-					break;
-				default:
-					System.out.println("Unrecognized!");
+					case "FLIPPER":
+						System.out.println("Flippers");
+						player.addFlippers();
+						break;
+					case "BOOTS":
+						System.out.println("Boots");
+						player.addBoots();
+						break;
+					case "TOKEN":
+						System.out.println("Token");
+						player.addToken(line.nextInt());
+						break;
+					case "KEY":
+						System.out.println("Key");
+						player.addKey(line.next().toLowerCase());
+						break;
+					case "KATANNA":
+						System.out.println("Katanna");
+						player.addKatanna();
+						break;
+					default:
+						System.out.println("Unrecognized!");
 				}
 
 			}
-
-			board.setNewBoard(boardDrawables, movables, interactables);
 		}
 
 		/**
