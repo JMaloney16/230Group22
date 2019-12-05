@@ -325,7 +325,6 @@ public class FileManager {
 			String currentLine = in.nextLine();
 
 			while (!currentLine.equals("LEADERBOARD")) {
-				System.out.println(currentLine);
 				currentLine = in.nextLine();
 			}
 			currentLine = in.nextLine();
