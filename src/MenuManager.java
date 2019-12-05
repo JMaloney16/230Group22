@@ -170,15 +170,6 @@ public class MenuManager {
 		}
 
 		private static void createProfile() {
-			// Temps
-			/*Player tempPlayer = new Player(0, 0, "../assets/playerPlaceholder.png", "", 0);
-
-			Drawable[][] tempDraw = new Drawable[10][10];
-			ArrayList<Movable> move = new ArrayList<Movable>();
-			ArrayList<Interactable> interact = new ArrayList<Interactable>();
-			Board tempBoard = new Board(tempDraw, move, interact);
-
-			*/
 			
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
@@ -195,6 +186,7 @@ public class MenuManager {
 				if(profileNameBox.getText().length() < 16) {
 					createProfileButton.setText("Clicked");
 					players.add(new Player(0, 0, 0));
+					FileManager.FileWriting.createNewPlayer(profileNameBox.getText());
 					drawProfileList();
 					rootPane.getChildren().remove(rootPane.getChildren().size() - 1);
 				}
