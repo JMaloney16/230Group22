@@ -300,28 +300,28 @@ public class FileManager {
 				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
 				String itemType = line.next();
 				switch (itemType) {
-					case "FLIPPER":
-						System.out.println("Flippers");
-						player.addFlippers();
-						break;
-					case "BOOTS":
-						System.out.println("Boots");
-						player.addBoots();
-						break;
-					case "TOKEN":
-						System.out.println("Token");
-						player.addToken(line.nextInt());
-						break;
-					case "KEY":
-						System.out.println("Key");
-						player.addKey(line.next().toLowerCase());
-						break;
-					case "KATANNA":
-						System.out.println("Katanna");
-						player.addKatanna();
-						break;
-					default:
-						System.out.println("Unrecognized!");
+				case "FLIPPER":
+					System.out.println("Flippers");
+					player.addFlippers();
+					break;
+				case "BOOTS":
+					System.out.println("Boots");
+					player.addBoots();
+					break;
+				case "TOKEN":
+					System.out.println("Token");
+					player.addToken(line.nextInt());
+					break;
+				case "KEY":
+					System.out.println("Key");
+					player.addKey(line.next().toLowerCase());
+					break;
+				case "KATANNA":
+					System.out.println("Katanna");
+					player.addKatanna();
+					break;
+				default:
+					System.out.println("Unrecognized!");
 				}
 
 			}
@@ -382,7 +382,7 @@ public class FileManager {
 
 	public static class FileWriting {
 		public static void savePlayerFile(Player player, Board board) {
-			savePlayerFile("testPlayerFile.txt", player, board);
+			savePlayerFile("profiles\\" + player.getName() + ".txt", player, board);
 		}
 
 		/**
