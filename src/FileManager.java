@@ -438,7 +438,7 @@ public class FileManager {
 				FileWriter fw = new FileWriter(file, false);
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
-				writer.write(boardX + "," + boardY + ",\n");
+				writer.write(boardX + "," + boardY + ","+System.lineSeparator());
 				for (int i = 0; i < boardY; i++) {
 					String currentLine = "";
 					for (int j = 0; j < boardX; j++) {
@@ -472,13 +472,13 @@ public class FileManager {
 							System.out.println("Not accounted for: " + boardArray[j][i].getClass().getName());
 						}
 					}
-					writer.write(currentLine + "\n");
+					writer.write(currentLine + System.lineSeparator());
 
 				}
 				// TODO: Get player coords
 				int playerX = player.getxCoord() + 1;
 				int playerY = player.getyCoord() + 1;
-				writer.write(playerX + "," + playerY + "," + "START\n");
+				writer.write(playerX + "," + playerY + "," + "START" + System.lineSeparator());
 				for (Interactable interactable : interactables) {
 					int xValue = interactable.getxCoord() + 1;
 					int yValue = interactable.getyCoord() + 1;
@@ -519,7 +519,7 @@ public class FileManager {
 					default:
 						System.out.println("Not implemented: " + type);
 					}
-					writer.write("\n");
+					writer.write(System.lineSeparator());
 				}
 				for (Movable moveable : movables) {
 					int xValue = moveable.getxCoord() + 1;
@@ -562,27 +562,27 @@ public class FileManager {
 							System.out.println("Not accounted for! " + type);
 						}
 					}
-					writer.write("\n");
+					writer.write(System.lineSeparator());
 				}
 				// TODO: Get current player time and level
 				int playerMoves = player.getCurrentMoves();
 				int level = player.getCurrentLevel();
 				int maxLevel = player.getMaxLevel();
-				writer.write("CURRENTTIME," + playerMoves + "\n");
-				writer.write("LEVEL," + level + "\n");
-				writer.write("MAXLEVEL," + maxLevel + "\n");
+				writer.write("CURRENTTIME," + playerMoves + System.lineSeparator());
+				writer.write("LEVEL," + level + System.lineSeparator());
+				writer.write("MAXLEVEL," + maxLevel + System.lineSeparator());
 				writer.write("INVENTORY\n");
 				if (player.getFlippers()) {
-					writer.write("FLIPPER\n");
+					writer.write("FLIPPER"+System.lineSeparator());
 				}
 				if (player.getBoots()) {
-					writer.write("BOOTS\n");
+					writer.write("BOOTS"+System.lineSeparator());
 				}
 				if (player.getKatanna()) {
-					writer.write("KATANNA\n");
+					writer.write("KATANNA"+System.lineSeparator());
 				}
 				int tokenAmount = player.getTokens();
-				writer.write("TOKEN," + tokenAmount + "\n");
+				writer.write("TOKEN," + tokenAmount + System.lineSeparator());
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
