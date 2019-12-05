@@ -583,6 +583,27 @@ public class FileManager {
 				}
 				int tokenAmount = player.getTokens();
 				writer.write("TOKEN," + tokenAmount + "\n");
+				int[] playerKeys = player.getKeys();
+				String keyColour = "";
+				for (int i = 0; i < 3; i++) {
+					if (playerKeys[i] > 0) {
+						switch (i) {
+							case 0:
+								keyColour = "RED";
+								break;
+							case 1:
+								keyColour = "BLUE";
+								break;
+							case 2:
+								keyColour = "YELLOW";
+								break;
+							case 3:
+								keyColour = "GREEN";
+								break;
+						}
+						writer.write("KEY," + keyColour + System.lineSeparator());
+					}
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {

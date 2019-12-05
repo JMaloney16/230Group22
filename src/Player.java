@@ -329,4 +329,8 @@ public class Player extends Movable {
 	public String getName() {
 		return this.name;
 	}
+
+	public int[] getKeys() {
+		return keys;
+	}
 }
