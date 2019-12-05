@@ -72,7 +72,7 @@ public class FileManager {
 			in.nextLine();
 			for (int i = 0; i < boardY; i++) {
 				String currentTileLine = in.nextLine();
-				for (int j = 0; j < (boardX); j++) {
+				for (int j = 0; j < boardX; j++) {
 					String current = "" + currentTileLine.charAt(j);
 					switch (current) {
 					case "#":
@@ -270,7 +270,6 @@ public class FileManager {
 		public static void readPlayerFile(String filepath, Player player, Board board) {
 			Scanner in = createFileScanner(filepath);
 			String playerName = filepath.substring(0, filepath.length() - 4);
-			player.setName(playerName);
 			readAnyFile(in, "CURRENTTIME", player);
 
 			getPlayerDetails(player, in, dividerLine);
@@ -383,8 +382,6 @@ public class FileManager {
 
 	public static class FileWriting {
 		public static void savePlayerFile(Player player, Board board) {
-			System.out.println(player.getName());
-			System.out.println("profiles\\" + player.getName() + ".txt");
 			savePlayerFile("profiles\\" + player.getName() + ".txt", player, board);
 		}
 
