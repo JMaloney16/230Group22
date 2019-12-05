@@ -34,6 +34,7 @@ public class FileManager {
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
 		private static String dividerLine;
+		private static ArrayList<String> leaderboard = new ArrayList<String>();
 
 		/**
 		 * Validates filepath given and creates a scanner if valid
@@ -238,6 +239,7 @@ public class FileManager {
 		 */
 		public static void readMapFile(String filepath, Board board, Player player) {
 			Scanner in = createFileScanner(filepath);
+			leaderboard.clear();
 			readAnyFile(in, "LEVEL", player);
 			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
 			in.nextLine();
@@ -246,13 +248,15 @@ public class FileManager {
 			for (int i = 0; i < 3; i++) {
 				String[] topPlayers = currentLine.split(",");
 				String playerName = topPlayers[0];
-				int playerTime = Integer.parseInt(topPlayers[1]);
+				String playerTime = topPlayers[1];
 				System.out.println(playerName + " completed the level in: " + playerTime);
+				leaderboard.add(playerName);
+				leaderboard.add(playerTime);
 				if (i < 2) {
 					currentLine = in.nextLine();
 				}
 			}
-
+			in.close();
 			board.setNewBoard(boardDrawables, movables, interactables);
 			board.setLevelNumber(mapLevel);
 		}
@@ -308,6 +312,36 @@ public class FileManager {
 			}
 
 			board.setNewBoard(boardDrawables, movables, interactables);
+		}
+
+		/**
+		 * Reads a map file and returns a list of the top 3 players and their times
+		 * @param filepath Location of the map file
+		 * @return ArrayList containing top 3 players and their times
+		 */
+		public static ArrayList<String> getLeaderboard(String filepath) {
+			Scanner in = createFileScanner(filepath);
+			leaderboard.clear();
+			String currentLine = in.nextLine();
+
+			while (!currentLine.equals("LEADERBOARD")) {
+				System.out.println(currentLine);
+				currentLine = in.nextLine();
+			}
+			currentLine = in.nextLine();
+			for (int i = 0; i < 3; i++) {
+				String[] topPlayers = currentLine.split(",");
+				String playerName = topPlayers[0];
+				String playerTime = topPlayers[1];
+				System.out.println(playerName + " completed the level in: " + playerTime);
+				leaderboard.add(playerName);
+				leaderboard.add(playerTime);
+				if (i < 2) {
+					currentLine = in.nextLine();
+				}
+			}
+			in.close();
+			return leaderboard;
 		}
 
 		/**
@@ -556,13 +590,14 @@ public class FileManager {
 
 			FileWriter writer = new FileWriter(file);
 
-			System.out.println(oldFile);
-
-
 			String newFile = oldFile.replaceAll(oldText, newText);
 			writer.write(newFile);
-
 			writer.close();
+		}
+
+		public static void deletePlayer(String playerName) {
+			File file = new File("profiles/"+playerName+".txt");
+			file.delete();
 		}
 
 		/**
