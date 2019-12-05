@@ -9,8 +9,8 @@ public class Water extends Tile {
 	/**
 	 * Creates a water tile.
 	 * 
-	 * @param x,      the x coordinate of the water tile.
-	 * @param y,      the y coordinate of the water tile.
+	 * @param x, the x coordinate of the water tile.
+	 * @param y, the y coordinate of the water tile.
 	 */
 	public Water(int x, int y) {
 		super(x, y, "assets/Water.png", 1);
@@ -19,9 +19,9 @@ public class Water extends Tile {
 	/**
 	 * Checks if the player is standing on this water tile.
 	 * 
-	 * @param board,      	the board object for the player to be "placed" in.
-	 * @param player, 		the player.
-	 * @param keyboardIn, 	the current key pressed.
+	 * @param board,      the board object for the player to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {

@@ -1,8 +1,7 @@
 /**
- * Key.java
- * A class designed to hold the unique attributes
- * and methods required for a key, whilst inheriting
- * the attributes from Collectable and Interactable
+ * Key.java A class designed to hold the unique attributes and methods required
+ * for a key, whilst inheriting the attributes from Collectable and Interactable
+ * 
  * @see Collectable
  * @see Interactable
  * @author Dylan Cole - 980660
@@ -32,21 +31,21 @@ public class Key extends Collectable {
 	private static String getSprite(String colour) {
 		String sprite = "assets/";
 		switch (colour) {
-			case "red":
-				sprite += "keyRed.png";
-				break;
-			case "blue":
-				sprite += "keyBlue.png";
-				break;
-			case "yellow":
-				sprite += "keyYellow.png";
-				break;
-			case "green":
-				sprite += "keyGreen.png";
-				break;
-			default:
-				//If the colour doesn't exist just set it to one of the others?
-				sprite += "keyRed.png";
+		case "red":
+			sprite += "keyRed.png";
+			break;
+		case "blue":
+			sprite += "keyBlue.png";
+			break;
+		case "yellow":
+			sprite += "keyYellow.png";
+			break;
+		case "green":
+			sprite += "keyGreen.png";
+			break;
+		default:
+			// If the colour doesn't exist just set it to one of the others?
+			sprite += "keyRed.png";
 		}
 		return sprite;
 	}
@@ -69,7 +68,7 @@ public class Key extends Collectable {
 	/**
 	 * Returns the colour of the key
 	 *
-	 * @return colour,            the colour of the key.
+	 * @return colour, the colour of the key.
 	 */
 	public String getColour() {
 		return this.colour;

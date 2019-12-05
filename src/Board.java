@@ -6,12 +6,11 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Board.java Stores and updates the playing board of the game.
  * 
- * @version 0.4
+ * @version 0.5
  * @author Ewan Bradford
  * @author Sam Forster
  * @author Luke Francis
  */
-
 public class Board {
 	private Drawable[][] board;
 	private ArrayList<Movable> movables = new ArrayList<Movable>();
@@ -163,9 +162,6 @@ public class Board {
 	 * @return Returns the highest blocking value that is present at that position.
 	 */
 	public int getBlocking(int x, int y) {
-		// TODO
-		// needs to go through board[][] and movables[] and return the highest factor of
-		// blockings
 		int highestBlocking = 0;
 		if (x < this.board.length && y < this.board[0].length && x >= 0 && y >= 0) {
 			highestBlocking = this.board[x][y].getBlocking();
@@ -188,14 +184,30 @@ public class Board {
 		return -1; // needs to raise error, maybe
 	}
 
+	/**
+	 * Gets the data used for the static parts of the board @return, Drawable[][]
+	 * containing the static parts of the board
+	 */
 	public Drawable[][] getBoard() {
 		return this.board;
 	}
 
+	/**
+	 * Gets all the active movables on the board
+	 * 
+	 * @return ArrayList<Movable> of the movables active
+	 */
 	public ArrayList<Movable> getMovables() {
 		return this.movables;
 	}
 
+	/**
+	 * Search for an active movable based on its position
+	 * 
+	 * @param x, search x coordinate
+	 * @param y, search y coordinate
+	 * @return the movable object present at the position, null is none at position
+	 */
 	private Movable searchMovavbles(int x, int y) {
 		Movable result = null;
 		for (Movable m : this.movables) {
@@ -206,10 +218,22 @@ public class Board {
 		return result;
 	}
 
+	/**
+	 * Gets all the active interactable on the board
+	 * 
+	 * @return ArrayList<Interactable> of the active interactables
+	 */
 	public ArrayList<Interactable> getInteractables() {
 		return this.interactables;
 	}
 
+	/**
+	 * Search for an interactble by its position
+	 * 
+	 * @param x, search x coordinate
+	 * @param y, search y coordinate
+	 * @return Interactable object at the search position, null if none
+	 */
 	private Interactable searchInteractables(int x, int y) {
 		Interactable result = null;
 		for (Interactable i : this.interactables) {
@@ -220,14 +244,29 @@ public class Board {
 		return result;
 	}
 
+	/**
+	 * @return Integer of this board level number
+	 */
 	public int getLevelNumber() {
 		return this.levelNumber;
 	}
 
-	public void setLevelNumber(int number) {
-		this.levelNumber = number;
+	/**
+	 * Sets the level this board is
+	 * 
+	 * @param value of the new level this board represents
+	 */
+	public void setLevelNumber(int value) {
+		this.levelNumber = value;
 	}
 
+	/**
+	 * Resets the data board is using
+	 * 
+	 * @param boardDrawables, the new static elements data
+	 * @param movables,       the new movables data
+	 * @param interactables,  the new interactable data
+	 */
 	public void setNewBoard(Drawable[][] boardDrawables, ArrayList<Movable> movables,
 			ArrayList<Interactable> interactables) {
 		this.board = boardDrawables;

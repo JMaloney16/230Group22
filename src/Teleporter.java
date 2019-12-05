@@ -9,7 +9,7 @@
 public class Teleporter extends Tile {
 
 	private Teleporter partner;
-	
+
 	/**
 	 * Creates a teleporter tile.
 	 * 
@@ -20,7 +20,9 @@ public class Teleporter extends Tile {
 		super(x, y, "assets/Teleporter.png", 1);
 	}
 
-	/** Adds the destination teleporter
+	/**
+	 * Adds the destination teleporter
+	 * 
 	 * @param partner, teleporter object to be taken to
 	 */
 	public void setPartner(Teleporter partner) {
@@ -37,26 +39,26 @@ public class Teleporter extends Tile {
 			switch (keyboardIn) {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
-					player.setPosX(this.partner.xCoord);
-					player.setPosY(this.partner.yCoord);
+					player.setxCoord(this.partner.xCoord);
+					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			case 1:
 				if (this.xCoord == player.getxCoord() + 1 && this.yCoord == player.getyCoord()) {
-					player.setPosX(this.partner.xCoord);
-					player.setPosY(this.partner.yCoord);
+					player.setxCoord(this.partner.xCoord);
+					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			case 2:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() + 1) {
-					player.setPosX(this.partner.xCoord);
-					player.setPosY(this.partner.yCoord);
+					player.setxCoord(this.partner.xCoord);
+					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			case 3:
 				if (this.xCoord == player.getxCoord() - 1 && this.yCoord == player.getyCoord()) {
-					player.setPosX(this.partner.xCoord);
-					player.setPosY(this.partner.yCoord);
+					player.setxCoord(this.partner.xCoord);
+					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			}

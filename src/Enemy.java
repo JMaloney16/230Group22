@@ -9,9 +9,10 @@ public abstract class Enemy extends Movable {
 
 	/**
 	 * Constructor for the common attributes of enemies
-	 * @param x, x coordinate of the enemy
-	 * @param y, y coordinate of the enemy
-	 * @param sprite, the filepath to the image representing this enemy
+	 * 
+	 * @param x,         x coordinate of the enemy
+	 * @param y,         y coordinate of the enemy
+	 * @param sprite,    the filepath to the image representing this enemy
 	 * @param blockable, the blocking value of this enemy
 	 * @param direction, the direction the enemy is facing
 	 */
@@ -20,7 +21,9 @@ public abstract class Enemy extends Movable {
 		this.dir = direction;
 	}
 
-	/** Checks the blocking value of the tile infront of this enemy
+	/**
+	 * Checks the blocking value of the tile infront of this enemy
+	 * 
 	 * @param board, the board this enemy is on
 	 * @return a boolean true if the tile infront is blocking this enemy
 	 */
@@ -28,8 +31,10 @@ public abstract class Enemy extends Movable {
 		return this.getDirBlocking(this.dir, board);
 	}
 
-	/** Checks the blocking value of the tile in the direction of this enemy
-	 * @param dir, direction to check in
+	/**
+	 * Checks the blocking value of the tile in the direction of this enemy
+	 * 
+	 * @param dir,   direction to check in
 	 * @param board, the board this enemy is on
 	 * @return a boolean true if the tile in the direction is blocking this enemy
 	 */
@@ -74,7 +79,9 @@ public abstract class Enemy extends Movable {
 		}
 	}
 
-	/** Change the enemies direction by an amount
+	/**
+	 * Change the enemies direction by an amount
+	 * 
 	 * @param delta, the magnitude of the change
 	 */
 	protected void changeDir(int delta) {
@@ -82,7 +89,9 @@ public abstract class Enemy extends Movable {
 		normaliseDir();
 	}
 
-	/** Sets the direction of the enemy
+	/**
+	 * Sets the direction of the enemy
+	 * 
 	 * @param dir, the new direction of this enemy
 	 */
 	protected void setDir(int dir) {
@@ -90,7 +99,9 @@ public abstract class Enemy extends Movable {
 		normaliseDir();
 	}
 
-	/** Forces the value of direction to be 0 to 3
+	/**
+	 * Forces the value of direction to be 0 to 3
+	 * 
 	 * @param dir, direction to be normalised
 	 * @return the normalised direction
 	 */

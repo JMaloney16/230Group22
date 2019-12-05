@@ -34,7 +34,9 @@ public class SmartEnemy extends Enemy {
 	Cell[][] cells;
 	ArrayList<Cell> path = new ArrayList<Cell>();
 
-	/** Creates a new smart enemy using just a starting position
+	/**
+	 * Creates a new smart enemy using just a starting position
+	 * 
 	 * @param x, x coordinate of the enemy
 	 * @param y, y coordinate of the enemy
 	 */
@@ -42,7 +44,9 @@ public class SmartEnemy extends Enemy {
 		super(x, y, "assets\\Mummy.png", 1, 0);
 	}
 
-	/** Returns the cell with the minimum f value in the arraylist
+	/**
+	 * Returns the cell with the minimum f value in the arraylist
+	 * 
 	 * @param cs, cells to be searched
 	 * @return the cell with the lowest f value
 	 */
@@ -56,10 +60,12 @@ public class SmartEnemy extends Enemy {
 		return minF;
 	}
 
-	/** Gets a cell that occupies a position
+	/**
+	 * Gets a cell that occupies a position
+	 * 
 	 * @param cs, arraylist to be searched
-	 * @param x, x position of the search cell
-	 * @param y, y position of the search cell
+	 * @param x,  x position of the search cell
+	 * @param y,  y position of the search cell
 	 * @return the cell at the x,y position, null otherwise
 	 */
 	private Cell getCell(ArrayList<Cell> cs, int x, int y) {
@@ -72,7 +78,9 @@ public class SmartEnemy extends Enemy {
 		return r;
 	}
 
-	/** Perform the a star algorithm on the cell data
+	/**
+	 * Perform the a star algorithm on the cell data
+	 * 
 	 * @param sx, start x coordinate
 	 * @param sy, start y coordinate
 	 * @param gx, goal x coordinate
@@ -134,7 +142,7 @@ public class SmartEnemy extends Enemy {
 	public void update(Board board, Player player, int keyboardIn) {
 		this.cells = new Cell[board.getBoard().length][board.getBoard()[0].length];
 		for (int y = 0; y < board.getBoard()[0].length; y++) {
-			for (int x = 0; x < board.getBoard().length; x++) {				
+			for (int x = 0; x < board.getBoard().length; x++) {
 				this.cells[x][y] = new Cell(x, y, board.getBlocking(x, y) > 0);
 				this.cells[x][y].g = -1;
 			}
@@ -142,13 +150,13 @@ public class SmartEnemy extends Enemy {
 
 		this.doAStar(this.xCoord, this.yCoord, player.xCoord, player.yCoord);
 		if (this.path.size() > 0) {
-			Cell nextMove = this.path.get(this.path.size()-1);
+			Cell nextMove = this.path.get(this.path.size() - 1);
 			this.xCoord = nextMove.x;
 			this.yCoord = nextMove.y;
 		}
-		
+
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			if (player.getKatanna()){
+			if (player.getKatanna()) {
 				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
 				board.removeMovable(this);
 				player.removeKatanna();

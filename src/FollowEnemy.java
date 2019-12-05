@@ -9,11 +9,14 @@ public class FollowEnemy extends Enemy {
 	private int bias; // 1 right bias, -1 left bias
 	private boolean forceMove;
 
-	/** Creats a new follow enemy using a position, a direction and a search bias
-	 * @param x, x coordinate of the enemy
-	 * @param y, y coordinate of the enemy
+	/**
+	 * Creats a new follow enemy using a position, a direction and a search bias
+	 * 
+	 * @param x,         x coordinate of the enemy
+	 * @param y,         y coordinate of the enemy
 	 * @param direction, the starting direction of the enemy
-	 * @param bias, the searching bias of the enemy (-1 for left bias, 1 for right bias)
+	 * @param bias,      the searching bias of the enemy (-1 for left bias, 1 for
+	 *                   right bias)
 	 */
 	public FollowEnemy(int x, int y, int direction, int bias) {
 		super(x, y, "assets\\Mummy.png", 1, direction);
@@ -28,7 +31,7 @@ public class FollowEnemy extends Enemy {
 		normaliseDir();
 		boolean front = getDirBlocking(board);
 		boolean search = getDirBlocking(this.getDir() + bias, board);
-		
+
 		if (front == true && search == true) {
 			this.changeDir(-bias);
 			this.forceMove = false;
@@ -39,9 +42,9 @@ public class FollowEnemy extends Enemy {
 			this.changeDir(bias);
 			this.forceMove = true;
 		}
-		
+
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			if (player.getKatanna()){
+			if (player.getKatanna()) {
 				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
 				board.removeMovable(this);
 				player.removeKatanna();

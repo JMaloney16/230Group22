@@ -1,8 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
 
-// TODO
-// -----> stores max level
-
 /**
  * Player.java Stores all data ascociated with the player. Subclass of Movable.
  * 
@@ -90,8 +87,8 @@ public class Player extends Movable {
 			}
 			break;
 		}
-		this.setPosX(this.nextX);
-		this.setPosY(this.nextY);
+		this.setxCoord(this.nextX);
+		this.setyCoord(this.nextY);
 		return 1;
 	}
 
@@ -133,6 +130,12 @@ public class Player extends Movable {
 		}
 	}
 
+	/**
+	 * Checks if a key is currently held by the player
+	 * 
+	 * @param keyColour, colour of the key to be checked
+	 * @return true if key is currently held, false if not
+	 */
 	public boolean checkKey(String keyColour) {
 		if (keyColour != null) {
 			switch (keyColour) {
@@ -205,7 +208,7 @@ public class Player extends Movable {
 		SoundEffect.playSound("assets\\sounds\\Death.wav");
 		this.killed = true;
 	}
-	
+
 	public void completeLevel() {
 		this.completed = true;
 	}
@@ -255,25 +258,36 @@ public class Player extends Movable {
 		return this.flippers;
 	}
 
+	/**
+	 * Adds the Katanna to the players inventory
+	 */
 	public void addKatanna() {
 		this.katanna = true;
 	}
 
+	/**
+	 * Removes the Katanna from the players inventory
+	 */
 	public void removeKatanna() {
 		this.katanna = false;
 	}
 
+	/**
+	 * Checks if player has a Katanna in inventory
+	 * 
+	 * @return true if player has a katanna, false if not
+	 */
 	public boolean getKatanna() {
 		return this.katanna;
 	}
-	
-	public void setPosX(int x) {
-		this.xCoord = x;
-	}
 
-	public void setPosY(int y) {
-		this.yCoord = y;
-	}
+//	public void setPosX(int x) {
+//		this.xCoord = x;
+//	}
+//
+//	public void setPosY(int y) {
+//		this.yCoord = y;
+//	}
 //	public int getPosX() {
 //		return this.xCoord;
 //	}
@@ -282,14 +296,16 @@ public class Player extends Movable {
 //	}
 	public void setCurrentMoves(int moves) {
 		this.currentMoves = moves;
-	}	
+	}
+
 	public int getCurrentMoves() {
 		return this.currentMoves;
 	}
-	
+
 	public void setCurrentLevel(int level) {
 		this.currentLevel = level;
 	}
+
 	public int getCurrentLevel() {
 		return this.currentLevel;
 	}
@@ -297,12 +313,15 @@ public class Player extends Movable {
 	public void setMaxLevel(int maxLevel) {
 		this.maxLevel = maxLevel;
 	}
+
 	public int getMaxLevel() {
 		return this.maxLevel;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getName() {
 		return this.name;
 	}

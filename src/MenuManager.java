@@ -45,7 +45,7 @@ public class MenuManager {
 		private static String profileSelected; // String used to check user has chosen a profile
 		private static int levelSelected; // int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
-		private static ArrayList<String> profiles;
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,6 +99,7 @@ public class MenuManager {
 					GameManager gm = new GameManager(primaryStage,
 							"levels\\" + Integer.toString(levelSelected) + ".txt", profileSelected, 
 							windowWidth, windowHeight, cellSize);
+
 				}
 			});
 
@@ -232,6 +233,7 @@ public class MenuManager {
 		}
 
 		private static void drawProfileList() {
+
 			players.clear();
 			ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
 			for (String s : profiles) {
@@ -246,6 +248,7 @@ public class MenuManager {
 			}
 
 			profileList.getChildren().clear();
+
 			for (Player p : players) {
 				Button button = new Button(p.getName());
 				button.setOnAction(e -> {
@@ -292,6 +295,7 @@ public class MenuManager {
 
 			innerRoot.setLeft(levelList);
 			rootPane.setCenter(innerRoot);
+
 		}
 		
 		
@@ -301,6 +305,7 @@ public class MenuManager {
 			for(String s: leaderboard) {
 				System.out.println(s);
 			}
+
 		}
 	}
 }

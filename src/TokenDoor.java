@@ -19,6 +19,9 @@ public class TokenDoor extends Door {
 		this.threshold = amount;
 	}
 
+	/**
+	 * Updates the door, checks player position and behaves accordingly
+	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (player.getTokens() >= this.threshold && this.opened == false) {
 			switch (keyboardIn) {
@@ -45,12 +48,19 @@ public class TokenDoor extends Door {
 			}
 		}
 	}
+
+	/**
+	 * Sets the door to be open
+	 * 
+	 * @param player, the player active in the game
+	 * @param board,  the board this door is apart of
+	 */
 	private void open(Player player, Board board) {
 		SoundEffect.playSound("assets\\sounds\\Door.wav");
 		this.setBlocking(0);
 		this.opened = true;
 		player.addToken(-this.threshold);
-		
+
 		this.updateSprite("assets\\Floor.png");
 		board.removeInteractable(this);
 	}

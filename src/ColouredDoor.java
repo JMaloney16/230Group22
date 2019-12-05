@@ -1,17 +1,17 @@
 /**
- * Coloured.java 
+ * Coloured.java
  * 
  * @version 0.1
  * @author Gino Sesia
  *
  */
 public class ColouredDoor extends Door {
-	
+
 	private String colour;
 
 	/**
-	 * @param x,      the x coordinate of the fire tile.
-	 * @param y,      the y coordinate of the fire tile.
+	 * @param x, the x coordinate of the fire tile.
+	 * @param y, the y coordinate of the fire tile.
 	 */
 	public ColouredDoor(int x, int y, String colour) {
 		// TODO Auto-generated constructor stub
@@ -32,9 +32,12 @@ public class ColouredDoor extends Door {
 		}
 		this.colour = colour.toLowerCase();
 	}
-	
+
+	/**
+	 * Updates the door, checks player position and behaves accordingly
+	 */
 	public void update(Board board, Player player, int keyboardIn) {
-		if(player.checkKey(this.colour) == true && this.opened == false) {
+		if (player.checkKey(this.colour) == true && this.opened == false) {
 			switch (keyboardIn) {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
@@ -59,11 +62,17 @@ public class ColouredDoor extends Door {
 			}
 		}
 	}
-	
+
+	/**
+	 * Sets the door to be open
+	 * 
+	 * @param player, the player active in the game
+	 * @param board,  the board this door is apart of
+	 */
 	private void open(Player player, Board board) {
 		SoundEffect.playSound("assets\\sounds\\Door.wav");
 		this.setBlocking(0);
-	 	this.opened = true;
+		this.opened = true;
 		this.updateSprite("assets\\Floor.png");
 		board.removeInteractable(this);
 	}
