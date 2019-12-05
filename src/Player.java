@@ -42,6 +42,10 @@ public class Player extends Movable {
 	 *         2-player is dead.
 	 */
 	public int update(Board board, int keyboardIn) { // return codes, 0 didn't move, 1 moved, 2 dead, 3 level completed
+		System.out.println(board.getBlocking(this.xCoord, this.yCoord));
+//		if (board.getBlocking(this.xCoord, this.yCoord) > 0) { // makes sure player is not inside an
+//			this.killed = true;
+//		}
 		if (this.completed == true) {
 			return 3;
 		}
