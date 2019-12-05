@@ -471,7 +471,8 @@ public class FileManager {
 							System.out.println("Not accounted for: " + boardArray[j][i].getClass().getName());
 						}
 					}
-					writer.write(currentLine);
+					writer.write(currentLine + "\n");
+
 				}
 				// TODO: Get player coords
 				int playerX = player.getxCoord() + 1;
@@ -514,6 +515,7 @@ public class FileManager {
 					default:
 						System.out.println("Not implemented: " + type);
 					}
+					writer.write("\n");
 				}
 				for (Movable moveable : movables) {
 					int xValue = moveable.getxCoord() + 1;
@@ -556,6 +558,7 @@ public class FileManager {
 							System.out.println("Not accounted for! " + type);
 						}
 					}
+					writer.write("\n");
 				}
 				// TODO: Get current player time and level
 				int playerMoves = player.getCurrentMoves();
