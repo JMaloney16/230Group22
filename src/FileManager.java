@@ -382,6 +382,8 @@ public class FileManager {
 
 	public static class FileWriting {
 		public static void savePlayerFile(Player player, Board board) {
+			System.out.println(player.getName());
+			System.out.println("profiles\\" + player.getName() + ".txt");
 			savePlayerFile("profiles\\" + player.getName() + ".txt", player, board);
 		}
 
@@ -456,7 +458,7 @@ public class FileManager {
 								break;
 							}
 							break;
-						case "Fire":
+						case "Lava":
 							currentLine += "F";
 							break;
 						case "Water":
@@ -467,6 +469,7 @@ public class FileManager {
 							break;
 						case "Goal":
 							currentLine += "G";
+							break;
 						default:
 							System.out.println("Not accounted for: " + boardArray[j][i].getClass().getName());
 						}
@@ -487,7 +490,7 @@ public class FileManager {
 					case "TOKENDOOR":
 						writer.write(prefix + "DOOR,TOKEN,1");
 						break;
-					case "COLOURED":
+					case "COLOUREDDOOR":
 						// TODO: Get the colour of the door
 						// String colour = ((Coloured) interactable).
 						writer.write(prefix + "DOOR,RED");
