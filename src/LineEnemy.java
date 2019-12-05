@@ -6,9 +6,11 @@
  * @author Ewan bradford
  */
 public class LineEnemy extends Enemy {
-	/** Creates a new line enemy using a position and a starting direction
-	 * @param x, x coordinate of the enemy
-	 * @param y, y coordinate of the enemy
+	/**
+	 * Creates a new line enemy using a position and a starting direction
+	 * 
+	 * @param x,         x coordinate of the enemy
+	 * @param y,         y coordinate of the enemy
 	 * @param direction, the starting direction of the enemy
 	 */
 	public LineEnemy(int x, int y, int direction) {
@@ -27,14 +29,14 @@ public class LineEnemy extends Enemy {
 			this.changeDir(2);
 			normaliseDir();
 		} else if (front == false) {
-			move();			
+			move();
 		}
-		
+
 		this.nextX = this.xCoord;
 		this.nextY = this.yCoord;
-		
+
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			if (player.getKatanna()){
+			if (player.getKatanna()) {
 				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
 				board.removeMovable(this);
 				player.removeKatanna();

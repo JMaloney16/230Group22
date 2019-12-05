@@ -6,9 +6,11 @@
  * @author Ewan Bradford
  */
 public class DumbEnemy extends Enemy {
-	/** Creates a new dumb enemy using a position and a direction
-	 * @param x, x coordinate of the enemy
-	 * @param y, y coordinate of the enemy
+	/**
+	 * Creates a new dumb enemy using a position and a direction
+	 * 
+	 * @param x,         x coordinate of the enemy
+	 * @param y,         y coordinate of the enemy
 	 * @param direction, the starting direction of the enemy
 	 */
 	public DumbEnemy(int x, int y, int direction) {
@@ -53,7 +55,7 @@ public class DumbEnemy extends Enemy {
 		this.nextY = this.yCoord;
 
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			if (player.getKatanna()){
+			if (player.getKatanna()) {
 				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
 				board.removeMovable(this);
 				player.removeKatanna();
@@ -63,6 +65,12 @@ public class DumbEnemy extends Enemy {
 		}
 	}
 
+	/**
+	 * Converts the angle to positive value and clockwise referenced, take degrees
+	 * 
+	 * @param angle raw angle
+	 * @return converted and cleaned angle, (0 degrees is noon, clockwise)
+	 */
 	private int convertAngle(float angle) {
 		angle += 90;
 		if (angle < 0) {

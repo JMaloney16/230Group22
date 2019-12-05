@@ -7,7 +7,8 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 /**
- * Networking.java Handles all networking interaction and decryption (Message of the Day).
+ * Networking.java Handles all networking interaction and decryption (Message of
+ * the Day).
  *
  * @author Jack Maloney
  * @version 0.9
@@ -76,7 +77,8 @@ public class Networking {
 	 */
 	private static String decodePuzzle(String puzzle) {
 		StringBuilder query = new StringBuilder(puzzle);
-		// For each character convert it to ascii, increment if it's index is even else decrement
+		// For each character convert it to ascii, increment if it's index is even else
+		// decrement
 		for (int i = 0; i < query.length(); i++) {
 			int currentASCII = query.charAt(i);
 			if (i % 2 == 0) {
@@ -97,12 +99,3 @@ public class Networking {
 		return query.toString();
 	}
 }
-
-
-
-
-
-
-
-
-

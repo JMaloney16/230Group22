@@ -5,8 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Drawable.java 
- * Represents a single cell on the board
+ * Drawable.java Represents a single cell on the board
  * 
  * @version 0.3
  * @author Ewan Bradford, Luke Francis
@@ -33,17 +32,18 @@ public abstract class Drawable {
 		this.yCoord = y;
 		this.spritePath = sprite;
 		this.blockable = blockable;
-		
+
 		if (sprite != "") { // add a check to make sure image has been loaded
 			this.updateSprite(sprite);
 		}
 	}
+
 	protected void updateSprite(String sprite) {
 		this.spritePath = sprite;
 		File imageLoader = new File(spritePath);
 		this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
 	}
-	
+
 	/**
 	 * Handles the movement of this object.
 	 * 
@@ -60,7 +60,7 @@ public abstract class Drawable {
 	public int getBlocking() {
 		return this.blockable;
 	}
-	
+
 	public void setBlocking(int newBlocking) {
 		if (newBlocking >= 0 && newBlocking <= 2) {
 			this.blockable = newBlocking;
@@ -69,11 +69,12 @@ public abstract class Drawable {
 
 	/**
 	 * Draws the sprite at the correct location and size
+	 * 
 	 * @param gc graphics context to be drawn to
 	 */
 	public void draw(GraphicsContext gc, int offsetX, int offsetY) {
 //		System.out.println(this.spriteImage.isError());
-		gc.drawImage(this.spriteImage, (this.xCoord-offsetX)*64, (this.yCoord-offsetY)*64, 64, 64);
+		gc.drawImage(this.spriteImage, (this.xCoord - offsetX) * 64, (this.yCoord - offsetY) * 64, 64, 64);
 	}
 
 	public int getxCoord() {
@@ -83,11 +84,12 @@ public abstract class Drawable {
 	public int getyCoord() {
 		return yCoord;
 	}
-	
-	public void sexCoord(int x) {
+
+	public void setxCoord(int x) {
 		this.xCoord = x;
 	}
-	public void seyCoord(int y) {
+
+	public void setyCoord(int y) {
 		this.yCoord = y;
 	}
 }

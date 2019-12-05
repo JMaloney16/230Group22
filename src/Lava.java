@@ -6,22 +6,23 @@
  * @author Ewan Bradford
  *
  */
-public class Lava extends Tile {	
+public class Lava extends Tile {
 	/**
 	 * Creates a Lava tile.
 	 * 
-	 * @param x,      the x coordinate of the lava tile.
-	 * @param y,      the y coordinate of the lava tile.
+	 * @param x, the x coordinate of the lava tile.
+	 * @param y, the y coordinate of the lava tile.
 	 */
 	public Lava(int x, int y) {
 		super(x, y, "assets/Lava.png", 1);
 	}
+
 	/**
 	 * Checks if the player is standing on this lava tile.
 	 * 
-	 * @param board,      	the board object for the player to be "placed" in.
-	 * @param player, 		the player.
-	 * @param keyboardIn, 	the current key pressed.
+	 * @param board,      the board object for the player to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {

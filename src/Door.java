@@ -7,6 +7,7 @@
 
 public abstract class Door extends Tile {
 	protected boolean opened = false;
+
 	/**
 	 * Creates a Door tile.
 	 * 
@@ -26,7 +27,7 @@ public abstract class Door extends Tile {
 	 */
 
 	@Override
-	public void update(Board board, Player player, int keyboardIn) {		
+	public void update(Board board, Player player, int keyboardIn) {
 
 	}
 }

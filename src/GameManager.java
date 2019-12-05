@@ -214,10 +214,18 @@ public class GameManager {
 		this.lastKey = key;
 	}
 
+	/**
+	 * Gets the current moves the player has made during their life
+	 * 
+	 * @return Int of the moves since last start
+	 */
 	public int getMoves() {
 		return this.moves;
 	}
 
+	/**
+	 * Restarts the game
+	 */
 	private void restart() {
 		this.moves = 0;
 		System.out.println("dont die next time.");
@@ -226,12 +234,15 @@ public class GameManager {
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 	}
 
+	/**
+	 * Progesses the game to the next level
+	 */
 	private void nextLevel() {
 //		System.out.println("Level has been completed");
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
 		System.out.println(this.boardFile);
-		
+
 		if (this.board.getLevelNumber() > this.player.getMaxLevel()) {
 			this.player.setMaxLevel(this.board.getLevelNumber());
 		}
