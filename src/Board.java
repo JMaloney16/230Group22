@@ -44,7 +44,7 @@ public class Board {
 		// draws board top left to bottom right
 		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length - 1, playerY + 3); y++) {
 			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length - 1, playerX + 3); x++) {
-					board[x][y].draw(gc, playerX - 3, playerY - 3);
+				board[x][y].draw(gc, playerX - 3, playerY - 3);
 
 			}
 		}
@@ -87,10 +87,8 @@ public class Board {
 	 *                    1 three o'clock etc)
 	 */
 	public void updateMovables(Player player, int keyboardIn) {
-		// individually updates each movable (potential bug depending on order of this
-		// arraylist)
-		for (Movable m : this.movables) {
-			m.update(this, player, keyboardIn);
+		for (int m = 0; m < this.movables.size(); m++) {
+			this.movables.get(m).update(this, player, keyboardIn);
 		}
 	}
 
@@ -171,14 +169,14 @@ public class Board {
 		int highestBlocking = 0;
 		if (x < this.board.length && y < this.board[0].length && x >= 0 && y >= 0) {
 			highestBlocking = this.board[x][y].getBlocking();
-			
+
 			Movable mSearch = this.searchMovavbles(x, y);
 			if (mSearch != null) {
 				if (mSearch.getBlocking() > highestBlocking) {
 					highestBlocking = mSearch.getBlocking();
 				}
 			}
-			
+
 			Interactable iSearch = this.searchInteractables(x, y);
 			if (iSearch != null) {
 				if (iSearch.getBlocking() > highestBlocking) {
@@ -197,7 +195,7 @@ public class Board {
 	public ArrayList<Movable> getMovables() {
 		return this.movables;
 	}
-	
+
 	private Movable searchMovavbles(int x, int y) {
 		Movable result = null;
 		for (Movable m : this.movables) {
@@ -211,7 +209,7 @@ public class Board {
 	public ArrayList<Interactable> getInteractables() {
 		return this.interactables;
 	}
-	
+
 	private Interactable searchInteractables(int x, int y) {
 		Interactable result = null;
 		for (Interactable i : this.interactables) {
@@ -230,7 +228,8 @@ public class Board {
 		this.levelNumber = number;
 	}
 
-	public void setNewBoard(Drawable[][] boardDrawables, ArrayList<Movable> movables, ArrayList<Interactable> interactables) {
+	public void setNewBoard(Drawable[][] boardDrawables, ArrayList<Movable> movables,
+			ArrayList<Interactable> interactables) {
 		this.board = boardDrawables;
 		this.movables = movables;
 		this.interactables = interactables;
