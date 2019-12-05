@@ -63,5 +63,10 @@ public class Teleporter extends Tile {
 				break;
 			}
 		}
+
+	}
+
+	public Teleporter getPartner() {
+		return partner;
 	}
 }

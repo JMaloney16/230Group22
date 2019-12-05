@@ -63,6 +63,10 @@ public class ColouredDoor extends Door {
 		}
 	}
 
+	public String getColour() {
+		return colour;
+	}
+
 	/**
 	 * Sets the door to be open
 	 * 

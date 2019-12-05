@@ -49,6 +49,10 @@ public class TokenDoor extends Door {
 		}
 	}
 
+	public int getThreshold() {
+		return threshold;
+	}
+
 	/**
 	 * Sets the door to be open
 	 * 

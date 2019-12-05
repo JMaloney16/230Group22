@@ -157,14 +157,14 @@ public class FileManager {
 					break;
 				case "DOOR":
 					String doorType = line.next();
+					System.out.println(doorType);
 					if (doorType.equals("TOKEN")) {
 						int tokensRequired = line.nextInt();
-						System.out.println("It's a door that uses " + tokensRequired + " tokens!");
+						System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
 						interactables.add(new TokenDoor(posX, posY, tokensRequired));
 					} else {
-						String doorColour = line.next();
-						System.out.println("It's a " + doorColour.toLowerCase() + " door!");
-						interactables.add(new ColouredDoor(posX, posY, doorColour));
+						System.out.println("It's a " + doorType.toLowerCase() + " door!");
+						interactables.add(new ColouredDoor(posX, posY, doorType));
 					}
 					break;
 				case "TELE":
@@ -419,16 +419,16 @@ public class FileManager {
 		 * @param player   The player's object
 		 * @param board    The board to save
 		 */
-		public static void savePlayerFile(String filename, Player player, Board board) { // TODO Have saveProfileFile
-																							// for new profile (no board
-																							// available)
+		public static void savePlayerFile(String filename, Player player, Board board) { // TODO Have saveProfileFile// for new profile (no board
+			// available)
+			System.out.println("SAVING FILE");
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
 			ArrayList<Movable> movables = board.getMovables();
 			ArrayList<Interactable> interactables = board.getInteractables();
 
-			int boardX = boardArray[0].length;
-			int boardY = boardArray.length;
+			int boardX = boardArray.length;
+			int boardY = boardArray[0].length;
 			try {
 				File file = new File(filename);
 				if (!file.exists()) {
@@ -439,9 +439,9 @@ public class FileManager {
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
 				writer.write(boardX + "," + boardY + ",\n");
-				for (int i = 0; i < boardX; i++) {
+				for (int i = 0; i < boardY; i++) {
 					String currentLine = "";
-					for (int j = 0; j < boardY; j++) {
+					for (int j = 0; j < boardX; j++) {
 						switch (boardArray[j][i].getClass().getName()) {
 						case "StaticEntity":
 							switch (boardArray[j][i].getBlocking()) {
@@ -478,7 +478,7 @@ public class FileManager {
 				// TODO: Get player coords
 				int playerX = player.getxCoord() + 1;
 				int playerY = player.getyCoord() + 1;
-				writer.write(playerX + "," + playerY + "," + "START");
+				writer.write(playerX + "," + playerY + "," + "START\n");
 				for (Interactable interactable : interactables) {
 					int xValue = interactable.getxCoord() + 1;
 					int yValue = interactable.getyCoord() + 1;
@@ -486,12 +486,13 @@ public class FileManager {
 					String prefix = (xValue + "," + yValue + ",");
 					switch (type) {
 					case "TOKENDOOR":
-						writer.write(prefix + "DOOR,TOKEN,1");
+						int tokensReq = ((TokenDoor) interactable).getThreshold();
+						writer.write(prefix + "DOOR,TOKEN," + tokensReq);
 						break;
 					case "COLOUREDDOOR":
 						// TODO: Get the colour of the door
-						// String colour = ((Coloured) interactable).
-						writer.write(prefix + "DOOR,RED");
+						String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
+						writer.write(prefix + "DOOR,"+ colour);
 						break;
 					case "FLIPPER":
 						writer.write(prefix + "ITEM,FLIPPER");
@@ -503,12 +504,14 @@ public class FileManager {
 						writer.write(prefix + "ITEM,TOKEN,1");
 						break;
 					case "KEY":
-						String colour = ((Key) interactable).getColour();
-						writer.write(prefix + "KEY," + colour.toUpperCase());
+						String keyColour = ((Key) interactable).getColour();
+						writer.write(prefix + "KEY," + keyColour.toUpperCase());
 						break;
 					case "TELEPORTER":
 						// TODO: Get the teleporter's partner
-						writer.write(prefix + "TELE,1");
+						Teleporter partner = ((Teleporter) interactable).getPartner();
+						String partnerPos = ","+partner.xCoord+","+partner.yCoord;
+						writer.write(prefix + "TELE" + partnerPos);
 						break;
 					case "KATANNA":
 						writer.write(prefix + "KATANNA");
@@ -522,7 +525,7 @@ public class FileManager {
 					int xValue = moveable.getxCoord() + 1;
 					int yValue = moveable.getyCoord() + 1;
 					String type = moveable.getClass().getName().toUpperCase();
-					String prefix = (xValue + "," + yValue + "," + "ENEMY");
+					String prefix = (xValue + "," + yValue + "," + "ENEMY,");
 					String direction = "";
 					if (!type.equals("PLAYER")) {
 						if (!type.equals("SMARTENEMY")) {
@@ -565,21 +568,21 @@ public class FileManager {
 				int playerMoves = player.getCurrentMoves();
 				int level = player.getCurrentLevel();
 				int maxLevel = player.getMaxLevel();
-				writer.write("CURRENTTIME," + playerMoves);
-				writer.write("LEVEL," + level);
-				writer.write("MAXLEVEL," + maxLevel);
-				writer.write("INVENTORY");
+				writer.write("CURRENTTIME," + playerMoves + "\n");
+				writer.write("LEVEL," + level + "\n");
+				writer.write("MAXLEVEL," + maxLevel + "\n");
+				writer.write("INVENTORY\n");
 				if (player.getFlippers()) {
-					writer.write("FLIPPER");
+					writer.write("FLIPPER\n");
 				}
 				if (player.getBoots()) {
-					writer.write("BOOTS");
+					writer.write("BOOTS\n");
 				}
 				if (player.getKatanna()) {
-					writer.write("KATANNA");
+					writer.write("KATANNA\n");
 				}
 				int tokenAmount = player.getTokens();
-				writer.write("TOKEN," + tokenAmount);
+				writer.write("TOKEN," + tokenAmount + "\n");
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
