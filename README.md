@@ -7,4 +7,3 @@ Group 22's Game
 - Go through the funcitonal spec and make a list of all the points the video needs to hit (Gino, Luke)
 - Plan the video using this plan (Dylan In collaboration with Gino and Luke)
 - MenuManager needs to call the gamemanger with all the players details loaded or something, menu manager needs to start talking more to game manager basically
-- Error messages come up when playing second level and you kill the enemy, idk whats causing havent had a look, i now know ill fix it
