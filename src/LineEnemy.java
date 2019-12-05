@@ -34,6 +34,8 @@ public class LineEnemy extends Enemy {
 
 		this.nextX = this.xCoord;
 		this.nextY = this.yCoord;
+		this.setxCoord(this.xCoord);
+		this.setyCoord(this.yCoord);
 
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getKatanna()) {
