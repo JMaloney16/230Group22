@@ -46,7 +46,6 @@ public class MenuManager {
 		private static int levelSelected; // int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,12 +94,12 @@ public class MenuManager {
 
 			// Launch Button event handler
 			launchButton.setOnAction(e -> {
+				System.out.println(levelSelected);
 				if (profileSelected != "" && levelSelected != 0) {
-					GameManager gm = new GameManager(primaryStage,
-							"levels\\" + Integer.toString(levelSelected) + ".txt", profileSelected, 
-							windowWidth, windowHeight, cellSize);
-
+					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, windowWidth,
+							windowHeight, cellSize);
 				}
+
 			});
 
 			selectedProfile = new Label(PROFILE);
@@ -269,25 +268,39 @@ public class MenuManager {
 			VBox levelList = new VBox();
 
 			levelList.getChildren().add(new Label("Select Level"));
+			if (p.getCurrentMoves() > 0) {
+				System.out.println("Continuing");
+				Button button = new Button("Contiue");
+
+				button.setOnAction(e -> {
+					int level = p.getCurrentLevel();
+					selectedLevel.setText("Continuing");
+					System.out.println("levels\\" + p.getCurrentLevel() + ".txt");
+//					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + p.getCurrentLevel() +".txt"));
+					levelSelected = -1;
+				});
+				levelList.getChildren().add(button);
+			}
 			if (p.getMaxLevel() == 0) {
 				Button button = new Button("1");
 				button.setOnAction(e -> {
 					int level = Integer.parseInt(button.getText());
-					levelSelected = level;
+					levelSelected = 1;
 					selectedLevel.setText(LEVEL + level);
-					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + level +".txt"));
+					buildLeaderboardPane(innerRoot,
+							FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
 				});
 				levelList.getChildren().add(button);
 			} else {
-
-				for (int i = 1; i <= p.getMaxLevel(); i++) {
+				for (int i = 1; i < p.getMaxLevel() + 1; i++) {
 					Button button = new Button(Integer.toString(i));
 
 					button.setOnAction(e -> {
 						int level = Integer.parseInt(button.getText());
 						levelSelected = level;
 						selectedLevel.setText(LEVEL + level);
-						buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + level +".txt"));
+						buildLeaderboardPane(innerRoot,
+								FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
 					});
 					levelList.getChildren().add(button);
 				}
@@ -297,14 +310,13 @@ public class MenuManager {
 			rootPane.setCenter(innerRoot);
 
 		}
-		
-		
+
 		private static void buildLeaderboardPane(BorderPane innerRoot, ArrayList<String> leaderboard) {
 			VBox leaderBoardPane = new VBox();
 			leaderBoardPane.setPadding(PADDING);
 			Label leaderboardLabel = new Label("Leaderboard");
 			leaderBoardPane.getChildren().add(leaderboardLabel);
-			for(int i = 0; i < leaderboard.size(); i+= 2) {
+			for (int i = 0; i < leaderboard.size(); i += 2) {
 				HBox box = new HBox();
 				Label nameLabel = new Label(leaderboard.get(i) + ": ");
 				Label timeLabel = new Label(leaderboard.get(i + 1));

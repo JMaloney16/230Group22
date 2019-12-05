@@ -56,12 +56,11 @@ public class GameManager {
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
 	 */
-	public GameManager(Stage primaryStage, String boardFile, String playerName, int windowWidth, int windowHeight, int cellSize) {
+	public GameManager(Stage primaryStage, int boardLevel, String playerName, int windowWidth, int windowHeight,
+			int cellSize) {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
 		this.cellSize = cellSize;
-
-		this.boardFile = boardFile;
 
 //		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
@@ -78,30 +77,21 @@ public class GameManager {
 				}
 			}
 		}
-//		Teleporter t1 = new Teleporter(3, 3);
-//		Teleporter t2 = new Teleporter(10, 10);
-//		t1.setPartner(t2);
-//		t2.setPartner(t1);
-//		temp[13][14] = new StaticEntity(13, 14, "assets\\Lava.png", 1);
-//		temp[3][3] = t1;
-//		temp[10][10] = t2;
-//
-//		temp[3][6] = new ColouredDoor(3, 6, "blue");
-//
-//		temp[4][1] = new Lava(4, 1);
-//
-//		ArrayList<Interactable> temp2 = new ArrayList<Interactable>();
-////		temp2.add(new Key(3, 3, "red"));
-//		temp2.add(new Token(4, 4));
-//		temp2.add(new Key(1, 2, "blue"));
-//		temp2.add(new Shoe(3, 1, "boots"));
-//
-//		ArrayList<Movable> temp3 = new ArrayList<Movable>();
-//		temp3.add(new SmartEnemy(1, 9));
-//		this.board = new Board(temp, temp3, temp2);
-		this.boardFile = "levels\\1.txt";
-		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
-//		System.out.println(this.board.getBoard()[2][6]);
+		
+		this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
+		if (boardLevel == -1) {
+			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
+		} else {			
+			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
+		}
+		
+		if (boardLevel > this.player.getCurrentLevel()) {
+			this.player.setCurrentLevel(boardLevel);
+		}
+		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
+			this.player.setMaxLevel(this.player.getCurrentLevel());
+		}
+
 		this.createGameScene();
 
 		primaryStage.setScene(this.gameScene);
@@ -129,6 +119,7 @@ public class GameManager {
 		if (this.lastKey != -1) {
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 			this.moves += 1;
+			this.player.setCurrentMoves(this.moves);
 //			System.out.print("key: ");
 //			System.out.println(this.lastKey);
 //			
