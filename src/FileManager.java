@@ -240,6 +240,7 @@ public class FileManager {
 			leaderboard.clear();
 			readAnyFile(in, "LEVEL", player);
 			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
+			player.setCurrentLevel(mapLevel);
 //			in.nextLine();
 //			String currentLine = in.nextLine();
 //
@@ -571,7 +572,7 @@ public class FileManager {
 				writer.write("CURRENTTIME," + playerMoves + System.lineSeparator());
 				writer.write("LEVEL," + level + System.lineSeparator());
 				writer.write("MAXLEVEL," + maxLevel + System.lineSeparator());
-				writer.write("INVENTORY\n");
+				writer.write("INVENTORY" + System.lineSeparator());
 				if (player.getFlippers()) {
 					writer.write("FLIPPER"+System.lineSeparator());
 				}
