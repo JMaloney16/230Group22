@@ -5,7 +5,7 @@
  */
 public class Katanna extends Collectable {
 	public Katanna(int x, int y) {
-		super(x, y, "assets/placeholder.png", 0);
+		super(x, y, "assets/katanna.png", 0);
 	}
 
 	public void update(Board board, Player player, int keyboardIn) {
