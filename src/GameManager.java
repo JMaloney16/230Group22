@@ -66,6 +66,7 @@ public class GameManager {
 //		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
 		this.player = new Player(0, 0, 0);
+		this.player.setName(playerName);
 
 		Drawable[][] temp = new Drawable[16][16];
 		for (int y = 0; y < 16; y++) {
@@ -126,7 +127,7 @@ public class GameManager {
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
-//			FileManager.FileWriting.savePlayerFile(this.player, this.board);
+			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 			this.moves += 1;
 //			System.out.print("key: ");
 //			System.out.println(this.lastKey);
