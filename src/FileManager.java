@@ -270,6 +270,7 @@ public class FileManager {
 		public static void readPlayerFile(String filepath, Player player, Board board) {
 			Scanner in = createFileScanner(filepath);
 			String playerName = filepath.substring(0, filepath.length() - 4);
+			player.setName(playerName);
 			readAnyFile(in, "CURRENTTIME", player);
 
 			getPlayerDetails(player, in, dividerLine);
@@ -440,7 +441,7 @@ public class FileManager {
 				FileWriter fw = new FileWriter(file, false);
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
-				writer.write(boardX + "," + boardY + ",");
+				writer.write(boardX + "," + boardY + ",\n");
 				for (int i = 0; i < boardX; i++) {
 					String currentLine = "";
 					for (int j = 0; j < boardY; j++) {
