@@ -13,7 +13,7 @@ import java.util.Scanner;
  * Takes a filename and retrieves specified data from it or saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.8
+ * @version 0.9
  */
 
 //TODO
@@ -168,7 +168,6 @@ public class FileManager {
 						}
 						break;
 					case "TELE":
-						//TODO: Add teleporter partner
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
 						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
@@ -201,7 +200,6 @@ public class FileManager {
 							}
 						}
 						switch (enemyType) {
-							//TODO: Add all enemy types
 							case "STRAIGHT":
 								System.out.println("Straight type enemy starting: " + direction);
 								movables.add(new LineEnemy(posX, posY, directionInt));
@@ -242,21 +240,22 @@ public class FileManager {
 			leaderboard.clear();
 			readAnyFile(in, "LEVEL", player);
 			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
-			in.nextLine();
-			String currentLine = in.nextLine();
-
-			for (int i = 0; i < 3; i++) {
-				String[] topPlayers = currentLine.split(",");
-				String playerName = topPlayers[0];
-				String playerTime = topPlayers[1];
-				System.out.println(playerName + " completed the level in: " + playerTime);
-				leaderboard.add(playerName);
-				leaderboard.add(playerTime);
-				if (i < 2) {
-					currentLine = in.nextLine();
-				}
-			}
+//			in.nextLine();
+//			String currentLine = in.nextLine();
+//
+//			for (int i = 0; i < 3; i++) {
+//				String[] topPlayers = currentLine.split(",");
+//				String playerName = topPlayers[0];
+//				String playerTime = topPlayers[1];
+//				System.out.println(playerName + " completed the level in: " + playerTime);
+//				leaderboard.add(playerName);
+//				leaderboard.add(playerTime);
+//				if (i < 2) {
+//					currentLine = in.nextLine();
+//				}
+//			}
 			in.close();
+//			leaderboard = getLeaderboard(filepath);
 			board.setNewBoard(boardDrawables, movables, interactables);
 			board.setLevelNumber(mapLevel);
 		}
