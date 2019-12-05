@@ -78,10 +78,12 @@ public class GameManager {
 			}
 		}
 		
-		this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
+		
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
-		} else {			
+			this.boardFile = "levels\\" + Integer.toString(this.player.getCurrentLevel()) + ".txt";
+		} else {	
+			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 		}
 		
@@ -220,6 +222,8 @@ public class GameManager {
 	 * Restarts the game
 	 */
 	private void restart() {
+		System.out.println("kjhasgdjhgdfjdsijfljsdhfgkj;sdfhnjkfgn;dfjkgjndfg;fdkdf;gjndgfgd");
+		System.out.println(this.boardFile);
 		this.moves = 0;
 		System.out.println("dont die next time.");
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());

@@ -1,5 +1,7 @@
 /**
- * Shoe.java Holds information about a key
+ * Shoe.java Holds information about a key - no jack it doesnt
+ * 
+ * ######################################################################################################
  *
  * @author Jack Maloney
  * @version 0.5
@@ -32,7 +34,7 @@ public class Shoe extends Collectable {
 		if (type == "boots") {
 			sprite += "Boots.png";
 		} else {
-			sprite += "placeholder.png";
+			sprite += "Flippers.png";
 		}
 		return sprite;
 	}
