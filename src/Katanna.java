@@ -9,7 +9,8 @@ public class Katanna extends Collectable {
 	}
 
 	public void update(Board board, Player player, int keyboardIn) {
-		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()
+			&& !player.getKatanna()) {
 			player.addKatanna();
 			board.removeInteractable(this);
 		}
