@@ -552,10 +552,11 @@ public class FileManager {
 		public static void replaceText(String filepath, String oldText, String newText)
 			throws IOException {
 			File file = new File(filepath);
+			String oldFile = copyFileContents(filepath);
 
 			FileWriter writer = new FileWriter(file);
 
-			String oldFile = copyFileContents(filepath);
+			System.out.println(oldFile);
 
 
 			String newFile = oldFile.replaceAll(oldText, newText);
