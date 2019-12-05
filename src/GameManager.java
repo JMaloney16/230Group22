@@ -126,6 +126,7 @@ public class GameManager {
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
+			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 			this.moves += 1;
 //			System.out.print("key: ");
 //			System.out.println(this.lastKey);
