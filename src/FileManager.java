@@ -150,7 +150,6 @@ public class FileManager {
 								String colour = line.next();
 								System.out.println("It's a " + colour + " key");
 								interactables.add(new Key(posX, posY, colour));
-								System.out.println(interactables.toString());
 								break;
 							default:
 								System.out.println("Unrecognised!");
@@ -159,7 +158,6 @@ public class FileManager {
 						break;
 					case "DOOR":
 						String doorType = line.next();
-						System.out.println(doorType);
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
 							System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
@@ -293,6 +291,12 @@ public class FileManager {
 			getPlayerDetails(player, in, currentLine);
 		}
 
+		/**
+		 * Gets the information for the player object only from the player save file
+		 * @param player PLayer object to edit
+		 * @param in Scanner containing file
+		 * @param currentLine h
+		 */
 		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
 			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
 			player.setCurrentMoves(currentMoves);
@@ -498,7 +502,6 @@ public class FileManager {
 						case "COLOUREDDOOR":
 							// TODO: Get the colour of the door
 							String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
-							System.out.println(colour);
 							writer.write(prefix + "DOOR,KEY," + colour);
 							break;
 //						case "FLIPPER":
