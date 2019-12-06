@@ -180,6 +180,7 @@ public class FileManager {
 						tele2.setPartner(tele1);
 						boardDrawables[posX][posY] = tele1;
 						boardDrawables[pairX][pairY] = tele2;
+						interactables.add(tele1);
 						break;
 					case "ENEMY":
 						String enemyType = line.next();
@@ -436,7 +437,7 @@ public class FileManager {
 		 */
 		public static void savePlayerFile(String filename, Player player, Board board) { // TODO Have saveProfileFile// for new profile (no board
 			// available)
-			System.out.println("SAVING FILE");
+			System.out.println("SAVING FILE: " + filename);
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
 			ArrayList<Movable> movables = board.getMovables();
@@ -529,11 +530,11 @@ public class FileManager {
 						case "TELEPORTER":
 							// TODO: Get the teleporter's partner
 							Teleporter partner = ((Teleporter) interactable).getPartner();
-							String partnerPos = "," + partner.xCoord + "," + partner.yCoord;
+							String partnerPos = "," + (partner.xCoord + 1) + "," + (partner.yCoord + 1);
 							writer.write(prefix + "TELE" + partnerPos);
 							break;
 						case "KATANNA":
-							writer.write(prefix + "KATANNA");
+							writer.write(prefix + "ITEM,KATANNA");
 							break;
 						default:
 							System.out.println("Not implemented: " + type);
