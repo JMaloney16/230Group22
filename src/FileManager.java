@@ -499,7 +499,7 @@ public class FileManager {
 							// TODO: Get the colour of the door
 							String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
 							System.out.println(colour);
-							writer.write(prefix + "DOOR," + colour);
+							writer.write(prefix + "DOOR,KEY," + colour);
 							break;
 //						case "FLIPPER":
 //							writer.write(prefix + "ITEM,FLIPPER");
