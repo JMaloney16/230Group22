@@ -165,8 +165,10 @@ public class FileManager {
 							System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
 							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
-							System.out.println("It's a " + doorType.toLowerCase() + " door!");
-							interactables.add(new ColouredDoor(posX, posY, doorType));
+							String doorColour = line.next();
+							System.out.println("It's a " + doorType.toLowerCase() + " door of colour: "
+								+ doorColour);
+							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
 
