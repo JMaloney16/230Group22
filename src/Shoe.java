@@ -52,4 +52,8 @@ public class Shoe extends Collectable {
 			board.removeInteractable(this);
 		}
 	}
+
+	public String getType() {
+		return type;
+	}
 }

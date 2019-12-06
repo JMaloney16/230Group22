@@ -6,7 +6,7 @@
  * @see Interactable
  * @author Dylan Cole - 980660
  * @author Jack Maloney
- * @version 0.2
+ * @version 0.5
  */
 public class Key extends Collectable {
 	private String colour;
@@ -25,12 +25,12 @@ public class Key extends Collectable {
 	/**
 	 * Finds the corresponding sprite according to the key's colour
 	 *
-	 * @param colour The colour of the key
+	 * @param keyColour The colour of the key
 	 * @return The filepath to the corresponding sprite
 	 */
-	private static String getSprite(String colour) {
-		String sprite = "assets/";
-		switch (colour) {
+	private static String getSprite(String keyColour) {
+		String sprite = "assets//";
+		switch (keyColour) {
 		case "red":
 			sprite += "keyRed.png";
 			break;
