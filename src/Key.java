@@ -29,7 +29,7 @@ public class Key extends Collectable {
 	 * @return The filepath to the corresponding sprite
 	 */
 	private static String getSprite(String keyColour) {
-		String sprite = "assets//";
+		String sprite = "assets/";
 		switch (keyColour) {
 		case "red":
 			sprite += "keyRed.png";

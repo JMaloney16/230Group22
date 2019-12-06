@@ -146,6 +146,12 @@ public class FileManager {
 								System.out.println("It's a katanna!");
 								interactables.add(new Katanna(posX, posY));
 								break;
+							case "KEY":
+								String colour = line.next();
+								System.out.println("It's a " + colour + " key");
+								interactables.add(new Key(posX, posY, colour));
+								System.out.println(interactables.toString());
+								break;
 							default:
 								System.out.println("Unrecognised!");
 								break;
@@ -163,12 +169,7 @@ public class FileManager {
 							interactables.add(new ColouredDoor(posX, posY, doorType));
 						}
 						break;
-					case "KEY":
-						String colour = line.next();
-						System.out.println("It's a " + colour + " key");
-						interactables.add(new Key(posX, posY, colour));
-						System.out.println(interactables.toString());
-						break;
+
 					case "TELE":
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
@@ -530,12 +531,12 @@ public class FileManager {
 					writer.write(System.lineSeparator());
 				}
 				for (Movable moveable : movables) {
-					int xValue = moveable.getxCoord() + 1;
-					int yValue = moveable.getyCoord() + 1;
 					String type = moveable.getClass().getName().toUpperCase();
-					String prefix = (xValue + "," + yValue + "," + "ENEMY,");
-					String direction = "";
 					if (!type.equals("PLAYER")) {
+						int xValue = moveable.getxCoord() + 1;
+						int yValue = moveable.getyCoord() + 1;
+						String prefix = (xValue + "," + yValue + "," + "ENEMY,");
+						String direction = "";
 						if (!type.equals("SMARTENEMY")) {
 							switch (((Enemy) moveable).getDir()) {
 								case 0:
