@@ -124,6 +124,7 @@ public class GameManager {
 //			System.out.println(this.player.update(this.board, this.lastKey));
 			this.board.updateInteractables(this.player, this.lastKey);
 			int playerState = this.player.update(this.board, this.lastKey);
+
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
 			
@@ -220,11 +221,16 @@ public class GameManager {
 	private void restart() {
 		System.out.println("kjhasgdjhgdfjdsijfljsdhfgkj;sdfhnjkfgn;dfjkgjndfg;fdkdf;gjndgfgd");
 		System.out.println(this.boardFile);
+		String oldPlayerName = this.player.getName();
+		int oldPlayerLevel = this.player.getCurrentLevel();
+		int oldPlayerMaxLevel = this.player.getMaxLevel();
 		this.moves = 0;
-		this.player.setCurrentMoves(this.moves);
+		this.player = new Player(0, 0, oldPlayerMaxLevel);
+		this.player.setCurrentLevel(oldPlayerLevel);
+		this.player.setName(oldPlayerName);
 		System.out.println("dont die next time.");
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
-		this.player = new Player(0, 0, 0);
+//		this.player = new Player(0, 0, 0);
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 		this.updateLeveling();
 	}
@@ -232,8 +238,7 @@ public class GameManager {
 	/**
 	 * Progesses the game to the next level
 	 */
-	private void nextLevel() {
-		
+	private void nextLevel() {		
 //		System.out.println("Level has been completed");
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
@@ -246,15 +251,10 @@ public class GameManager {
 	}
 	
 	private void updateLeveling() {
-		System.out.println("jashkdvjkhysagdhjkagsdjhygadsfdsf----------");
 		this.player.setCurrentLevel(this.board.getLevelNumber());
-		System.out.println(this.player.getCurrentLevel());
-		System.out.println(this.player.getMaxLevel());
+
 		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
-			System.out.println("asdfbv BLAR");
 			this.player.setMaxLevel(this.player.getCurrentLevel());
-			System.out.println(this.player.getCurrentLevel());
-			System.out.println(this.player.getMaxLevel());
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 		}
 //		if (boardLevel > this.player.getCurrentLevel()) {

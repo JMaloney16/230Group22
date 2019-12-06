@@ -35,35 +35,38 @@ public class Teleporter extends Tile {
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		// used to detected when the player is moving onto the tile
+//		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+//			player.setxCoord(this.partner.xCoord);
+//			player.setyCoord(this.partner.yCoord);
+//		}
 		if (this.partner != null) {
 			switch (keyboardIn) {
 			case 0:
-				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() - 1) {
+				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 					player.setxCoord(this.partner.xCoord);
-					player.setyCoord(this.partner.yCoord);
+					player.setyCoord(this.partner.yCoord-1);
 				}
 				break;
 			case 1:
-				if (this.xCoord == player.getxCoord() + 1 && this.yCoord == player.getyCoord()) {
-					player.setxCoord(this.partner.xCoord);
+				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+					player.setxCoord(this.partner.xCoord+1);
 					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			case 2:
-				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() + 1) {
+				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 					player.setxCoord(this.partner.xCoord);
-					player.setyCoord(this.partner.yCoord);
+					player.setyCoord(this.partner.yCoord+1);
 				}
 				break;
 			case 3:
-				if (this.xCoord == player.getxCoord() - 1 && this.yCoord == player.getyCoord()) {
-					player.setxCoord(this.partner.xCoord);
+				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+					player.setxCoord(this.partner.xCoord-1);
 					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			}
 		}
-
 	}
 
 	public Teleporter getPartner() {
