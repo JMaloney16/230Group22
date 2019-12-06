@@ -21,6 +21,11 @@ public class Goal extends Tile {
 
 	/**
 	 * Updates the goal tile, checks player position and behaves accordingly
+	 * 
+	 * @param board,      the board object for the player to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
+	 * 
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {

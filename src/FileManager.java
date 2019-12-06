@@ -146,6 +146,12 @@ public class FileManager {
 								System.out.println("It's a katanna!");
 								interactables.add(new Katanna(posX, posY));
 								break;
+							case "KEY":
+								String colour = line.next();
+								System.out.println("It's a " + colour + " key");
+								interactables.add(new Key(posX, posY, colour));
+								System.out.println(interactables.toString());
+								break;
 							default:
 								System.out.println("Unrecognised!");
 								break;
@@ -159,16 +165,13 @@ public class FileManager {
 							System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
 							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
-							System.out.println("It's a " + doorType.toLowerCase() + " door!");
-							interactables.add(new ColouredDoor(posX, posY, doorType));
+							String doorColour = line.next();
+							System.out.println("It's a " + doorType.toLowerCase() + " door of colour: "
+								+ doorColour);
+							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
-					case "KEY":
-						String colour = line.next();
-						System.out.println("It's a " + colour + " key");
-						interactables.add(new Key(posX, posY, colour));
-						System.out.println(interactables.toString());
-						break;
+
 					case "TELE":
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
@@ -496,7 +499,7 @@ public class FileManager {
 							// TODO: Get the colour of the door
 							String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
 							System.out.println(colour);
-							writer.write(prefix + "DOOR," + colour);
+							writer.write(prefix + "DOOR,KEY," + colour);
 							break;
 //						case "FLIPPER":
 //							writer.write(prefix + "ITEM,FLIPPER");
@@ -530,12 +533,12 @@ public class FileManager {
 					writer.write(System.lineSeparator());
 				}
 				for (Movable moveable : movables) {
-					int xValue = moveable.getxCoord() + 1;
-					int yValue = moveable.getyCoord() + 1;
 					String type = moveable.getClass().getName().toUpperCase();
-					String prefix = (xValue + "," + yValue + "," + "ENEMY,");
-					String direction = "";
 					if (!type.equals("PLAYER")) {
+						int xValue = moveable.getxCoord() + 1;
+						int yValue = moveable.getyCoord() + 1;
+						String prefix = (xValue + "," + yValue + "," + "ENEMY,");
+						String direction = "";
 						if (!type.equals("SMARTENEMY")) {
 							switch (((Enemy) moveable).getDir()) {
 								case 0:
