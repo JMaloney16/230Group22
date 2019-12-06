@@ -441,7 +441,7 @@ public class FileManager {
 			Drawable[][] boardArray = board.getBoard();
 			ArrayList<Movable> movables = board.getMovables();
 			ArrayList<Interactable> interactables = board.getInteractables();
-
+			FileWriter fw = null;
 			int boardX = boardArray.length;
 			int boardY = boardArray[0].length;
 			try {
@@ -450,7 +450,7 @@ public class FileManager {
 					file.createNewFile();
 				}
 
-				FileWriter fw = new FileWriter(file, false);
+				fw = new FileWriter(file, false);
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
 				writer.write(boardX + "," + boardY + "," + System.lineSeparator());
@@ -629,6 +629,7 @@ public class FileManager {
 				try {
 					if (writer != null) {
 						writer.close();
+						fw.close();
 					}
 				} catch (Exception ex) {
 					System.out.println(ex);
