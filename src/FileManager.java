@@ -281,6 +281,11 @@ public class FileManager {
 			board.setNewBoard(boardDrawables, movables, interactables);
 		}
 
+		/**
+		 * Loads a player's stats from a file
+		 * @param filepath location of file to read
+		 * @param player player to edit
+		 */
 		public static void readPlayerFile(String filepath, Player player) {
 			Scanner in = createFileScanner(filepath);
 			String currentLine = in.nextLine();
@@ -295,7 +300,7 @@ public class FileManager {
 		 * Gets the information for the player object only from the player save file
 		 * @param player PLayer object to edit
 		 * @param in Scanner containing file
-		 * @param currentLine h
+		 * @param currentLine The line the scanner was on before being passed
 		 */
 		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
 			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
