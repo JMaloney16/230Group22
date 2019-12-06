@@ -56,7 +56,7 @@ public class GameManager {
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
 	 */
-	public GameManager(Stage primaryStage, int boardLevel, String playerName, int windowWidth, int windowHeight,
+	public GameManager(Stage primaryStage, int boardLevel, String playerName, int maxLevel, int windowWidth, int windowHeight,
 			int cellSize) {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
@@ -85,8 +85,9 @@ public class GameManager {
 		} else {	
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
+			this.player.setMaxLevel(maxLevel);
 		}
-		
+		System.out.println(this.player.getMaxLevel());
 		this.updateLeveling();
 
 		this.createGameScene();
@@ -251,6 +252,8 @@ public class GameManager {
 	}
 	
 	private void updateLeveling() {
+		System.out.println("ajshkdvhjdsagvfkhjgdsafjhgsdkfhjbgsdfsdffs");
+		System.out.println(this.player.getMaxLevel());
 		this.player.setCurrentLevel(this.board.getLevelNumber());
 
 		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {

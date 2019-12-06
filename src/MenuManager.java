@@ -96,7 +96,13 @@ public class MenuManager {
 			launchButton.setOnAction(e -> {
 				System.out.println(levelSelected);
 				if (profileSelected != "" && levelSelected != 0) {
-					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, windowWidth,
+					int maxLevel = 0;
+					for(Player p : players) {
+						if (p.getName().equals(profileSelected)) {
+							maxLevel = p.getMaxLevel();
+						}
+					}
+					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, maxLevel, windowWidth,
 							windowHeight, cellSize);
 				}
 
