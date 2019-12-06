@@ -129,10 +129,10 @@ public class GameManager {
 //			
 //			System.out.print("player move: ");
 //			System.out.println(this.player.update(this.board, this.lastKey));
+			int playerState = this.player.update(this.board, this.lastKey);
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
 			this.board.updateInteractables(this.player, this.lastKey);
-			int playerState = this.player.update(this.board, this.lastKey);
 			if (playerState == 2) {
 				this.restart();
 			}
