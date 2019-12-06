@@ -10,8 +10,9 @@ public class ColouredDoor extends Door {
 	private String colour;
 
 	/**
-	 * @param x, the x coordinate of the fire tile.
-	 * @param y, the y coordinate of the fire tile.
+	 * @param x, 		the x coordinate of the coloured door tile.
+	 * @param y, 		the y coordinate of the coloured door tile.
+	 * @param colour,	the colour of the door.
 	 */
 	public ColouredDoor(int x, int y, String colour) {
 		// TODO Auto-generated constructor stub

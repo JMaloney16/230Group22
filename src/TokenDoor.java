@@ -9,10 +9,10 @@ public class TokenDoor extends Door {
 	private int threshold;
 
 	/**
-	 * Creates a water tile.
+	 * Creates a door tile.
 	 * 
-	 * @param x, the x coordinate of the water tile.
-	 * @param y, the y coordinate of the water tile.
+	 * @param x, the x coordinate of the door tile.
+	 * @param y, the y coordinate of the door tile.
 	 */
 	public TokenDoor(int x, int y, int amount) {
 		super(x, y, "assets\\Door.png");
