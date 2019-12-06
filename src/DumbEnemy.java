@@ -22,15 +22,10 @@ public class DumbEnemy extends Enemy {
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		normaliseDir();
-//float deltax = player.xCoord - this.xCoord;
-//float deltay = player.yCoord - this.xCoord;
-		float deltax = this.xCoord - player.xCoord;
-		float deltay = this.yCoord - player.xCoord;
+		float deltax = player.xCoord - this.xCoord;
+		float deltay = this.yCoord - player.yCoord;
 		float theta = (float) (Math.atan2(-deltay, deltax) * (180.0 / Math.PI));
 		int angle = convertAngle(theta);
-
-//		System.out.println(angle); // convertAngle((float) (Math.atan2(-1, 0)* (180.0 / Math.PI))));
-//		System.out.printf("%f, %f\n", deltax, (float) (this.xCoord - player.xCoord));
 
 		if ((angle > 315 && angle <= 360) || (angle > 0 && angle <= 45)) {
 			this.setDir(0);
@@ -47,9 +42,9 @@ public class DumbEnemy extends Enemy {
 
 		boolean front = this.getDirBlocking(board);
 
-//if (front == false) {
-//	this.move();
-//}
+		if (front == false) {
+			this.move();
+		}
 
 		this.nextX = this.xCoord;
 		this.nextY = this.yCoord;
