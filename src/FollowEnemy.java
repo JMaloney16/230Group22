@@ -19,7 +19,7 @@ public class FollowEnemy extends Enemy {
 	 *                   right bias)
 	 */
 	public FollowEnemy(int x, int y, int direction, int bias) {
-		super(x, y, "assets\\Mummy.png", 1, direction);
+		super(x, y, "assets\\Spider.png", 1, direction);
 		this.bias = bias;
 		this.forceMove = false;
 	}

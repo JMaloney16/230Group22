@@ -14,7 +14,7 @@ public class LineEnemy extends Enemy {
 	 * @param direction, the starting direction of the enemy
 	 */
 	public LineEnemy(int x, int y, int direction) {
-		super(x, y, "assets\\Mummy.png", 1, direction);
+		super(x, y, "assets\\SlimeBoy.png", 1, direction);
 	}
 
 	/**

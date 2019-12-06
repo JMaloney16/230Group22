@@ -41,7 +41,7 @@ public class SmartEnemy extends Enemy {
 	 * @param y, y coordinate of the enemy
 	 */
 	public SmartEnemy(int x, int y) {
-		super(x, y, "assets\\Mummy.png", 1, 0);
+		super(x, y, "assets\\FlyEye.png", 1, 0);
 	}
 
 	/**
