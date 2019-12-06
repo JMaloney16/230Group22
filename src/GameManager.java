@@ -67,16 +67,16 @@ public class GameManager {
 		this.player = new Player(0, 0, 0);
 		this.player.setName(playerName);
 
-		Drawable[][] temp = new Drawable[16][16];
-		for (int y = 0; y < 16; y++) {
-			for (int x = 0; x < 16; x++) {
-				if (x == 0 || x == 15 || y == 0 || y == 15) {
-					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
-				} else {
-					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
-				}
-			}
-		}
+//		Drawable[][] temp = new Drawable[16][16];
+//		for (int y = 0; y < 16; y++) {
+//			for (int x = 0; x < 16; x++) {
+//				if (x == 0 || x == 15 || y == 0 || y == 15) {
+//					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
+//				} else {
+//					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
+//				}
+//			}
+//		}
 		
 		
 		if (boardLevel == -1) {
@@ -87,11 +87,13 @@ public class GameManager {
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 		}
 		
+		if (this.player.getMaxLevel() < this.player.getCurrentLevel() && this.player.getMaxLevel() > 0) {
+			System.out.println("jashkdvjkhysagdhjkagsdjhygadsfdsf----------");
+			System.out.println(this.player.getMaxLevel());
+			this.player.setMaxLevel(this.player.getCurrentLevel());
+		}
 		if (boardLevel > this.player.getCurrentLevel()) {
 			this.player.setCurrentLevel(boardLevel);
-		}
-		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
-			this.player.setMaxLevel(this.player.getCurrentLevel());
 		}
 
 		this.createGameScene();
