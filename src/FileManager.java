@@ -503,7 +503,7 @@ public class FileManager {
 //							break;
 						case "SHOE":
 							if (((Shoe) interactable).getType().equals("flippers")){
-								writer.write(prefix + "ITEM,FLIPPERS");
+								writer.write(prefix + "ITEM,FLIPPER");
 							} else {
 								writer.write(prefix + "ITEM,BOOTS");
 							}
