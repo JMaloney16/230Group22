@@ -67,16 +67,16 @@ public class GameManager {
 		this.player = new Player(0, 0, 0);
 		this.player.setName(playerName);
 
-		Drawable[][] temp = new Drawable[16][16];
-		for (int y = 0; y < 16; y++) {
-			for (int x = 0; x < 16; x++) {
-				if (x == 0 || x == 15 || y == 0 || y == 15) {
-					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
-				} else {
-					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
-				}
-			}
-		}
+//		Drawable[][] temp = new Drawable[16][16];
+//		for (int y = 0; y < 16; y++) {
+//			for (int x = 0; x < 16; x++) {
+//				if (x == 0 || x == 15 || y == 0 || y == 15) {
+//					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
+//				} else {
+//					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
+//				}
+//			}
+//		}
 		
 		
 		if (boardLevel == -1) {
@@ -87,12 +87,7 @@ public class GameManager {
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 		}
 		
-		if (boardLevel > this.player.getCurrentLevel()) {
-			this.player.setCurrentLevel(boardLevel);
-		}
-		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
-			this.player.setMaxLevel(this.player.getCurrentLevel());
-		}
+		this.updateLeveling();
 
 		this.createGameScene();
 
@@ -127,10 +122,12 @@ public class GameManager {
 //			
 //			System.out.print("player move: ");
 //			System.out.println(this.player.update(this.board, this.lastKey));
-			this.board.updateBoard(this.player, this.lastKey);
-			this.board.updateMovables(this.player, this.lastKey);
 			this.board.updateInteractables(this.player, this.lastKey);
 			int playerState = this.player.update(this.board, this.lastKey);
+
+			this.board.updateBoard(this.player, this.lastKey);
+			this.board.updateMovables(this.player, this.lastKey);
+			
 			if (playerState == 2) {
 				this.restart();
 			}
@@ -224,25 +221,44 @@ public class GameManager {
 	private void restart() {
 		System.out.println("kjhasgdjhgdfjdsijfljsdhfgkj;sdfhnjkfgn;dfjkgjndfg;fdkdf;gjndgfgd");
 		System.out.println(this.boardFile);
+		String oldPlayerName = this.player.getName();
+		int oldPlayerLevel = this.player.getCurrentLevel();
+		int oldPlayerMaxLevel = this.player.getMaxLevel();
 		this.moves = 0;
+		this.player = new Player(0, 0, oldPlayerMaxLevel);
+		this.player.setCurrentLevel(oldPlayerLevel);
+		this.player.setName(oldPlayerName);
 		System.out.println("dont die next time.");
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
-		this.player = new Player(0, 0, 0);
+//		this.player = new Player(0, 0, 0);
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
+		this.updateLeveling();
 	}
 
 	/**
 	 * Progesses the game to the next level
 	 */
-	private void nextLevel() {
+	private void nextLevel() {		
 //		System.out.println("Level has been completed");
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
 		System.out.println(this.boardFile);
 
-		if (this.board.getLevelNumber() > this.player.getMaxLevel()) {
-			this.player.setMaxLevel(this.board.getLevelNumber());
-		}
+//		if (this.board.getLevelNumber() > this.player.getMaxLevel()) {
+//			this.player.setMaxLevel(this.board.getLevelNumber());
+//		}
 		this.restart();
+	}
+	
+	private void updateLeveling() {
+		this.player.setCurrentLevel(this.board.getLevelNumber());
+
+		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
+			this.player.setMaxLevel(this.player.getCurrentLevel());
+			FileManager.FileWriting.savePlayerFile(this.player, this.board);
+		}
+//		if (boardLevel > this.player.getCurrentLevel()) {
+//			this.player.setCurrentLevel(boardLevel);
+//		}
 	}
 }
