@@ -245,22 +245,8 @@ public class FileManager {
 			readAnyFile(in, "LEVEL", player);
 			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
 			player.setCurrentLevel(mapLevel);
-//			in.nextLine();
-//			String currentLine = in.nextLine();
-//
-//			for (int i = 0; i < 3; i++) {
-//				String[] topPlayers = currentLine.split(",");
-//				String playerName = topPlayers[0];
-//				String playerTime = topPlayers[1];
-//				System.out.println(playerName + " completed the level in: " + playerTime);
-//				leaderboard.add(playerName);
-//				leaderboard.add(playerTime);
-//				if (i < 2) {
-//					currentLine = in.nextLine();
-//				}
-//			}
+
 			in.close();
-//			leaderboard = getLeaderboard(filepath);
 			board.setNewBoard(boardDrawables, movables, interactables);
 			board.setLevelNumber(mapLevel);
 		}
@@ -280,6 +266,7 @@ public class FileManager {
 			getPlayerDetails(player, in, dividerLine);
 
 			board.setNewBoard(boardDrawables, movables, interactables);
+			in.close();
 		}
 
 		/**
@@ -295,6 +282,7 @@ public class FileManager {
 				currentLine = in.nextLine();
 			}
 			getPlayerDetails(player, in, currentLine);
+			in.close();
 		}
 
 		/**
