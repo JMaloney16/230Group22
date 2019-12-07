@@ -86,7 +86,7 @@ public class FileManager {
 							break;
 						case "F":
 							System.out.print("F");
-							boardDrawables[j][i] = new Lava(j, i);
+							boardDrawables[j][i] = new Fire(j, i);
 							break;
 						case "W":
 							System.out.print("W");
@@ -460,7 +460,7 @@ public class FileManager {
 										break;
 								}
 								break;
-							case "Lava":
+							case "Fire":
 								currentLine += "F";
 								break;
 							case "Water":
@@ -625,6 +625,33 @@ public class FileManager {
 				}
 			}
 
+		}
+
+		public static void updateLeaderboard(String boardFile, String playerName, int moves) throws IOException {
+			ArrayList<String> leaderboard = FileManager.FileReading.getLeaderboard(boardFile);
+			int firstTime = Integer.parseInt(leaderboard.get(1));
+			int secondTime = Integer.parseInt(leaderboard.get(3));
+			int thirdTime = Integer.parseInt(leaderboard.get(5));
+			String playerTime = (playerName + "," + moves);
+			if (moves < firstTime) {
+				System.out.println("First place");
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
+					+ leaderboard.get(5), leaderboard.get(2) + "," + leaderboard.get(3));
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(2) + ","
+					+ leaderboard.get(3), leaderboard.get(0) + "," + leaderboard.get(1));
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(0) + ","
+					+ leaderboard.get(1), playerTime);
+			} else if (moves > firstTime && moves < secondTime) {
+				System.out.println("Second place");
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
+					+ leaderboard.get(5), leaderboard.get(2) + "," + leaderboard.get(3));
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(2) + ","
+					+ leaderboard.get(3), playerTime);
+			} else if (moves > secondTime && moves < thirdTime) {
+				System.out.println("Third Place");
+				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
+					+ leaderboard.get(5), playerTime);
+			}
 		}
 
 		/**
