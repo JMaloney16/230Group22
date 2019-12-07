@@ -13,7 +13,7 @@ public class Katanna extends Collectable {
 	 * @param colour, the colour of the Katanna
 	 */
 	public Katanna(int x, int y) {
-		super(x, y, "assets/katanna.png", 0);
+		super(x, y, "assets/katanna.png", 1);
 	}
 
 	/**
