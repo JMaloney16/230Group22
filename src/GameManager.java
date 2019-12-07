@@ -51,10 +51,6 @@ public class GameManager {
 	
 	private Image TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself;
 
-	// TODO
-	// make sure it works when a playerfile is loaded to be continued
-	// make cell size to work
-
 	/**
 	 * Creates a new GameManager with a stage, boardfile, window size and a cell
 	 * size.
