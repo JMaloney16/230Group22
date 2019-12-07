@@ -287,15 +287,19 @@ public class GameManager {
 	
 	//Getting the whole player inventory (for comparisons)
 	private String[] getPlayerInventory() {
-		String[] inventory = new String[8];
+		String[] inventory = new String[] {
+				Integer.toString(this.moves),
+				"", "", "", "", //Keys to be added later in method
+				Integer.toString(this.player.getTokens()),
+				Boolean.toString(this.player.getBoots()),
+				Boolean.toString(this.player.getFlippers()),
+				Boolean.toString(this.player.getKatanna())
+				
+		};
 		
-		for(int i = 0; i < 4; i++) {
-			inventory[i] = Integer.toString(this.player.getKeys()[i]);
+		for(int i = 1; i < 5; i++) {
+			inventory[i] = Integer.toString(this.player.getKeys()[i - 1]);
 		}
-		inventory[4] = Integer.toString(this.player.getTokens());
-		inventory[5] = Boolean.toString(this.player.getBoots());
-		inventory[6] = Boolean.toString(this.player.getFlippers());
-		inventory[7] = Boolean.toString(this.player.getKatanna());
 		
 		return inventory;
 	}
@@ -305,26 +309,27 @@ public class GameManager {
 	private HBox drawInventory(boolean firstDraw) {
 		HBox inventoryHBox = new HBox();
 		inventoryHBox.setSpacing(8);
-		String[] labelNames = new String[]{"R", "B", "Y", "G",
+		String[] labelNames = new String[]{"TIME", "R", "B", "Y", "G",
 				"TOKEN", "BOOTS", "FLIPPER", "KATANNA"};
-		Font font = new Font("Arial", 10);
+		Font font = new Font("Arial", 12);
 		
 		if(firstDraw == false) {
 			this.toolbar.getChildren().remove(this.toolbar.getChildren().size() - 1);
 		}
 		
+		
 		for(int i = 0; i < 8; i++) {
 			VBox box = new VBox();
+			box.setAlignment(javafx.geometry.Pos.CENTER);
 			Label name = new Label(labelNames[i]);
-			name.setAlignment(javafx.geometry.Pos.CENTER);
 			name.setFont(font);
 			Label value = new Label(this.getPlayerInventory()[i]);
-			value.setAlignment(javafx.geometry.Pos.CENTER);
 			value.setFont(font);
 			
 			box.getChildren().addAll(name, value);
 			inventoryHBox.getChildren().add(box);
 		}
+		
 		
 		return inventoryHBox;
 		
