@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -153,6 +154,13 @@ public class SmartEnemy extends Enemy {
 			Cell nextMove = this.path.get(this.path.size() - 1);
 			this.xCoord = nextMove.x;
 			this.yCoord = nextMove.y;
+		} else {
+			Random random = new Random();
+			this.setDir(random.nextInt(3));
+			this.normaliseDir();
+			if (getDirBlocking(board) == false) {
+				this.move();
+			}
 		}
 
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
