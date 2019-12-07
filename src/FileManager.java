@@ -460,7 +460,7 @@ public class FileManager {
 										break;
 								}
 								break;
-							case "Lava":
+							case "Fire":
 								currentLine += "F";
 								break;
 							case "Water":
