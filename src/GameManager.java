@@ -150,10 +150,9 @@ public class GameManager {
 			}
 			if (this.player.getCompleted()) {
 				this.nextLevel();
+			} else {
+				this.board.updateInteractables(this.player, -1);
 			}
-//			} else {
-//				this.board.updateInteractables(this.player, this.lastKey);
-//			}
 //			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
 		this.lastKey = -1;
