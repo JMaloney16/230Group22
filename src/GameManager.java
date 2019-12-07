@@ -12,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -46,7 +47,9 @@ public class GameManager {
 
 	private int lastKey = -1;
 
-	private int frameCount = 0;
+	private int frameCount = 100;
+	
+	private Image TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself;
 
 	// TODO
 	// make sure it works when a playerfile is loaded to be continued
@@ -73,17 +76,8 @@ public class GameManager {
 		this.player = new Player(0, 0, 0);
 		this.player.setName(playerName);
 
-//		Drawable[][] temp = new Drawable[16][16];
-//		for (int y = 0; y < 16; y++) {
-//			for (int x = 0; x < 16; x++) {
-//				if (x == 0 || x == 15 || y == 0 || y == 15) {
-//					temp[x][y] = new StaticEntity(x, y, "assets\\stoneBrickWall.png", 2);
-//				} else {
-//					temp[x][y] = new StaticEntity(x, y, "assets\\Floor.png", 0);
-//				}
-//			}
-//		}
-		
+		File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
+		this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
 		
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
@@ -124,6 +118,10 @@ public class GameManager {
 		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
+		
+		if (this.frameCount < 20) {
+			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
+		}
 		
 		//Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
@@ -248,6 +246,7 @@ public class GameManager {
 	 * Restarts the game
 	 */
 	private void restart() {
+		this.frameCount = 0;
 		String oldPlayerName = this.player.getName();
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
