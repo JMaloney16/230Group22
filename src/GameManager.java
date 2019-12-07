@@ -87,13 +87,13 @@ public class GameManager {
 		
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
+			this.moves = this.player.getCurrentMoves();
 			this.boardFile = "levels\\" + Integer.toString(this.player.getCurrentLevel()) + ".txt";
 		} else {	
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 			this.player.setMaxLevel(maxLevel);
 		}
-		System.out.println(this.player.getMaxLevel());
 		this.updateLeveling();
 
 		this.createGameScene();
@@ -248,8 +248,6 @@ public class GameManager {
 	 * Restarts the game
 	 */
 	private void restart() {
-		System.out.println("kjhasgdjhgdfjdsijfljsdhfgkj;sdfhnjkfgn;dfjkgjndfg;fdkdf;gjndgfgd");
-		System.out.println(this.boardFile);
 		String oldPlayerName = this.player.getName();
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
@@ -284,8 +282,6 @@ public class GameManager {
 	}
 	
 	private void updateLeveling() {
-		System.out.println("ajshkdvhjdsagvfkhjgdsafjhgsdkfhjbgsdfsdffs");
-		System.out.println(this.player.getMaxLevel());
 		this.player.setCurrentLevel(this.board.getLevelNumber());
 
 		if (this.player.getMaxLevel() < this.player.getCurrentLevel()) {
