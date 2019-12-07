@@ -274,7 +274,7 @@ public class MenuManager {
 			VBox levelList = new VBox();
 
 			levelList.getChildren().add(new Label("Select Level"));
-			if (p.getCurrentMoves() > 0) {
+			if (p.getCurrentTime() > 0) {
 				Button button = new Button("Continue Level "+Integer.toString(p.getCurrentLevel()));
 
 				button.setOnAction(e -> {

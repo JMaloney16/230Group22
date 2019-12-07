@@ -44,6 +44,10 @@ public class GameManager {
 	private int cellSize;
 
 	private int moves = 0;
+	private int time = 0;
+	private int previousTime = 0;
+	private long startTime;
+	private long currentTime;
 
 	private int lastKey = -1;
 
@@ -74,10 +78,13 @@ public class GameManager {
 
 		//File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
 		//this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
-		
+		this.startTime = System.currentTimeMillis();
+
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
 			this.moves = this.player.getCurrentMoves();
+			this.time = this.player.getCurrentTime();
+			this.previousTime = this.time;
 			this.boardFile = "levels\\" + Integer.toString(this.player.getCurrentLevel()) + ".txt";
 		} else {	
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
@@ -109,24 +116,27 @@ public class GameManager {
 	private void update() throws IOException {
 		this.frameCount++;
 		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
-
 		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
-		
+
 		if (this.frameCount < 20) {
 			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
 		}
-		
+
 		//Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
-		
+
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
+			currentTime = System.currentTimeMillis();
+			time = (int)((currentTime - startTime)/1000);
+			time += previousTime;
 			this.moves += 1;
 			this.player.setCurrentMoves(this.moves);
+			this.player.setCurrentTime(time);
 //			System.out.print("key: ");
 //			System.out.println(this.lastKey);
 //			
@@ -247,6 +257,9 @@ public class GameManager {
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
 		this.moves = 0;
+		this.time = 0;
+		this.previousTime = 0;
+		this.startTime = System.currentTimeMillis();
 		this.player = new Player(0, 0, oldPlayerMaxLevel);
 		this.player.setCurrentLevel(oldPlayerLevel);
 		this.player.setName(oldPlayerName);
@@ -264,7 +277,7 @@ public class GameManager {
 //		System.out.println("Level has been completed");
 		//Get the leaderboard and compare the players time to each of the high scores
 
-		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.moves);
+		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.time);
 
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
@@ -291,7 +304,7 @@ public class GameManager {
 	//Getting the whole player inventory (for comparisons)
 	private String[] getPlayerInventory() {
 		String[] inventory = new String[] {
-				Integer.toString(this.moves),
+				Integer.toString(this.time),
 				"", "", "", "", //Keys to be added later in method
 				Integer.toString(this.player.getTokens()),
 				Boolean.toString(this.player.getBoots()),

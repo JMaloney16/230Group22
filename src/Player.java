@@ -18,6 +18,7 @@ public class Player extends Movable {
 	private int currentLevel;
 	private int maxLevel;
 	private int currentMoves;
+	private int currentTime;
 
 	/**
 	 * Creates a new player from a position and image file.
@@ -339,5 +340,13 @@ public class Player extends Movable {
 	}	
 	public boolean getCompleted() {
 		return this.completed;
+	}
+
+	public int getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(int currentTime) {
+		this.currentTime = currentTime;
 	}
 }

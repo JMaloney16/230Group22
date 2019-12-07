@@ -299,7 +299,7 @@ public class FileManager {
 		 */
 		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
 			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
-			player.setCurrentMoves(currentMoves);
+			player.setCurrentTime(currentMoves);
 			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
 			player.setCurrentLevel(playerLevel);
 			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
@@ -584,7 +584,7 @@ public class FileManager {
 					writer.write(System.lineSeparator());
 				}
 				// TODO: Get current player time and level
-				int playerMoves = player.getCurrentMoves();
+				int playerMoves = player.getCurrentTime();
 				int level = player.getCurrentLevel();
 				int maxLevel = player.getMaxLevel();
 				writer.write("CURRENTTIME," + playerMoves + System.lineSeparator());
