@@ -27,16 +27,16 @@ public class DumbEnemy extends Enemy {
 		float theta = (float) (Math.atan2(-deltay, deltax) * (180.0 / Math.PI));
 		int angle = convertAngle(theta);
 
-		if ((angle > 315 && angle <= 360) || (angle > 0 && angle <= 45)) {
+		if ((angle >= 315 && angle <= 360) || (angle > 0 && angle <= 45)) {
 			this.setDir(0);
 		}
-		if (angle > 45 && angle <= 135) {
+		if (angle >= 45 && angle <= 135) {
 			this.setDir(1);
 		}
-		if (angle > 135 && angle <= 225) {
+		if (angle >= 135 && angle <= 225) {
 			this.setDir(2);
 		}
-		if (angle > 225 && angle <= 315) {
+		if (angle >= 225 && angle <= 315) {
 			this.setDir(3);
 		}
 
