@@ -132,15 +132,16 @@ public class GameManager {
 //			System.out.print("player move: ");
 //			System.out.println(this.player.update(this.board, this.lastKey));
 			this.board.updateInteractables(this.player, this.lastKey);
-			int playerState = this.player.update(this.board, this.lastKey);
+			
+			this.player.update(this.board, this.lastKey);
 
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
 			
-			if (playerState == 2) {
+			if (this.player.getKilled()) {
 				this.restart();
 			}
-			if (playerState == 3) {
+			if (this.player.getCompleted()) {
 				this.nextLevel();
 			} else {
 				this.board.updateInteractables(this.player, this.lastKey);
