@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,10 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,6 +35,7 @@ public class GameManager {
 	private GraphicsContext gc;
 	private Scene gameScene;
 	private Stage stage;
+	private HBox toolbar;
 
 	private int windowWidth;
 	private int windowHeight;
@@ -112,7 +117,13 @@ public class GameManager {
 		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
-
+		
+		///INVENTORY REDRAWING
+		String[] previousInventory = this.getPlayerInventory();
+		///
+		
+		
+		
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
@@ -142,6 +153,13 @@ public class GameManager {
 		this.lastKey = -1;
 
 		this.player.draw(this.gc);
+		
+		///REDRAWING INVENTORY
+		String[] currentInventory = this.getPlayerInventory();
+		if(!Arrays.equals(previousInventory, currentInventory)) {
+			this.toolbar.getChildren().add(this.drawInventory(false));
+		}
+		
 	}
 
 	/**
@@ -174,14 +192,14 @@ public class GameManager {
 //		this.board.drawBoard(this.gc);
 
 		// HBar at top for Buttons
-		HBox toolbar = new HBox();
-		toolbar.setSpacing(10);
-		toolbar.setPadding(new Insets(10, 10, 10, 10));
-		root.setTop(toolbar);
+		this.toolbar = new HBox();
+		this.toolbar.setSpacing(10);
+		this.toolbar.setPadding(new Insets(10, 10, 10, 10));
+		root.setTop(this.toolbar);
 
 		// Exit Button
 		Button exitButton = new Button("Exit");
-		toolbar.getChildren().add(exitButton);
+		this.toolbar.getChildren().add(exitButton);
 		exitButton.setOnAction(e -> {
 			Pane menu = MenuManager.Menu.buildMenuGUI(this.stage, this.windowWidth, this.windowHeight); // Build the GUI
 			Scene scene = new Scene(menu, this.windowWidth, this.windowHeight); // Create a scene from the GUI
@@ -190,10 +208,12 @@ public class GameManager {
 
 		// Restart Button
 		Button restartButton = new Button("Restart Level");
-		toolbar.getChildren().add(restartButton);
+		this.toolbar.getChildren().add(restartButton);
 		restartButton.setOnAction(e -> {
 			this.restart();
 		});
+		
+		this.toolbar.getChildren().add(drawInventory(true));
 
 		return root;
 	}
@@ -264,4 +284,48 @@ public class GameManager {
 //			this.player.setCurrentLevel(boardLevel);
 //		}
 	}
+	
+	private String[] getPlayerInventory() {
+		String[] inventory = new String[8];
+		
+		for(int i = 0; i < 4; i++) {
+			inventory[i] = Integer.toString(this.player.getKeys()[i]);
+		}
+		inventory[4] = Integer.toString(this.player.getTokens());
+		inventory[5] = Boolean.toString(this.player.getBoots());
+		inventory[6] = Boolean.toString(this.player.getFlippers());
+		inventory[7] = Boolean.toString(this.player.getKatanna());
+		
+		return inventory;
+	}
+	
+	private HBox drawInventory(boolean firstDraw) {
+		HBox inventoryHBox = new HBox();
+		inventoryHBox.setSpacing(8);
+		String[] labelNames = new String[]{"R", "B", "Y", "G",
+				"TOKEN", "BOOTS", "FLIPPER", "KATANNA"};
+		Font font = new Font("Arial", 10);
+		
+		if(firstDraw == false) {
+			this.toolbar.getChildren().remove(this.toolbar.getChildren().size() - 1);
+		}
+		
+		for(int i = 0; i < 8; i++) {
+			VBox box = new VBox();
+			Label name = new Label(labelNames[i]);
+			name.setAlignment(javafx.geometry.Pos.CENTER);
+			name.setFont(font);
+			Label value = new Label(this.getPlayerInventory()[i]);
+			value.setAlignment(javafx.geometry.Pos.CENTER);
+			value.setFont(font);
+			
+			box.getChildren().addAll(name, value);
+			inventoryHBox.getChildren().add(box);
+		}
+		
+		return inventoryHBox;
+		
+	}
+	
+	
 }
