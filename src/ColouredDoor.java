@@ -79,6 +79,7 @@ public class ColouredDoor extends Door {
 		this.setBlocking(0);
 		this.opened = true;
 		this.updateSprite("assets\\Floor.png");
+		player.removeKey(this.colour);
 		board.removeInteractable(this);
 	}
 }
