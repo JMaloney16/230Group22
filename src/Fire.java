@@ -1,24 +1,24 @@
 
 /**
- * Lava.java implements the lava tile
+ * Fire.java implements the fire tile
  * 
  * @version 0.1
  * @author Ewan Bradford
  *
  */
-public class Lava extends Tile {
+public class Fire extends Tile {
 	/**
-	 * Creates a Lava tile.
+	 * Creates a fire tile.
 	 * 
-	 * @param x, the x coordinate of the lava tile.
-	 * @param y, the y coordinate of the lava tile.
+	 * @param x, the x coordinate of the fire tile.
+	 * @param y, the y coordinate of the fire tile.
 	 */
-	public Lava(int x, int y) {
+	public Fire(int x, int y) {
 		super(x, y, "assets/Lava.png", 1);
 	}
 
 	/**
-	 * Checks if the player is standing on this lava tile.
+	 * Checks if the player is standing on this fire tile.
 	 * 
 	 * @param board,      the board object for the player to be "placed" in.
 	 * @param player,     the player.

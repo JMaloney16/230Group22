@@ -19,7 +19,7 @@ public class Shoe extends Collectable {
 	 * @param type Type of shoe (boots/flipper)
 	 */
 	public Shoe(int x, int y, String type) {
-		super(x, y, getSprite(type.toLowerCase()), 0);
+		super(x, y, getSprite(type.toLowerCase()), 1);
 		this.type = type.toLowerCase();
 	}
 

@@ -14,7 +14,7 @@ public class Token extends Collectable {
 	 * @param y, y coordinate of the token
 	 */
 	public Token(int x, int y) {
-		super(x, y, "assets/Token.png", 0);
+		super(x, y, "assets/Token.png", 1);
 	}
 
 	/**

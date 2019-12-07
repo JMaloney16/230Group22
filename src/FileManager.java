@@ -86,7 +86,7 @@ public class FileManager {
 							break;
 						case "F":
 							System.out.print("F");
-							boardDrawables[j][i] = new Lava(j, i);
+							boardDrawables[j][i] = new Fire(j, i);
 							break;
 						case "W":
 							System.out.print("W");

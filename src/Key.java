@@ -18,7 +18,7 @@ public class Key extends Collectable {
 	 * @param colour, the colour of the key.
 	 */
 	public Key(int x, int y, String colour) {
-		super(x, y, getSprite(colour.toLowerCase()), 0);
+		super(x, y, getSprite(colour.toLowerCase()), 1);
 		this.colour = colour.toLowerCase();
 	}
 
