@@ -200,6 +200,7 @@ public class GameManager {
 		Button exitButton = new Button("Exit");
 		this.toolbar.getChildren().add(exitButton);
 		exitButton.setOnAction(e -> {
+			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 			Pane menu = MenuManager.Menu.buildMenuGUI(this.stage, this.windowWidth, this.windowHeight); // Build the GUI
 			Scene scene = new Scene(menu, this.windowWidth, this.windowHeight); // Create a scene from the GUI
 			this.stage.setScene(scene);
