@@ -76,8 +76,8 @@ public class GameManager {
 		this.player = new Player(0, 0, 0);
 		this.player.setName(playerName);
 
-		File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
-		this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
+		//File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
+		//this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
 		
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
