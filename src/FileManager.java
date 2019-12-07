@@ -271,8 +271,9 @@ public class FileManager {
 
 		/**
 		 * Loads a player's stats from a file
+		 *
 		 * @param filepath location of file to read
-		 * @param player player to edit
+		 * @param player   player to edit
 		 */
 		public static void readPlayerFile(String filepath, Player player) {
 			Scanner in = createFileScanner(filepath);
@@ -287,8 +288,9 @@ public class FileManager {
 
 		/**
 		 * Gets the information for the player object only from the player save file
-		 * @param player PLayer object to edit
-		 * @param in Scanner containing file
+		 *
+		 * @param player      PLayer object to edit
+		 * @param in          Scanner containing file
 		 * @param currentLine The line the scanner was on before being passed
 		 */
 		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
@@ -502,7 +504,7 @@ public class FileManager {
 //							writer.write(prefix + "ITEM,FLIPPER");
 //							break;
 						case "SHOE":
-							if (((Shoe) interactable).getType().equals("flippers")){
+							if (((Shoe) interactable).getType().equals("flippers")) {
 								writer.write(prefix + "ITEM,FLIPPER");
 							} else {
 								writer.write(prefix + "ITEM,BOOTS");
@@ -561,7 +563,7 @@ public class FileManager {
 								writer.write(prefix + "SMART");
 								break;
 							case "FOLLOWENEMY":
-								int bias = ((FollowEnemy)moveable).getBias();
+								int bias = ((FollowEnemy) moveable).getBias();
 								writer.write(prefix + "FOLLOW," + direction + "," + bias);
 								break;
 							case "DUMBENEMY":
@@ -628,31 +630,54 @@ public class FileManager {
 
 		}
 
+		/**
+		 * Updates the leaderboard after a level has been completed
+		 * @param boardFile filepath of the board to update
+		 * @param playerName Name of the player who has completed the level
+		 * @param moves Amount of moves the player made
+		 * @throws IOException File cannot be found
+		 */
 		public static void updateLeaderboard(String boardFile, String playerName, int moves) throws IOException {
 			ArrayList<String> leaderboard = FileManager.FileReading.getLeaderboard(boardFile);
+			String oldLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
+				+ System.lineSeparator() + leaderboard.get(2) + "," + leaderboard.get(3)
+				+ System.lineSeparator() + leaderboard.get(4) + "," + leaderboard.get(5)
+				+ System.lineSeparator();
 			int firstTime = Integer.parseInt(leaderboard.get(1));
 			int secondTime = Integer.parseInt(leaderboard.get(3));
 			int thirdTime = Integer.parseInt(leaderboard.get(5));
-			String playerTime = (playerName + "," + moves);
 			if (moves < firstTime) {
 				System.out.println("First place");
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
-					+ leaderboard.get(5), leaderboard.get(2) + "," + leaderboard.get(3));
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(2) + ","
-					+ leaderboard.get(3), leaderboard.get(0) + "," + leaderboard.get(1));
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(0) + ","
-					+ leaderboard.get(1), playerTime);
+				if (leaderboard.get(0).equals(playerName)) {
+					leaderboard.remove(1);
+					leaderboard.remove(0);
+				}
+				leaderboard.add(0, playerName);
+				leaderboard.add(1, String.valueOf(moves));
 			} else if (moves > firstTime && moves < secondTime) {
 				System.out.println("Second place");
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
-					+ leaderboard.get(5), leaderboard.get(2) + "," + leaderboard.get(3));
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(2) + ","
-					+ leaderboard.get(3), playerTime);
+				if (leaderboard.get(0).equals(playerName)) {
+					System.out.println("Player already has a faster time on the leaderboard.");
+				} else {
+					leaderboard.add(2, playerName);
+					leaderboard.add(3, String.valueOf(moves));
+				}
 			} else if (moves > secondTime && moves < thirdTime) {
 				System.out.println("Third Place");
-				FileManager.FileWriting.replaceText(boardFile, leaderboard.get(4) + ","
-					+ leaderboard.get(5), playerTime);
+				if ((leaderboard.get(0).equals(playerName)) || leaderboard.get(3).equals(playerName)) {
+					System.out.println("Player already has a faster time on the leaderboard.");
+				} else {
+					leaderboard.add(4, playerName);
+					leaderboard.add(5, String.valueOf(moves));
+				}
 			}
+
+			String newLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
+				+ System.lineSeparator() + leaderboard.get(2) + "," + leaderboard.get(3)
+				+ System.lineSeparator() + leaderboard.get(4) + "," + leaderboard.get(5)
+				+ System.lineSeparator();
+
+			replaceText(boardFile, oldLeaderboard, newLeaderboard);
 		}
 
 		/**
@@ -663,7 +688,7 @@ public class FileManager {
 		 * @param newText  New string to add
 		 * @throws IOException
 		 */
-		public static void replaceText(String filepath, String oldText, String newText) throws IOException {
+		private static void replaceText(String filepath, String oldText, String newText) throws IOException {
 			File file = new File(filepath);
 			String oldFile = copyFileContents(filepath);
 

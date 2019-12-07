@@ -33,5 +33,5 @@
 LEVEL,1
 LEADERBOARD
 Jack,58
-Jack,58
-Jack,58
+Ewan,65
+Sam,69
