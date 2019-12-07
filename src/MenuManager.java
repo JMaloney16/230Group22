@@ -275,14 +275,13 @@ public class MenuManager {
 
 			levelList.getChildren().add(new Label("Select Level"));
 			if (p.getCurrentMoves() > 0) {
-				System.out.println("Continuing");
-				Button button = new Button("Contiue");
+				Button button = new Button("Contiue Level "+Integer.toString(p.getCurrentLevel()));
 
 				button.setOnAction(e -> {
 					int level = p.getCurrentLevel();
 					selectedLevel.setText("Continuing");
 					System.out.println("levels\\" + p.getCurrentLevel() + ".txt");
-//					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + p.getCurrentLevel() +".txt"));
+					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + p.getCurrentLevel() +".txt"));
 					levelSelected = -1;
 				});
 				levelList.getChildren().add(button);
