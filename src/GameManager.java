@@ -118,11 +118,8 @@ public class GameManager {
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
 		
-		///INVENTORY REDRAWING
+		//Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
-		///
-		
-		
 		
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
@@ -154,8 +151,10 @@ public class GameManager {
 
 		this.player.draw(this.gc);
 		
-		///REDRAWING INVENTORY
+		//Gets inventory after move is made
 		String[] currentInventory = this.getPlayerInventory();
+		
+		//Compares whether the player inventory has changed and updates if it has
 		if(!Arrays.equals(previousInventory, currentInventory)) {
 			this.toolbar.getChildren().add(this.drawInventory(false));
 		}
@@ -285,6 +284,7 @@ public class GameManager {
 //		}
 	}
 	
+	//Getting the whole player inventory (for comparisons)
 	private String[] getPlayerInventory() {
 		String[] inventory = new String[8];
 		
@@ -299,6 +299,8 @@ public class GameManager {
 		return inventory;
 	}
 	
+	
+	//Drawing the inventory at the top of the screen
 	private HBox drawInventory(boolean firstDraw) {
 		HBox inventoryHBox = new HBox();
 		inventoryHBox.setSpacing(8);
