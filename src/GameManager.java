@@ -47,7 +47,7 @@ public class GameManager {
 
 	private int lastKey = -1;
 
-	private int frameCount = 0;
+	private int frameCount = 100;
 	
 	private Image TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself;
 
@@ -119,7 +119,9 @@ public class GameManager {
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
 		
-		gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
+		if (this.frameCount < 25) {
+			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
+		}
 		
 		//Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
@@ -244,6 +246,7 @@ public class GameManager {
 	 * Restarts the game
 	 */
 	private void restart() {
+		this.frameCount = 0;
 		String oldPlayerName = this.player.getName();
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
