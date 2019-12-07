@@ -275,7 +275,7 @@ public class MenuManager {
 
 			levelList.getChildren().add(new Label("Select Level"));
 			if (p.getCurrentMoves() > 0) {
-				Button button = new Button("Contiue Level "+Integer.toString(p.getCurrentLevel()));
+				Button button = new Button("Continue Level "+Integer.toString(p.getCurrentLevel()));
 
 				button.setOnAction(e -> {
 					int level = p.getCurrentLevel();
