@@ -333,4 +333,11 @@ public class Player extends Movable {
 	public int[] getKeys() {
 		return keys;
 	}
+	
+	public boolean getKilled() {
+		return this.killed;
+	}	
+	public boolean getCompleted() {
+		return this.completed;
+	}
 }
