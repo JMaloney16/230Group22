@@ -214,7 +214,7 @@ public class FileManager {
 								break;
 							case "FOLLOW":
 								System.out.println("Follow enemy");
-								movables.add(new FollowEnemy(posX, posY, directionInt, 1));
+								movables.add(new FollowEnemy(posX, posY, directionInt, line.nextInt()));
 								break;
 							case "DUMB":
 								System.out.println("Dumb enemy");
@@ -561,7 +561,8 @@ public class FileManager {
 								writer.write(prefix + "SMART");
 								break;
 							case "FOLLOWENEMY":
-								writer.write(prefix + "FOLLOW," + direction);
+								int bias = ((FollowEnemy)moveable).getBias();
+								writer.write(prefix + "FOLLOW," + direction + "," + bias);
 								break;
 							case "DUMBENEMY":
 								writer.write(prefix + "DUMB," + direction);

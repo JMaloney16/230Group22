@@ -53,4 +53,8 @@ public class FollowEnemy extends Enemy {
 			}
 		}
 	}
+
+	public int getBias() {
+		return bias;
+	}
 }
