@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,7 +57,7 @@ public class GameManager {
 	 * size.
 	 * 
 	 * @param primaryStage, the stage for the game to be drawn to
-	 * @param boardFile,    the file of the current level
+	 * @param boardLevel,    the number of the current level
 	 * @param windowWidth,  width of the screen to be played on
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
@@ -100,7 +101,13 @@ public class GameManager {
 		primaryStage.setScene(this.gameScene);
 		this.stage = primaryStage;
 
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5), ae -> update()));
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5), ae -> {
+			try {
+				update();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
@@ -109,7 +116,7 @@ public class GameManager {
 	 * Draws and Updates all parts of the board, draws and handles input for the
 	 * player
 	 */
-	private void update() {
+	private void update() throws IOException {
 		this.frameCount++;
 		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
 
@@ -259,8 +266,12 @@ public class GameManager {
 	/**
 	 * Progesses the game to the next level
 	 */
-	private void nextLevel() {		
+	private void nextLevel() throws IOException {
 //		System.out.println("Level has been completed");
+		//Get the leaderboard and compare the players time to each of the high scores
+
+		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.moves);
+
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
 		System.out.println(this.boardFile);
