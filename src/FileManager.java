@@ -71,6 +71,7 @@ public class FileManager {
 			movables = new ArrayList<Movable>();
 			interactables = new ArrayList<Interactable>();
 			in.nextLine();
+			//Generate the drawables array
 			for (int i = 0; i < boardY; i++) {
 				String currentTileLine = in.nextLine();
 				for (int j = 0; j < boardX; j++) {
@@ -111,6 +112,7 @@ public class FileManager {
 				}
 				System.out.println();
 			}
+			// Load interactables and enemies
 			String currentLine = in.nextLine();
 			while (!currentLine.startsWith(divider)) {
 				Scanner line = new Scanner(currentLine).useDelimiter(",");
@@ -119,7 +121,7 @@ public class FileManager {
 				System.out.println(posX + ", " + posY);
 				String keyword = line.next();
 				switch (keyword) {
-					case "START":
+					case "START": //Set the player's position
 						// TODO: Get the level number idek how, and player name - maybe set to
 						// something else in readPlayerFile
 						System.out.println("START");
@@ -169,7 +171,6 @@ public class FileManager {
 							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
-
 					case "TELE":
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
@@ -186,6 +187,7 @@ public class FileManager {
 						String enemyType = line.next();
 						String direction = "";
 						int directionInt = 0;
+						//If the enemy isn't smart convert it's direction in the file to an int
 						if (!enemyType.equals("SMART")) {
 							direction = line.next();
 							switch (direction) {
@@ -243,6 +245,7 @@ public class FileManager {
 			Scanner in = createFileScanner(filepath);
 			leaderboard.clear();
 			readAnyFile(in, "LEVEL", player);
+			//First line after readAnyFile is done is LEVEL
 			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
 			player.setCurrentLevel(mapLevel);
 
@@ -260,7 +263,7 @@ public class FileManager {
 		 */
 		public static void readPlayerFile(String filepath, Player player, Board board) {
 			Scanner in = createFileScanner(filepath);
-			String playerName = filepath.substring(0, filepath.length() - 4);
+//			String playerName = filepath.substring(0, filepath.length() - 4);
 			readAnyFile(in, "CURRENTTIME", player);
 
 			getPlayerDetails(player, in, dividerLine);
@@ -274,6 +277,7 @@ public class FileManager {
 		 *
 		 * @param filepath location of file to read
 		 * @param player   player to edit
+		 * @deprecated
 		 */
 		public static void readPlayerFile(String filepath, Player player) {
 			Scanner in = createFileScanner(filepath);
@@ -301,7 +305,7 @@ public class FileManager {
 			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
 			player.setMaxLevel(playerMaxLevel);
 			System.out.println(in.nextLine());
-
+			//Go through the inventory list of the file
 			while (in.hasNextLine()) {
 				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
 				String itemType = line.next();
@@ -343,15 +347,15 @@ public class FileManager {
 			Scanner in = createFileScanner(filepath);
 			leaderboard.clear();
 			String currentLine = in.nextLine();
-
+			//Skip everything in the file before the leaderboard
 			while (!currentLine.equals("LEADERBOARD")) {
 				currentLine = in.nextLine();
 			}
 			currentLine = in.nextLine();
 			for (int i = 0; i < 3; i++) {
-				String[] topPlayers = currentLine.split(",");
-				String playerName = topPlayers[0];
-				String playerTime = topPlayers[1];
+				String[] currentPlayer = currentLine.split(",");
+				String playerName = currentPlayer[0];
+				String playerTime = currentPlayer[1];
 				System.out.println(playerName + " completed the level in: " + playerTime);
 				leaderboard.add(playerName);
 				leaderboard.add(playerTime);
@@ -404,6 +408,7 @@ public class FileManager {
 				FileWriter fw = new FileWriter(file, false);
 				writer = new BufferedWriter(fw);
 				writer.write(copyFileContents("assets/newplayer.txt"));
+				//We make a copy of the default profile for all new players
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
@@ -445,6 +450,7 @@ public class FileManager {
 				writer = new BufferedWriter(fw);
 				// We use .getClass().getName() to figure out what each object is
 				writer.write(boardX + "," + boardY + "," + System.lineSeparator());
+				//Write the drawables array to the file
 				for (int i = 0; i < boardY; i++) {
 					String currentLine = "";
 					for (int j = 0; j < boardX; j++) {
@@ -485,6 +491,7 @@ public class FileManager {
 				int playerX = player.getxCoord() + 1;
 				int playerY = player.getyCoord() + 1;
 				writer.write(playerX + "," + playerY + "," + "START" + System.lineSeparator());
+				//Save all the interactables on the board to the file
 				for (Interactable interactable : interactables) {
 					int xValue = interactable.getxCoord() + 1;
 					int yValue = interactable.getyCoord() + 1;
@@ -531,6 +538,7 @@ public class FileManager {
 					}
 					writer.write(System.lineSeparator());
 				}
+				//Save all the enemies on the board to the file
 				for (Movable moveable : movables) {
 					String type = moveable.getClass().getName().toUpperCase();
 					if (!type.equals("PLAYER")) {
@@ -639,6 +647,7 @@ public class FileManager {
 		 */
 		public static void updateLeaderboard(String boardFile, String playerName, int moves) throws IOException {
 			ArrayList<String> leaderboard = FileManager.FileReading.getLeaderboard(boardFile);
+			//We create a string of the old leaderboard to use in the replacetext method
 			String oldLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
 				+ System.lineSeparator() + leaderboard.get(2) + "," + leaderboard.get(3)
 				+ System.lineSeparator() + leaderboard.get(4) + "," + leaderboard.get(5)
@@ -671,12 +680,12 @@ public class FileManager {
 					leaderboard.add(5, String.valueOf(moves));
 				}
 			}
-
+			//The updated leaderboard only has the top 3 times so any more are ignored
 			String newLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
 				+ System.lineSeparator() + leaderboard.get(2) + "," + leaderboard.get(3)
 				+ System.lineSeparator() + leaderboard.get(4) + "," + leaderboard.get(5)
 				+ System.lineSeparator();
-
+			//Replace the leaderboard in the save file
 			replaceText(boardFile, oldLeaderboard, newLeaderboard);
 		}
 
@@ -691,6 +700,7 @@ public class FileManager {
 		private static void replaceText(String filepath, String oldText, String newText) throws IOException {
 			File file = new File(filepath);
 			String oldFile = copyFileContents(filepath);
+			//Get a string of the contents of the whole file
 
 			FileWriter writer = new FileWriter(file);
 
