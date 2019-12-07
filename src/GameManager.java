@@ -119,7 +119,7 @@ public class GameManager {
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
 		
-		if (this.frameCount < 25) {
+		if (this.frameCount < 20) {
 			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
 		}
 		
