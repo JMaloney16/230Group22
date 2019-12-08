@@ -20,7 +20,6 @@ public class FileManager {
 
 	public static class FileReading {
 
-		// Forgive me for I have sinned.
 		private static Drawable[][] boardDrawables;
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
@@ -107,8 +106,6 @@ public class FileManager {
 				String keyword = line.next();
 				switch (keyword) {
 					case "START": //Set the player's position
-						// TODO: Get the level number idek how, and player name - maybe set to
-						// something else in readPlayerFile
 						player.setxCoord(posX);
 						player.setyCoord(posY);
 						break;
@@ -120,7 +117,6 @@ public class FileManager {
 								interactables.add(new Token(posX, posY));
 								break;
 							case "FLIPPER":
-								// TODO: Add difference between flipper and boots
 								interactables.add(new Shoe(posX, posY, "flippers"));
 								break;
 							case "BOOTS":
@@ -237,11 +233,8 @@ public class FileManager {
 		 */
 		public static void readPlayerFile(String filepath, Player player, Board board) {
 			Scanner in = createFileScanner(filepath);
-//			String playerName = filepath.substring(0, filepath.length() - 4);
 			readAnyFile(in, "CURRENTTIME", player);
-
 			getPlayerDetails(player, in, dividerLine);
-
 			board.setNewBoard(boardDrawables, movables, interactables);
 			in.close();
 		}
@@ -285,22 +278,27 @@ public class FileManager {
 				String itemType = line.next();
 				switch (itemType) {
 					case "FLIPPER":
+						System.out.println("Flippers");
 						player.addFlippers();
 						break;
 					case "BOOTS":
+						System.out.println("Boots");
 						player.addBoots();
 						break;
 					case "TOKEN":
+						System.out.println("Token");
 						player.addToken(line.nextInt());
 						break;
 					case "KEY":
+						System.out.println("Key");
 						player.addKey(line.next().toLowerCase());
 						break;
 					case "KATANNA":
+						System.out.println("Katanna");
 						player.addKatanna();
 						break;
 					default:
-						System.out.println("Unrecognized inventory item!");
+						System.out.println("Unrecognized!");
 				}
 
 			}
@@ -325,6 +323,7 @@ public class FileManager {
 				String[] currentPlayer = currentLine.split(",");
 				String playerName = currentPlayer[0];
 				String playerTime = currentPlayer[1];
+				System.out.println(playerName + " completed the level in: " + playerTime);
 				leaderboard.add(playerName);
 				leaderboard.add(playerTime);
 				if (i < 2) {
@@ -455,7 +454,6 @@ public class FileManager {
 					writer.write(currentLine + System.lineSeparator());
 
 				}
-				// TODO: Get player coords
 				int playerX = player.getxCoord() + 1;
 				int playerY = player.getyCoord() + 1;
 				writer.write(playerX + "," + playerY + "," + "START" + System.lineSeparator());
@@ -489,7 +487,7 @@ public class FileManager {
 							writer.write(prefix + "ITEM,KEY," + keyColour.toUpperCase());
 							break;
 						case "TELEPORTER":
-							// TODO: Get the teleporter's partner
+							// Get the teleporter's partner
 							Teleporter partner = ((Teleporter) interactable).getPartner();
 							String partnerPos = "," + (partner.xCoord + 1) + ","
 								+ (partner.yCoord + 1);
@@ -529,7 +527,7 @@ public class FileManager {
 						}
 						switch (type) {
 							case "LINEENEMY":
-								// TODO: Add direction
+								//Add direction
 								writer.write(prefix + "STRAIGHT," + direction);
 								break;
 							case "SMARTENEMY":
@@ -548,7 +546,7 @@ public class FileManager {
 					}
 					writer.write(System.lineSeparator());
 				}
-				// TODO: Get current player time and level
+				// Get current player time and level
 				int playerMoves = player.getCurrentTime();
 				int level = player.getCurrentLevel();
 				int maxLevel = player.getMaxLevel();

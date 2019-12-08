@@ -15,7 +15,6 @@ public class ColouredDoor extends Door {
 	 * @param colour,	the colour of the door.
 	 */
 	public ColouredDoor(int x, int y, String colour) {
-		// TODO Auto-generated constructor stub
 		super(x, y, "assets\\Door.png");
 		switch (colour.toLowerCase()) {
 		case "red":
