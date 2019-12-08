@@ -31,10 +31,8 @@ public class Main extends Application {
 	}
 
 	public static void PlaySound() {
-		SoundEffect test = new SoundEffect();
-
 		String soundplay = "assets/Sounds/Intro_002.wav";
-		test.playLoop(soundplay);
+		SoundEffect.playLoop(soundplay);
 	}
 
 	public static void main(String[] args) {

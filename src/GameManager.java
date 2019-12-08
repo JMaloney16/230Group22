@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +40,6 @@ public class GameManager {
 
 	private int windowWidth;
 	private int windowHeight;
-	private int cellSize;
 
 	private int moves = 0;
 	private int time = 0;
@@ -65,22 +63,20 @@ public class GameManager {
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
 	 */
-	public GameManager(Stage primaryStage, int boardLevel, String playerName, int maxLevel, int windowWidth, int windowHeight,
-			int cellSize) {
+	public GameManager(Stage primaryStage, int boardLevel, Player player, int windowWidth, int windowHeight) {
 		this.windowWidth = windowWidth;
 		this.windowHeight = windowHeight;
-		this.cellSize = cellSize;
 
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
-		this.player = new Player(0, 0, 0);
-		this.player.setName(playerName);
+		this.player = player;
+//		this.player.setName(playerName);
 
 		//File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
 		//this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
 		this.startTime = System.currentTimeMillis();
 
 		if (boardLevel == -1) {
-			FileManager.FileReading.readPlayerFile("profiles\\" + playerName + ".txt", this.player, this.board);
+			FileManager.FileReading.readPlayerFile("profiles\\" + player.getName() + ".txt", this.player, this.board);
 			this.moves = this.player.getCurrentMoves();
 			this.time = this.player.getCurrentTime();
 			this.previousTime = this.time;
@@ -88,7 +84,7 @@ public class GameManager {
 		} else {	
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
-			this.player.setMaxLevel(maxLevel);
+//			this.player.setMaxLevel(maxLevel);
 		}
 		this.updateLeveling();
 

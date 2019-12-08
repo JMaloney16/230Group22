@@ -20,13 +20,11 @@ import javafx.stage.Stage;
  * @author ...
  */
 
-
 public class MenuManager {
 	public static class Menu {
 		private static Stage primaryStage;
 		private static int windowWidth;
 		private static int windowHeight;
-		private static int cellSize;
 		private static final Insets PADDING = new Insets(10, 10, 10, 10);
 		private static BorderPane rootPane;
 		private static VBox profileList;
@@ -34,8 +32,6 @@ public class MenuManager {
 		private static Label selectedLevel; // Label displayed in menu GUI
 		private static final String LEVEL = "Level: "; // Constant shown in selectedLevel label
 		private static final String PROFILE = "Profile: "; // Constant shown in selectProfile label
-		private static final String PROFILE_ERROR = "Choose Profile";
-		private static final String LEVEL_ERROR = "Choose Level";
 		private static final String NETWORK_ERROR = "Network Error - No Word Of The Day :(";
 
 		private static String profileSelected; // String used to check user has chosen a profile
@@ -92,14 +88,13 @@ public class MenuManager {
 			launchButton.setOnAction(e -> {
 				System.out.println(levelSelected);
 				if (profileSelected != "" && levelSelected != 0) {
-					int maxLevel = 0;
+					Player player = null;
 					for (Player p : players) {
 						if (p.getName().equals(profileSelected)) {
-							maxLevel = p.getMaxLevel();
+							player = p;
 						}
 					}
-					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, maxLevel,
-							windowWidth, windowHeight, cellSize);
+					GameManager gm = new GameManager(primaryStage, levelSelected, player, windowWidth, windowHeight);
 				}
 
 			});
@@ -158,11 +153,6 @@ public class MenuManager {
 			MenuManager.Menu.windowHeight = height;
 		}
 
-		// Set cell size
-		public static void setCellSize(int cellSize) {
-			MenuManager.Menu.cellSize = cellSize;
-		}
-
 		public static void buildLevelSelectPane(Player p) {
 			BorderPane innerRoot = new BorderPane();
 			VBox levelList = new VBox();
@@ -172,7 +162,6 @@ public class MenuManager {
 				Button button = new Button("Continue Level " + Integer.toString(p.getCurrentLevel()));
 
 				button.setOnAction(e -> {
-					int level = p.getCurrentLevel();
 					selectedLevel.setText("Continuing");
 					System.out.println("levels\\" + p.getCurrentLevel() + ".txt");
 					buildLeaderboardPane(innerRoot,

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import javafx.scene.canvas.GraphicsContext;
-
 /**
  * SmartEnemy.java, implements the smart enemy behaviour
  * 
