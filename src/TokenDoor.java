@@ -1,7 +1,7 @@
 /**
  * TokenDoor.java
- * 
- * @version 0.1
+ * Holds information about a token door on the board
+ * @version 1.0
  * @author Gino Sesia
  *
  */
@@ -13,6 +13,7 @@ public class TokenDoor extends Door {
 	 * 
 	 * @param x, the x coordinate of the door tile.
 	 * @param y, the y coordinate of the door tile.
+	 * @param amount the amount of tokens needed for the door to open.
 	 */
 	public TokenDoor(int x, int y, int amount) {
 		super(x, y, "assets\\Door.png");
@@ -20,7 +21,11 @@ public class TokenDoor extends Door {
 	}
 
 	/**
-	 * Updates the door, checks player position and behaves accordingly
+	 * Updates the door, checks player position and behaves accordingly.
+	 *
+	 * @param board The board the door belongs to.
+	 * @param player The player object on the board.
+	 * @param keyboardIn The last input from the user.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (player.getTokens() >= this.threshold && this.opened == false) {
@@ -54,10 +59,10 @@ public class TokenDoor extends Door {
 	}
 
 	/**
-	 * Sets the door to be open
+	 * Sets the door to be open.
 	 * 
-	 * @param player, the player active in the game
-	 * @param board,  the board this door is apart of
+	 * @param player, the player active in the game.
+	 * @param board,  the board this door is apart of.
 	 */
 	private void open(Player player, Board board) {
 		SoundEffect.playSound("assets\\sounds\\Door.wav");

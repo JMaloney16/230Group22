@@ -4,7 +4,7 @@
  * @version 0.2
  * @author Gino Sesia
  * @author Ewan Bradford
- *
+ * @author Jack Maloney
  */
 public class Teleporter extends Tile {
 
@@ -32,13 +32,9 @@ public class Teleporter extends Tile {
 	/**
 	 * Updates the teleporter and moves the player if needed
 	 */
-	@Override
+
 	public void update(Board board, Player player, int keyboardIn) {
 		// used to detected when the player is moving onto the tile
-//		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-//			player.setxCoord(this.partner.xCoord);
-//			player.setyCoord(this.partner.yCoord);
-//		}
 		if (this.partner != null) {
 			switch (keyboardIn) {
 			case 0:

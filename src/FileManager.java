@@ -13,23 +13,13 @@ import java.util.Scanner;
  * saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.9
+ * @version 1
  */
 
-//TODO
-// make class fully static please bb <3
-// and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
-// needs a method to update the leaderboard
-// needs a method to get a leaderboard from a filename
-// player file needs to store filepath to the level and store the highest level achieved variable
-
-// ----> needs get all profiles method too
-// sorry boo
 public class FileManager {
 
 	public static class FileReading {
 
-		// Forgive me for I have sinned.
 		private static Drawable[][] boardDrawables;
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
@@ -213,7 +203,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Reads and generates the common section of the player and map files
+		 * Reads and generates the common section of the player and map files.
 		 *
 		 * @param in      Scanner of file to read
 		 * @param divider The keyword to stop reading the file
@@ -221,8 +211,6 @@ public class FileManager {
 		private static void readAnyFile(Scanner in, String divider, Player player) {
 			int boardX = in.nextInt();
 			int boardY = in.nextInt();
-			System.out.println(boardX);
-			System.out.println(boardY);
 			boardDrawables = new Drawable[boardX][boardY];
 			movables = new ArrayList<Movable>();
 			interactables = new ArrayList<Interactable>();
@@ -234,36 +222,33 @@ public class FileManager {
 					String current = "" + currentTileLine.charAt(j);
 					switch (current) {
 						case "#":
-							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/StoneBrickWall.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/StoneBrickWall.png", 2);
 							break;
 						case ".":
-							System.out.print(".");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 0);
 							break;
 						case "F":
-							System.out.print("F");
 							boardDrawables[j][i] = new Fire(j, i);
 							break;
 						case "W":
-							System.out.print("W");
 							boardDrawables[j][i] = new Water(j, i);
 							break;
 						case "T":
-							System.out.print("T");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 1);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 1);
 							break;
 						case "D":
-							System.out.print("D");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 0);
 							break;
 						case "G":
-							System.out.print("G");
 							boardDrawables[j][i] = new Goal(j, i);
 							break;
 						default:
-							System.out.print("?");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/placeholder.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/placeholder.png", 2);
 					}
 				}
 				System.out.println();
@@ -274,43 +259,34 @@ public class FileManager {
 				Scanner line = new Scanner(currentLine).useDelimiter(",");
 				int posX = (line.nextInt() - 1);
 				int posY = (line.nextInt() - 1);
-				System.out.println(posX + ", " + posY);
 				String keyword = line.next();
 				switch (keyword) {
 					case "START": //Set the player's position
-						// TODO: Get the level number idek how, and player name - maybe set to
-						// something else in readPlayerFile
-						System.out.println("START");
 						player.setxCoord(posX);
 						player.setyCoord(posY);
 						break;
 					case "ITEM":
 						String itemType = line.next();
-						System.out.println("It's a: " + itemType);
 						switch (itemType) {
 							case "TOKEN":
 								int tokenValue = line.nextInt();
-								System.out.println("It's worth: " + tokenValue);
 								interactables.add(new Token(posX, posY));
 								break;
 							case "FLIPPER":
-								// TODO: Add difference between flipper and boots
 								interactables.add(new Shoe(posX, posY, "flippers"));
 								break;
 							case "BOOTS":
 								interactables.add(new Shoe(posX, posY, "boots"));
 								break;
 							case "KATANNA":
-								System.out.println("It's a katanna!");
 								interactables.add(new Katanna(posX, posY));
 								break;
 							case "KEY":
 								String colour = line.next();
-								System.out.println("It's a " + colour + " key");
 								interactables.add(new Key(posX, posY, colour));
 								break;
 							default:
-								System.out.println("Unrecognised!");
+								System.out.println("Unrecognised! " + itemType);
 								break;
 						}
 						break;
@@ -318,19 +294,15 @@ public class FileManager {
 						String doorType = line.next();
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
-							System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
 							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
 							String doorColour = line.next();
-							System.out.println("It's a " + doorType.toLowerCase() + " door of colour: "
-								+ doorColour);
 							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
 					case "TELE":
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
-						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
 						Teleporter tele1 = new Teleporter(posX, posY);
 						Teleporter tele2 = new Teleporter(pairX, pairY);
 						tele1.setPartner(tele2);
@@ -363,20 +335,18 @@ public class FileManager {
 						}
 						switch (enemyType) {
 							case "STRAIGHT":
-								System.out.println("Straight type enemy starting: " + direction);
 								movables.add(new LineEnemy(posX, posY, directionInt));
 								break;
 							case "SMART":
-								System.out.println("Smart enemy");
 								movables.add(new SmartEnemy(posX, posY));
 								break;
 							case "FOLLOW":
-								System.out.println("Follow enemy");
-								movables.add(new FollowEnemy(posX, posY, directionInt, line.nextInt()));
+								movables.add(new FollowEnemy(posX, posY, directionInt,
+									line.nextInt()));
 								break;
 							case "DUMB":
-								System.out.println("Dumb enemy");
-								movables.add(new DumbEnemy(posX, posY, directionInt));
+								movables.add(new DumbEnemy(posX, posY,
+									directionInt));
 								break;
 							default:
 								System.out.print("I haven't added this enemy type to the filereader!");
@@ -390,8 +360,6 @@ public class FileManager {
 			}
 			dividerLine = currentLine;
 		}
-
-
 	}
 
 	public static class FileWriting {
@@ -400,7 +368,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Creates a new player's save file
+		 * Creates a new player's save file.
 		 *
 		 * @param playerName The player's name
 		 */
@@ -428,14 +396,13 @@ public class FileManager {
 		}
 
 		/**
-		 * Saves the player's game to a textfile
+		 * Saves the player's game to a textfile.
 		 *
 		 * @param filename Name of the file to save to
 		 * @param player   The player's object
 		 * @param board    The board to save
 		 */
-		public static void savePlayerFile(String filename, Player player, Board board) { // TODO Have saveProfileFile// for new profile (no board
-			// available)
+		public static void savePlayerFile(String filename, Player player, Board board) {
 			System.out.println("SAVING FILE: " + filename);
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
@@ -485,13 +452,13 @@ public class FileManager {
 								currentLine += "G";
 								break;
 							default:
-								System.out.println("Not accounted for: " + boardArray[j][i].getClass().getName());
+								System.out.println("Not accounted for: "
+									+ boardArray[j][i].getClass().getName());
 						}
 					}
 					writer.write(currentLine + System.lineSeparator());
 
 				}
-				// TODO: Get player coords
 				int playerX = player.getxCoord() + 1;
 				int playerY = player.getyCoord() + 1;
 				writer.write(playerX + "," + playerY + "," + "START" + System.lineSeparator());
@@ -507,13 +474,9 @@ public class FileManager {
 							writer.write(prefix + "DOOR,TOKEN," + tokensReq);
 							break;
 						case "COLOUREDDOOR":
-							// TODO: Get the colour of the door
 							String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
 							writer.write(prefix + "DOOR,KEY," + colour);
 							break;
-//						case "FLIPPER":
-//							writer.write(prefix + "ITEM,FLIPPER");
-//							break;
 						case "SHOE":
 							if (((Shoe) interactable).getType().equals("flippers")) {
 								writer.write(prefix + "ITEM,FLIPPER");
@@ -529,9 +492,10 @@ public class FileManager {
 							writer.write(prefix + "ITEM,KEY," + keyColour.toUpperCase());
 							break;
 						case "TELEPORTER":
-							// TODO: Get the teleporter's partner
+							// Get the teleporter's partner
 							Teleporter partner = ((Teleporter) interactable).getPartner();
-							String partnerPos = "," + (partner.xCoord + 1) + "," + (partner.yCoord + 1);
+							String partnerPos = "," + (partner.xCoord + 1) + ","
+								+ (partner.yCoord + 1);
 							writer.write(prefix + "TELE" + partnerPos);
 							break;
 						case "KATANNA":
@@ -568,7 +532,7 @@ public class FileManager {
 						}
 						switch (type) {
 							case "LINEENEMY":
-								// TODO: Add direction
+								//Add direction
 								writer.write(prefix + "STRAIGHT," + direction);
 								break;
 							case "SMARTENEMY":
@@ -587,7 +551,7 @@ public class FileManager {
 					}
 					writer.write(System.lineSeparator());
 				}
-				// TODO: Get current player time and level
+				// Get current player time and level
 				int playerMoves = player.getCurrentTime();
 				int level = player.getCurrentLevel();
 				int maxLevel = player.getMaxLevel();
@@ -644,12 +608,14 @@ public class FileManager {
 
 		/**
 		 * Updates the leaderboard after a level has been completed
-		 * @param boardFile filepath of the board to update
+		 *
+		 * @param boardFile  filepath of the board to update
 		 * @param playerName Name of the player who has completed the level
-		 * @param moves Amount of moves the player made
+		 * @param moves      Amount of moves the player made
 		 * @throws IOException File cannot be found
 		 */
-		public static void updateLeaderboard(String boardFile, String playerName, int moves) throws IOException {
+		public static void updateLeaderboard(String boardFile, String playerName, int moves)
+			throws IOException {
 			ArrayList<String> leaderboard = FileManager.FileReading.getLeaderboard(boardFile);
 			//We create a string of the old leaderboard to use in the replacetext method
 			String oldLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
@@ -699,7 +665,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Copies all text in a file to a string
+		 * Copies all text in a file to a string.
 		 *
 		 * @param filepath file to copy
 		 * @return String containing file's contents

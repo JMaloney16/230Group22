@@ -28,9 +28,6 @@
     </module>
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-    <module name="FileTabCharacter">
-        <property name="eachLine" value="true"/>
-    </module>
 
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
@@ -189,14 +186,7 @@
             <message key="ws.notPreceded"
              value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
         </module>
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-            <property name="throwsIndent" value="4"/>
-            <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="4"/>
-        </module>
+
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="1"/>

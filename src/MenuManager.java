@@ -20,11 +20,7 @@ import javafx.stage.Stage;
  * @author ...
  */
 
-// TODO
-/*
- * how is game going to be loaded?? file path to level and player path how to
- * make a "continue" button work
- */
+
 public class MenuManager {
 	public static class Menu {
 		private static Stage primaryStage;
@@ -147,7 +143,6 @@ public class MenuManager {
 
 			toolbarBottom.getChildren().addAll(newProfileButton, deleteProfileButton);
 
-//			System.out.println(root.getLeft());
 			rootPane = root;
 			return root;
 		}
@@ -293,10 +288,8 @@ public class MenuManager {
 				System.out.println(s);
 				Player p = new Player(0, 0, 0);
 				p.setName(s);
-				/// temp shit
 				Board b = new Board(new Drawable[10][10], new ArrayList<Movable>(), new ArrayList<Interactable>());
 				FileManager.FileReading.readPlayerFile("profiles\\" + s + ".txt", p, b);
-				///
 				players.add(p);
 			}
 
