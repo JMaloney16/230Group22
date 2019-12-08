@@ -28,7 +28,7 @@ public class FileManager {
 		private static ArrayList<String> leaderboard = new ArrayList<String>();
 
 		/**
-		 * Validates filepath given and creates a scanner if valid
+		 * Validates filepath given and creates a scanner if valid.
 		 *
 		 * @param filename Filepath of file to use
 		 * @return Scanner of file
@@ -48,7 +48,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Reads and generates the common section of the player and map files
+		 * Reads and generates the common section of the player and map files.
 		 *
 		 * @param in      Scanner of file to read
 		 * @param divider The keyword to stop reading the file
@@ -236,7 +236,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a new map from a file
+		 * Loads a new map from a file.
 		 *
 		 * @param filepath location of file to read from
 		 * @param board    board to be populated
@@ -255,7 +255,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a map and player's stats from a file
+		 * Loads a map and player's stats from a file.
 		 *
 		 * @param filepath location of file to read
 		 * @param player   player to edit
@@ -273,7 +273,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a player's stats from a file
+		 * Loads a player's stats from a file.
 		 *
 		 * @param filepath location of file to read
 		 * @param player   player to edit
@@ -291,7 +291,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Gets the information for the player object only from the player save file
+		 * Gets the information for the player object only from the player save file.
 		 *
 		 * @param player      PLayer object to edit
 		 * @param in          Scanner containing file
@@ -338,7 +338,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Reads a map file and returns a list of the top 3 players and their times
+		 * Reads a map file and returns a list of the top 3 players and their times.
 		 *
 		 * @param filepath Location of the map file
 		 * @return ArrayList containing top 3 players and their times
@@ -396,7 +396,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Creates a new player's save file
+		 * Creates a new player's save file.
 		 *
 		 * @param playerName The player's name
 		 */
@@ -424,7 +424,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Saves the player's game to a textfile
+		 * Saves the player's game to a textfile.
 		 *
 		 * @param filename Name of the file to save to
 		 * @param player   The player's object
@@ -693,7 +693,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Replaces a specified string in a text file
+		 * Replaces a specified string in a text file.
 		 *
 		 * @param filepath File to be edited
 		 * @param oldText  String to be replaced
@@ -719,7 +719,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Copies all text in a file to a string
+		 * Copies all text in a file to a string.
 		 *
 		 * @param filepath file to copy
 		 * @return String containing file's contents
