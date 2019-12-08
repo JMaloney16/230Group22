@@ -62,7 +62,7 @@ public class SmartEnemy extends Enemy {
 			this.yCoord = nextMove.y;
 		} else {
 			Random random = new Random();
-			this.setDir(random.nextInt(3));
+			this.setDir(random.nextInt(4));
 			this.normaliseDir();
 			if (getDirBlocking(board) == false) {
 				this.move();
