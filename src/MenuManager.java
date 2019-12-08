@@ -16,8 +16,8 @@ import javafx.stage.Stage;
  * MenuManager.java Handles the creation, deletion and loading of profiles as
  * well as calculating the leaderboard.
  * 
- * @version 0.1
- * @author ...
+ * @version 0.4
+ * @author Sam Forster, Ewan Bradford
  */
 
 public class MenuManager {
@@ -38,6 +38,16 @@ public class MenuManager {
 		private static int levelSelected; // int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
 
+		
+		
+		/**
+		 * Creates the pane for the menu displayed on the primary stage
+		 * 
+		 * @param stage The main stage displayed by the program
+		 * @param width The width of the window in pixels
+		 * @param height The height of the window in pixels
+		 * @return Pane used to display on the scene
+		 */
 		public static Pane buildMenuGUI(Stage stage, int width, int height) {
 			// Create top-level panel that will hold all GUI
 			BorderPane root = new BorderPane();
@@ -48,7 +58,7 @@ public class MenuManager {
 			setStage(stage);
 			setWindowSize(width, height);
 
-			// HBar at top for Buttons
+			// HBox at top for Buttons
 			HBox toolbarTop = new HBox();
 			toolbarTop.setSpacing(10);
 			toolbarTop.setPadding(PADDING);
@@ -57,6 +67,7 @@ public class MenuManager {
 			VBox lower = new VBox();
 			root.setBottom(lower);
 
+			// VBox at bottom for Buttons
 			HBox toolbarBottom = new HBox();
 			toolbarBottom.setSpacing(10);
 			toolbarBottom.setPadding(PADDING);
@@ -81,6 +92,7 @@ public class MenuManager {
 			toolbarTop.getChildren().add(launchButton);
 
 			// Launch Button event handler
+			// Only allows the game to run when a profile and level have been selected
 			launchButton.setOnAction(e -> {
 				System.out.println(levelSelected);
 				if (profileSelected != "" && levelSelected != 0) {
@@ -95,6 +107,7 @@ public class MenuManager {
 
 			});
 
+			// Labels for displaying the chosen profile and level
 			selectedProfile = new Label(PROFILE);
 			selectedProfile.setAlignment(javafx.geometry.Pos.CENTER);
 			selectedProfile.setFont(new Font("Arial", 15));
@@ -120,6 +133,7 @@ public class MenuManager {
 
 			drawProfileList();
 
+			// Label for displaying the word of the day
 			Label wordOfDay = new Label("");
 			try {
 				wordOfDay.setText(Networking.getMessage());
@@ -138,19 +152,33 @@ public class MenuManager {
 			return root;
 		}
 
+		/**
+		 * Setting the stage so the scene is displayed
+		 * @param stage The stage to display the scene
+		 */
 		public static void setStage(Stage stage) {
 			MenuManager.Menu.primaryStage = stage;
 		}
 
+		/**
+		 * Setting the size of the window
+		 * @param width The width of the display in pixels
+		 * @param height The height of the display in pixels
+		 */
 		public static void setWindowSize(int width, int height) {
 			MenuManager.Menu.windowWidth = width;
 			MenuManager.Menu.windowHeight = height;
 		}
 
+		/**
+		 * Displays the levels available to the user based on the maxLevel available to the player
+		 * @param p The player profile the user has chosen
+		 */
 		public static void buildLevelSelectPane(Player p) {
 			BorderPane innerRoot = new BorderPane();
 			VBox levelList = new VBox();
 
+			//Giving the user the option to continue a level they have already started
 			levelList.getChildren().add(new Label("Select Level"));
 			if (p.getCurrentTime() > 0) {
 				Button button = new Button("Continue Level " + Integer.toString(p.getCurrentLevel()));
@@ -164,6 +192,8 @@ public class MenuManager {
 				});
 				levelList.getChildren().add(button);
 			}
+			
+			//Display a button for each available level to the player
 			if (p.getMaxLevel() == 0) {
 				Button button = new Button("1");
 				button.setOnAction(e -> {
@@ -193,8 +223,12 @@ public class MenuManager {
 			rootPane.setCenter(innerRoot);
 
 		}
-
+		
+		/**
+		 * Creating a new Profile
+		 */
 		private static void createProfile() {
+			//Creating an inner GUI displayed within the root
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
 			subRoot.setPadding(PADDING);
@@ -206,6 +240,7 @@ public class MenuManager {
 			Button createProfileButton = new Button("Create");
 			Label warning = new Label("Max of 15 characters");
 
+			//Creating a profile and adding it to file when the create button is clicked
 			createProfileButton.setOnAction(e -> {
 				if (profileNameBox.getText().length() < 16) {
 					createProfileButton.setText("Clicked");
@@ -217,8 +252,12 @@ public class MenuManager {
 			});
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton, warning);
 		}
-
+		
+		/**
+		 * Deleting a profile
+		 */
 		private static void deleteProfile() {
+			//Creating an inner GUI displayed within the root
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
 			subRoot.setPadding(PADDING);
@@ -229,6 +268,7 @@ public class MenuManager {
 			TextField profileNameBox = new TextField();
 			Button deleteProfileButton = new Button("Delete");
 
+			//Deletes the profile if it exists
 			deleteProfileButton.setOnAction(e -> {
 				if (!delete(profileNameBox.getText())) {
 					System.out.println("Delete Failed");
@@ -239,7 +279,12 @@ public class MenuManager {
 			});
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, deleteProfileButton);
 		}
-
+		
+		/**
+		 * Deletes the profile it is given from File
+		 * @param profile The profile to be deleted
+		 * @return boolean whether the profile selected exists or not
+		 */
 		private static boolean delete(String profile) {
 			int i = 0;
 			boolean found = false;
@@ -261,6 +306,9 @@ public class MenuManager {
 			return found;
 		}
 
+		/**
+		 * Draws the list of profiles to the screen
+		 */
 		private static void drawProfileList() {
 			players.clear();
 			ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
@@ -290,6 +338,11 @@ public class MenuManager {
 			}
 		}
 
+		/**
+		 * Displays the leaderboard whenever a level is selected
+		 * @param innerRoot The root pane displayed when a profile is selected
+		 * @param leaderboard The leaderboard as an arrayList of Strings - contains profile name then their time
+		 */
 		private static void buildLeaderboardPane(BorderPane innerRoot, ArrayList<String> leaderboard) {
 			VBox leaderBoardPane = new VBox();
 			leaderBoardPane.setPadding(PADDING);
