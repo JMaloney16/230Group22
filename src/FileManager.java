@@ -55,8 +55,6 @@ public class FileManager {
 		private static void readAnyFile(Scanner in, String divider, Player player) {
 			int boardX = in.nextInt();
 			int boardY = in.nextInt();
-			System.out.println(boardX);
-			System.out.println(boardY);
 			boardDrawables = new Drawable[boardX][boardY];
 			movables = new ArrayList<Movable>();
 			interactables = new ArrayList<Interactable>();
@@ -68,39 +66,31 @@ public class FileManager {
 					String current = "" + currentTileLine.charAt(j);
 					switch (current) {
 						case "#":
-							System.out.print("#");
 							boardDrawables[j][i] = new StaticEntity(j, i,
 								"assets/StoneBrickWall.png", 2);
 							break;
 						case ".":
-							System.out.print(".");
 							boardDrawables[j][i] = new StaticEntity(j, i,
 								"assets/Floor.png", 0);
 							break;
 						case "F":
-							System.out.print("F");
 							boardDrawables[j][i] = new Fire(j, i);
 							break;
 						case "W":
-							System.out.print("W");
 							boardDrawables[j][i] = new Water(j, i);
 							break;
 						case "T":
-							System.out.print("T");
 							boardDrawables[j][i] = new StaticEntity(j, i,
 								"assets/Floor.png", 1);
 							break;
 						case "D":
-							System.out.print("D");
 							boardDrawables[j][i] = new StaticEntity(j, i,
 								"assets/Floor.png", 0);
 							break;
 						case "G":
-							System.out.print("G");
 							boardDrawables[j][i] = new Goal(j, i);
 							break;
 						default:
-							System.out.print("?");
 							boardDrawables[j][i] = new StaticEntity(j, i,
 								"assets/placeholder.png", 2);
 					}
@@ -113,21 +103,17 @@ public class FileManager {
 				Scanner line = new Scanner(currentLine).useDelimiter(",");
 				int posX = (line.nextInt() - 1);
 				int posY = (line.nextInt() - 1);
-				System.out.println(posX + ", " + posY);
 				String keyword = line.next();
 				switch (keyword) {
 					case "START": //Set the player's position
-						System.out.println("START");
 						player.setxCoord(posX);
 						player.setyCoord(posY);
 						break;
 					case "ITEM":
 						String itemType = line.next();
-						System.out.println("It's a: " + itemType);
 						switch (itemType) {
 							case "TOKEN":
 								int tokenValue = line.nextInt();
-								System.out.println("It's worth: " + tokenValue);
 								interactables.add(new Token(posX, posY));
 								break;
 							case "FLIPPER":
@@ -137,16 +123,14 @@ public class FileManager {
 								interactables.add(new Shoe(posX, posY, "boots"));
 								break;
 							case "KATANNA":
-								System.out.println("It's a katanna!");
 								interactables.add(new Katanna(posX, posY));
 								break;
 							case "KEY":
 								String colour = line.next();
-								System.out.println("It's a " + colour + " key");
 								interactables.add(new Key(posX, posY, colour));
 								break;
 							default:
-								System.out.println("Unrecognised!");
+								System.out.println("Unrecognised! " + itemType);
 								break;
 						}
 						break;
@@ -154,21 +138,15 @@ public class FileManager {
 						String doorType = line.next();
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
-							System.out.println("It's a door that uses " + tokensRequired
-								+ " token(s)!");
 							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
 							String doorColour = line.next();
-							System.out.println("It's a " + doorType.toLowerCase()
-								+ " door of colour: "
-								+ doorColour);
 							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
 						break;
 					case "TELE":
 						int pairX = line.nextInt() - 1;
 						int pairY = line.nextInt() - 1;
-						System.out.println("It's a teleporter pair: " + posX + posY + pairX + pairY);
 						Teleporter tele1 = new Teleporter(posX, posY);
 						Teleporter tele2 = new Teleporter(pairX, pairY);
 						tele1.setPartner(tele2);
@@ -201,20 +179,16 @@ public class FileManager {
 						}
 						switch (enemyType) {
 							case "STRAIGHT":
-								System.out.println("Straight type enemy starting: " + direction);
 								movables.add(new LineEnemy(posX, posY, directionInt));
 								break;
 							case "SMART":
-								System.out.println("Smart enemy");
 								movables.add(new SmartEnemy(posX, posY));
 								break;
 							case "FOLLOW":
-								System.out.println("Follow enemy");
 								movables.add(new FollowEnemy(posX, posY, directionInt,
 									line.nextInt()));
 								break;
 							case "DUMB":
-								System.out.println("Dumb enemy");
 								movables.add(new DumbEnemy(posX, posY,
 									directionInt));
 								break;
@@ -495,7 +469,6 @@ public class FileManager {
 							writer.write(prefix + "DOOR,TOKEN," + tokensReq);
 							break;
 						case "COLOUREDDOOR":
-							// TODO: Get the colour of the door
 							String colour = ((ColouredDoor) interactable).getColour().toUpperCase();
 							writer.write(prefix + "DOOR,KEY," + colour);
 							break;
