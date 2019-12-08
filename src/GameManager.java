@@ -144,7 +144,9 @@ public class GameManager {
 //			System.out.println(this.player.update(this.board, this.lastKey));
 			this.board.updateInteractables(this.player, this.lastKey);
 			
-			this.player.update(this.board, this.lastKey);
+			if (this.player.update(this.board, this.lastKey) == 0) {
+				SoundEffect.playSound("assets\\Sounds\\Bump.wav");
+			}
 
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
