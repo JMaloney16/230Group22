@@ -46,6 +46,43 @@ public class SmartEnemy extends Enemy {
 	}
 
 	/**
+	 * Does one step of the dumb enemy's behaviour
+	 */
+	public void update(Board board, Player player, int keyboardIn) {
+		this.cells = new Cell[board.getBoard().length][board.getBoard()[0].length];
+		for (int y = 0; y < board.getBoard()[0].length; y++) {
+			for (int x = 0; x < board.getBoard().length; x++) {
+				this.cells[x][y] = new Cell(x, y, board.getBlocking(x, y) > 0);
+				this.cells[x][y].g = -1;
+			}
+		}
+
+		this.doAStar(this.xCoord, this.yCoord, player.xCoord, player.yCoord);
+		if (this.path.size() > 0) {
+			Cell nextMove = this.path.get(this.path.size() - 1);
+			this.xCoord = nextMove.x;
+			this.yCoord = nextMove.y;
+		} else {
+			Random random = new Random();
+			this.setDir(random.nextInt(3));
+			this.normaliseDir();
+			if (getDirBlocking(board) == false) {
+				this.move();
+			}
+		}
+
+		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
+			if (player.getKatanna()) {
+				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
+				board.removeMovable(this);
+				player.removeKatanna();
+			} else {
+				player.kill();
+			}
+		}
+	}
+
+	/**
 	 * Returns the cell with the minimum f value in the arraylist
 	 * 
 	 * @param cs, cells to be searched
@@ -137,40 +174,4 @@ public class SmartEnemy extends Enemy {
 		}
 	}
 
-	/**
-	 * Does one step of the dumb enemy's behaviour
-	 */
-	public void update(Board board, Player player, int keyboardIn) {
-		this.cells = new Cell[board.getBoard().length][board.getBoard()[0].length];
-		for (int y = 0; y < board.getBoard()[0].length; y++) {
-			for (int x = 0; x < board.getBoard().length; x++) {
-				this.cells[x][y] = new Cell(x, y, board.getBlocking(x, y) > 0);
-				this.cells[x][y].g = -1;
-			}
-		}
-
-		this.doAStar(this.xCoord, this.yCoord, player.xCoord, player.yCoord);
-		if (this.path.size() > 0) {
-			Cell nextMove = this.path.get(this.path.size() - 1);
-			this.xCoord = nextMove.x;
-			this.yCoord = nextMove.y;
-		} else {
-			Random random = new Random();
-			this.setDir(random.nextInt(3));
-			this.normaliseDir();
-			if (getDirBlocking(board) == false) {
-				this.move();
-			}
-		}
-
-		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-			if (player.getKatanna()) {
-				SoundEffect.playSound("assets\\Sounds\\Clang.wav");
-				board.removeMovable(this);
-				player.removeKatanna();
-			} else {
-				player.kill();
-			}
-		}
-	}
 }

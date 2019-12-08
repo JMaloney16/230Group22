@@ -37,6 +37,162 @@ public class FileManager {
 		private static ArrayList<String> leaderboard = new ArrayList<String>();
 
 		/**
+		 * Loads a new map from a file
+		 *
+		 * @param filepath location of file to read from
+		 * @param board    board to be populated
+		 */
+		public static void readMapFile(String filepath, Board board, Player player) {
+			Scanner in = createFileScanner(filepath);
+			leaderboard.clear();
+			readAnyFile(in, "LEVEL", player);
+			//First line after readAnyFile is done is LEVEL
+			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
+			player.setCurrentLevel(mapLevel);
+
+			in.close();
+			board.setNewBoard(boardDrawables, movables, interactables);
+			board.setLevelNumber(mapLevel);
+		}
+
+		/**
+		 * Loads a map and player's stats from a file
+		 *
+		 * @param filepath location of file to read
+		 * @param player   player to edit
+		 * @param board    board to edit
+		 */
+		public static void readPlayerFile(String filepath, Player player, Board board) {
+			Scanner in = createFileScanner(filepath);
+//			String playerName = filepath.substring(0, filepath.length() - 4);
+			readAnyFile(in, "CURRENTTIME", player);
+
+			getPlayerDetails(player, in, dividerLine);
+
+			board.setNewBoard(boardDrawables, movables, interactables);
+			in.close();
+		}
+
+		/**
+		 * Loads a player's stats from a file
+		 *
+		 * @param filepath location of file to read
+		 * @param player   player to edit
+		 * @deprecated
+		 */
+		public static void readPlayerFile(String filepath, Player player) {
+			Scanner in = createFileScanner(filepath);
+			String currentLine = in.nextLine();
+
+			while (!currentLine.startsWith("CURRENTTIME")) {
+				currentLine = in.nextLine();
+			}
+			getPlayerDetails(player, in, currentLine);
+			in.close();
+		}
+
+		/**
+		 * Reads a map file and returns a list of the top 3 players and their times
+		 *
+		 * @param filepath Location of the map file
+		 * @return ArrayList containing top 3 players and their times
+		 */
+		public static ArrayList<String> getLeaderboard(String filepath) {
+			Scanner in = createFileScanner(filepath);
+			leaderboard.clear();
+			String currentLine = in.nextLine();
+			//Skip everything in the file before the leaderboard
+			while (!currentLine.equals("LEADERBOARD")) {
+				currentLine = in.nextLine();
+			}
+			currentLine = in.nextLine();
+			for (int i = 0; i < 3; i++) {
+				String[] currentPlayer = currentLine.split(",");
+				String playerName = currentPlayer[0];
+				String playerTime = currentPlayer[1];
+				System.out.println(playerName + " completed the level in: " + playerTime);
+				leaderboard.add(playerName);
+				leaderboard.add(playerTime);
+				if (i < 2) {
+					currentLine = in.nextLine();
+				}
+			}
+			in.close();
+			return leaderboard;
+		}
+
+		/**
+		 * Gets all the player profile
+		 *
+		 * @return ArrayList<String> of all the player profile names
+		 */
+		public static ArrayList<String> getAllProfiles() {
+			ArrayList<String> results = new ArrayList<String>();
+
+			File[] files = new File("profiles").listFiles();
+			// If this pathname does not denote a directory, then listFiles() returns null.
+
+			for (File file : files) {
+				if (file.isFile()) {
+					if (file.getName().contains(".txt")) {
+						String profileName = file.getName().replace(".txt", "");
+						results.add(profileName);
+					}
+				}
+			}
+			return results;
+		}
+		
+
+		/**
+		 * Gets the information for the player object only from the player save file
+		 *
+		 * @param player      PLayer object to edit
+		 * @param in          Scanner containing file
+		 * @param currentLine The line the scanner was on before being passed
+		 */
+		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
+			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
+			player.setCurrentTime(currentMoves);
+			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
+			player.setCurrentLevel(playerLevel);
+			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
+			player.setMaxLevel(playerMaxLevel);
+			System.out.println(in.nextLine());
+			//Go through the inventory list of the file
+			while (in.hasNextLine()) {
+				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
+				String itemType = line.next();
+				switch (itemType) {
+					case "FLIPPER":
+						System.out.println("Flippers");
+						player.addFlippers();
+						break;
+					case "BOOTS":
+						System.out.println("Boots");
+						player.addBoots();
+						break;
+					case "TOKEN":
+						System.out.println("Token");
+						player.addToken(line.nextInt());
+						break;
+					case "KEY":
+						System.out.println("Key");
+						player.addKey(line.next().toLowerCase());
+						break;
+					case "KATANNA":
+						System.out.println("Katanna");
+						player.addKatanna();
+						break;
+					default:
+						System.out.println("Unrecognized!");
+				}
+
+			}
+		}
+
+		
+		/**
 		 * Validates filepath given and creates a scanner if valid
 		 *
 		 * @param filename Filepath of file to use
@@ -235,159 +391,7 @@ public class FileManager {
 			dividerLine = currentLine;
 		}
 
-		/**
-		 * Loads a new map from a file
-		 *
-		 * @param filepath location of file to read from
-		 * @param board    board to be populated
-		 */
-		public static void readMapFile(String filepath, Board board, Player player) {
-			Scanner in = createFileScanner(filepath);
-			leaderboard.clear();
-			readAnyFile(in, "LEVEL", player);
-			//First line after readAnyFile is done is LEVEL
-			int mapLevel = Integer.parseInt(dividerLine.split(",")[1]);
-			player.setCurrentLevel(mapLevel);
 
-			in.close();
-			board.setNewBoard(boardDrawables, movables, interactables);
-			board.setLevelNumber(mapLevel);
-		}
-
-		/**
-		 * Loads a map and player's stats from a file
-		 *
-		 * @param filepath location of file to read
-		 * @param player   player to edit
-		 * @param board    board to edit
-		 */
-		public static void readPlayerFile(String filepath, Player player, Board board) {
-			Scanner in = createFileScanner(filepath);
-//			String playerName = filepath.substring(0, filepath.length() - 4);
-			readAnyFile(in, "CURRENTTIME", player);
-
-			getPlayerDetails(player, in, dividerLine);
-
-			board.setNewBoard(boardDrawables, movables, interactables);
-			in.close();
-		}
-
-		/**
-		 * Loads a player's stats from a file
-		 *
-		 * @param filepath location of file to read
-		 * @param player   player to edit
-		 * @deprecated
-		 */
-		public static void readPlayerFile(String filepath, Player player) {
-			Scanner in = createFileScanner(filepath);
-			String currentLine = in.nextLine();
-
-			while (!currentLine.startsWith("CURRENTTIME")) {
-				currentLine = in.nextLine();
-			}
-			getPlayerDetails(player, in, currentLine);
-			in.close();
-		}
-
-		/**
-		 * Gets the information for the player object only from the player save file
-		 *
-		 * @param player      PLayer object to edit
-		 * @param in          Scanner containing file
-		 * @param currentLine The line the scanner was on before being passed
-		 */
-		private static void getPlayerDetails(Player player, Scanner in, String currentLine) {
-			int currentMoves = Integer.parseInt(currentLine.split(",")[1]);
-			player.setCurrentTime(currentMoves);
-			int playerLevel = Integer.parseInt(in.nextLine().split(",")[1]);
-			player.setCurrentLevel(playerLevel);
-			int playerMaxLevel = Integer.parseInt((in.nextLine().split(",")[1]));
-			player.setMaxLevel(playerMaxLevel);
-			System.out.println(in.nextLine());
-			//Go through the inventory list of the file
-			while (in.hasNextLine()) {
-				Scanner line = new Scanner(in.nextLine()).useDelimiter(",");
-				String itemType = line.next();
-				switch (itemType) {
-					case "FLIPPER":
-						System.out.println("Flippers");
-						player.addFlippers();
-						break;
-					case "BOOTS":
-						System.out.println("Boots");
-						player.addBoots();
-						break;
-					case "TOKEN":
-						System.out.println("Token");
-						player.addToken(line.nextInt());
-						break;
-					case "KEY":
-						System.out.println("Key");
-						player.addKey(line.next().toLowerCase());
-						break;
-					case "KATANNA":
-						System.out.println("Katanna");
-						player.addKatanna();
-						break;
-					default:
-						System.out.println("Unrecognized!");
-				}
-
-			}
-		}
-
-		/**
-		 * Reads a map file and returns a list of the top 3 players and their times
-		 *
-		 * @param filepath Location of the map file
-		 * @return ArrayList containing top 3 players and their times
-		 */
-		public static ArrayList<String> getLeaderboard(String filepath) {
-			Scanner in = createFileScanner(filepath);
-			leaderboard.clear();
-			String currentLine = in.nextLine();
-			//Skip everything in the file before the leaderboard
-			while (!currentLine.equals("LEADERBOARD")) {
-				currentLine = in.nextLine();
-			}
-			currentLine = in.nextLine();
-			for (int i = 0; i < 3; i++) {
-				String[] currentPlayer = currentLine.split(",");
-				String playerName = currentPlayer[0];
-				String playerTime = currentPlayer[1];
-				System.out.println(playerName + " completed the level in: " + playerTime);
-				leaderboard.add(playerName);
-				leaderboard.add(playerTime);
-				if (i < 2) {
-					currentLine = in.nextLine();
-				}
-			}
-			in.close();
-			return leaderboard;
-		}
-
-		/**
-		 * Gets all the player profile
-		 *
-		 * @return ArrayList<String> of all the player profile names
-		 */
-		public static ArrayList<String> getAllProfiles() {
-			ArrayList<String> results = new ArrayList<String>();
-
-			File[] files = new File("profiles").listFiles();
-			// If this pathname does not denote a directory, then listFiles() returns null.
-
-			for (File file : files) {
-				if (file.isFile()) {
-					if (file.getName().contains(".txt")) {
-						String profileName = file.getName().replace(".txt", "");
-						results.add(profileName);
-					}
-				}
-			}
-			return results;
-		}
 	}
 
 	public static class FileWriting {
@@ -689,26 +693,6 @@ public class FileManager {
 			replaceText(boardFile, oldLeaderboard, newLeaderboard);
 		}
 
-		/**
-		 * Replaces a specified string in a text file
-		 *
-		 * @param filepath File to be edited
-		 * @param oldText  String to be replaced
-		 * @param newText  New string to add
-		 * @throws IOException
-		 */
-		private static void replaceText(String filepath, String oldText, String newText) throws IOException {
-			File file = new File(filepath);
-			String oldFile = copyFileContents(filepath);
-			//Get a string of the contents of the whole file
-
-			FileWriter writer = new FileWriter(file);
-
-			String newFile = oldFile.replaceAll(oldText, newText);
-			writer.write(newFile);
-			writer.close();
-		}
-
 		public static void deletePlayer(String playerName) {
 			File file = new File("profiles/" + playerName + ".txt");
 			file.delete();
@@ -733,5 +717,26 @@ public class FileManager {
 			br.close();
 			return contents;
 		}
+
+		/**
+		 * Replaces a specified string in a text file
+		 *
+		 * @param filepath File to be edited
+		 * @param oldText  String to be replaced
+		 * @param newText  New string to add
+		 * @throws IOException
+		 */
+		private static void replaceText(String filepath, String oldText, String newText) throws IOException {
+			File file = new File(filepath);
+			String oldFile = copyFileContents(filepath);
+			//Get a string of the contents of the whole file
+
+			FileWriter writer = new FileWriter(file);
+
+			String newFile = oldFile.replaceAll(oldText, newText);
+			writer.write(newFile);
+			writer.close();
+		}
+
 	}
 }

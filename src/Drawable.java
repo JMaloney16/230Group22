@@ -38,12 +38,6 @@ public abstract class Drawable {
 		}
 	}
 
-	protected void updateSprite(String sprite) {
-		this.spritePath = sprite;
-		File imageLoader = new File(spritePath);
-		this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
-	}
-
 	/**
 	 * Handles the movement of this object.
 	 * 
@@ -91,5 +85,11 @@ public abstract class Drawable {
 
 	public void setyCoord(int y) {
 		this.yCoord = y;
+	}
+
+	protected void updateSprite(String sprite) {
+		this.spritePath = sprite;
+		File imageLoader = new File(spritePath);
+		this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
 	}
 }

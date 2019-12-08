@@ -108,6 +108,24 @@ public class GameManager {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
+	/**
+	 * Allows the keyboard to be given to the gameManager
+	 * 
+	 * @param key, the direction of the key inputed
+	 */
+	public void setKey(int key) {
+		this.lastKey = key;
+	}
+
+	/**
+	 * Gets the current moves the player has made during their life
+	 * 
+	 * @return Int of the moves since last start
+	 */
+	public int getMoves() {
+		return this.moves;
+	}
+
 
 	/**
 	 * Draws and Updates all parts of the board, draws and handles input for the
@@ -174,6 +192,7 @@ public class GameManager {
 		}
 		
 	}
+	
 
 	/**
 	 * Sets up the gameScene so that the gameManager can draw the board to the
@@ -232,23 +251,6 @@ public class GameManager {
 		return root;
 	}
 
-	/**
-	 * Allows the keyboard to be given to the gameManager
-	 * 
-	 * @param key, the direction of the key inputed
-	 */
-	public void setKey(int key) {
-		this.lastKey = key;
-	}
-
-	/**
-	 * Gets the current moves the player has made during their life
-	 * 
-	 * @return Int of the moves since last start
-	 */
-	public int getMoves() {
-		return this.moves;
-	}
 
 	/**
 	 * Restarts the game

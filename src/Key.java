@@ -23,34 +23,6 @@ public class Key extends Collectable {
 	}
 
 	/**
-	 * Finds the corresponding sprite according to the key's colour
-	 *
-	 * @param keyColour The colour of the key
-	 * @return The filepath to the corresponding sprite
-	 */
-	private static String getSprite(String keyColour) {
-		String sprite = "assets/";
-		switch (keyColour) {
-		case "red":
-			sprite += "keyRed.png";
-			break;
-		case "blue":
-			sprite += "keyBlue.png";
-			break;
-		case "yellow":
-			sprite += "keyYellow.png";
-			break;
-		case "green":
-			sprite += "keyGreen.png";
-			break;
-		default:
-			// If the colour doesn't exist just set it to one of the others?
-			sprite += "keyRed.png";
-		}
-		return sprite;
-	}
-
-	/**
 	 * Handles the collection of the key.
 	 *
 	 * @param board,      the parent board object.
@@ -82,4 +54,33 @@ public class Key extends Collectable {
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
+	
+	/**
+	 * Finds the corresponding sprite according to the key's colour
+	 *
+	 * @param keyColour The colour of the key
+	 * @return The filepath to the corresponding sprite
+	 */
+	private static String getSprite(String keyColour) {
+		String sprite = "assets/";
+		switch (keyColour) {
+		case "red":
+			sprite += "keyRed.png";
+			break;
+		case "blue":
+			sprite += "keyBlue.png";
+			break;
+		case "yellow":
+			sprite += "keyYellow.png";
+			break;
+		case "green":
+			sprite += "keyGreen.png";
+			break;
+		default:
+			// If the colour doesn't exist just set it to one of the others?
+			sprite += "keyRed.png";
+		}
+		return sprite;
+	}
+
 }

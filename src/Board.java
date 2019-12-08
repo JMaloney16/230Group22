@@ -202,46 +202,12 @@ public class Board {
 	}
 
 	/**
-	 * Search for an active movable based on its position
-	 * 
-	 * @param x, search x coordinate
-	 * @param y, search y coordinate
-	 * @return the movable object present at the position, null is none at position
-	 */
-	private Movable searchMovavbles(int x, int y) {
-		Movable result = null;
-		for (Movable m : this.movables) {
-			if (m.getxCoord() == x && m.getyCoord() == y) {
-				result = m;
-			}
-		}
-		return result;
-	}
-
-	/**
 	 * Gets all the active interactable on the board
 	 * 
 	 * @return ArrayList<Interactable> of the active interactables
 	 */
 	public ArrayList<Interactable> getInteractables() {
 		return this.interactables;
-	}
-
-	/**
-	 * Search for an interactble by its position
-	 * 
-	 * @param x, search x coordinate
-	 * @param y, search y coordinate
-	 * @return Interactable object at the search position, null if none
-	 */
-	private Interactable searchInteractables(int x, int y) {
-		Interactable result = null;
-		for (Interactable i : this.interactables) {
-			if (i.getxCoord() == x && i.getyCoord() == y) {
-				result = i;
-			}
-		}
-		return result;
 	}
 
 	/**
@@ -272,5 +238,39 @@ public class Board {
 		this.board = boardDrawables;
 		this.movables = movables;
 		this.interactables = interactables;
+	}
+	
+	/**
+	 * Search for an active movable based on its position
+	 * 
+	 * @param x, search x coordinate
+	 * @param y, search y coordinate
+	 * @return the movable object present at the position, null is none at position
+	 */
+	private Movable searchMovavbles(int x, int y) {
+		Movable result = null;
+		for (Movable m : this.movables) {
+			if (m.getxCoord() == x && m.getyCoord() == y) {
+				result = m;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Search for an interactble by its position
+	 * 
+	 * @param x, search x coordinate
+	 * @param y, search y coordinate
+	 * @return Interactable object at the search position, null if none
+	 */
+	private Interactable searchInteractables(int x, int y) {
+		Interactable result = null;
+		for (Interactable i : this.interactables) {
+			if (i.getxCoord() == x && i.getyCoord() == y) {
+				result = i;
+			}
+		}
+		return result;
 	}
 }

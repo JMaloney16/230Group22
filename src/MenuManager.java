@@ -97,13 +97,13 @@ public class MenuManager {
 				System.out.println(levelSelected);
 				if (profileSelected != "" && levelSelected != 0) {
 					int maxLevel = 0;
-					for(Player p : players) {
+					for (Player p : players) {
 						if (p.getName().equals(profileSelected)) {
 							maxLevel = p.getMaxLevel();
 						}
 					}
-					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, maxLevel, windowWidth,
-							windowHeight, cellSize);
+					GameManager gm = new GameManager(primaryStage, levelSelected, profileSelected, maxLevel,
+							windowWidth, windowHeight, cellSize);
 				}
 
 			});
@@ -166,6 +166,54 @@ public class MenuManager {
 		// Set cell size
 		public static void setCellSize(int cellSize) {
 			MenuManager.Menu.cellSize = cellSize;
+		}
+
+		public static void buildLevelSelectPane(Player p) {
+			BorderPane innerRoot = new BorderPane();
+			VBox levelList = new VBox();
+
+			levelList.getChildren().add(new Label("Select Level"));
+			if (p.getCurrentTime() > 0) {
+				Button button = new Button("Continue Level " + Integer.toString(p.getCurrentLevel()));
+
+				button.setOnAction(e -> {
+					int level = p.getCurrentLevel();
+					selectedLevel.setText("Continuing");
+					System.out.println("levels\\" + p.getCurrentLevel() + ".txt");
+					buildLeaderboardPane(innerRoot,
+							FileManager.FileReading.getLeaderboard("levels\\" + p.getCurrentLevel() + ".txt"));
+					levelSelected = -1;
+				});
+				levelList.getChildren().add(button);
+			}
+			if (p.getMaxLevel() == 0) {
+				Button button = new Button("1");
+				button.setOnAction(e -> {
+					int level = Integer.parseInt(button.getText());
+					levelSelected = 1;
+					selectedLevel.setText(LEVEL + level);
+					buildLeaderboardPane(innerRoot,
+							FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
+				});
+				levelList.getChildren().add(button);
+			} else {
+				for (int i = 1; i < p.getMaxLevel() + 1; i++) {
+					Button button = new Button(Integer.toString(i));
+
+					button.setOnAction(e -> {
+						int level = Integer.parseInt(button.getText());
+						levelSelected = level;
+						selectedLevel.setText(LEVEL + level);
+						buildLeaderboardPane(innerRoot,
+								FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
+					});
+					levelList.getChildren().add(button);
+				}
+			}
+
+			innerRoot.setLeft(levelList);
+			rootPane.setCenter(innerRoot);
+
 		}
 
 		private static void createProfile() {
@@ -267,53 +315,6 @@ public class MenuManager {
 
 				profileList.getChildren().add(button);
 			}
-		}
-
-		public static void buildLevelSelectPane(Player p) {
-			BorderPane innerRoot = new BorderPane();
-			VBox levelList = new VBox();
-
-			levelList.getChildren().add(new Label("Select Level"));
-			if (p.getCurrentTime() > 0) {
-				Button button = new Button("Continue Level "+Integer.toString(p.getCurrentLevel()));
-
-				button.setOnAction(e -> {
-					int level = p.getCurrentLevel();
-					selectedLevel.setText("Continuing");
-					System.out.println("levels\\" + p.getCurrentLevel() + ".txt");
-					buildLeaderboardPane(innerRoot, FileManager.FileReading.getLeaderboard("levels\\" + p.getCurrentLevel() +".txt"));
-					levelSelected = -1;
-				});
-				levelList.getChildren().add(button);
-			}
-			if (p.getMaxLevel() == 0) {
-				Button button = new Button("1");
-				button.setOnAction(e -> {
-					int level = Integer.parseInt(button.getText());
-					levelSelected = 1;
-					selectedLevel.setText(LEVEL + level);
-					buildLeaderboardPane(innerRoot,
-							FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
-				});
-				levelList.getChildren().add(button);
-			} else {
-				for (int i = 1; i < p.getMaxLevel() + 1; i++) {
-					Button button = new Button(Integer.toString(i));
-
-					button.setOnAction(e -> {
-						int level = Integer.parseInt(button.getText());
-						levelSelected = level;
-						selectedLevel.setText(LEVEL + level);
-						buildLeaderboardPane(innerRoot,
-								FileManager.FileReading.getLeaderboard("levels\\" + level + ".txt"));
-					});
-					levelList.getChildren().add(button);
-				}
-			}
-
-			innerRoot.setLeft(levelList);
-			rootPane.setCenter(innerRoot);
-
 		}
 
 		private static void buildLeaderboardPane(BorderPane innerRoot, ArrayList<String> leaderboard) {

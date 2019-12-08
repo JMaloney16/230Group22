@@ -24,22 +24,6 @@ public class Shoe extends Collectable {
 	}
 
 	/**
-	 * Sets the sprite image path needed for this shoes type
-	 * 
-	 * @param type of shoe this is
-	 * @return the filepath the image to represent this type
-	 */
-	private static String getSprite(String type) {
-		String sprite = "assets/";
-		if (type == "boots") {
-			sprite += "Boots.png";
-		} else {
-			sprite += "Flippers.png";
-		}
-		return sprite;
-	}
-
-	/**
 	 * Handles the pick up of the shoe
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
@@ -56,4 +40,21 @@ public class Shoe extends Collectable {
 	public String getType() {
 		return type;
 	}
+
+	/**
+	 * Sets the sprite image path needed for this shoes type
+	 * 
+	 * @param type of shoe this is
+	 * @return the filepath the image to represent this type
+	 */
+	private static String getSprite(String type) {
+		String sprite = "assets/";
+		if (type == "boots") {
+			sprite += "Boots.png";
+		} else {
+			sprite += "Flippers.png";
+		}
+		return sprite;
+	}
+
 }
