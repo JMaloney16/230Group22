@@ -5,7 +5,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
-import javax.swing.JOptionPane;
 
 /**
  * SoundEffect.java A class designed to hold the methods for calling sounds. Has
