@@ -54,6 +54,11 @@ public class FollowEnemy extends Enemy {
 		}
 	}
 
+	/**
+	 * Get the search bias of this enemy, (-1 left bias, 1 right bias)
+	 * 
+	 * @return the search bias
+	 */
 	public int getBias() {
 		return bias;
 	}

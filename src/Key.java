@@ -53,7 +53,7 @@ public class Key extends Collectable {
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
-	
+
 	/**
 	 * Finds the corresponding sprite according to the key's colour
 	 *
@@ -81,5 +81,4 @@ public class Key extends Collectable {
 		}
 		return sprite;
 	}
-
 }

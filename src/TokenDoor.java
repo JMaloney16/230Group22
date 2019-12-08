@@ -72,5 +72,4 @@ public class TokenDoor extends Door {
 		this.updateSprite("assets\\Floor.png");
 		board.removeInteractable(this);
 	}
-
 }

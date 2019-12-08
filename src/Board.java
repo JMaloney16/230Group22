@@ -236,7 +236,7 @@ public class Board {
 		this.movables = movables;
 		this.interactables = interactables;
 	}
-	
+
 	/**
 	 * Search for an active movable based on its position
 	 * 
@@ -253,7 +253,7 @@ public class Board {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Search for an interactble by its position
 	 * 

@@ -32,5 +32,4 @@ public class Goal extends Tile {
 			player.completeLevel();
 		}
 	}
-
 }

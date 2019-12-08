@@ -56,5 +56,4 @@ public class Shoe extends Collectable {
 		}
 		return sprite;
 	}
-
 }

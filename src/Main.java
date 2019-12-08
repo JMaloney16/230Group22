@@ -9,12 +9,9 @@ import javafx.stage.Stage;
  * @author Sam Forster
  */
 public class Main extends Application {
-
 	// The dimensions of the window
 	private static final int WINDOW_WIDTH = 448;
 	private static final int WINDOW_HEIGHT = 500;
-
-//////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Prepares the game to be launched
@@ -30,13 +27,9 @@ public class Main extends Application {
 
 	}
 
-	public static void PlaySound() {
+	public static void main(String[] args) {
 		String soundplay = "assets/Sounds/Intro_002.wav";
 		SoundEffect.playLoop(soundplay);
-	}
-
-	public static void main(String[] args) {
-		PlaySound();
 		launch(args);
 	}
 }

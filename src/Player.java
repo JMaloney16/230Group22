@@ -59,8 +59,7 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord;
 				this.nextY = this.yCoord - 1;
-			}
-			else {
+			} else {
 				return 0;
 			}
 			break;
@@ -71,8 +70,7 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord + 1;
 				this.nextY = this.yCoord;
-			}
-			else {
+			} else {
 				return 0;
 			}
 			break;
@@ -83,8 +81,7 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord;
 				this.nextY = this.yCoord + 1;
-			}
-			else {
+			} else {
 				return 0;
 			}
 			break;
@@ -95,8 +92,7 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord - 1;
 				this.nextY = this.yCoord;
-			}
-			else {
+			} else {
 				return 0;
 			}
 			break;
@@ -330,10 +326,11 @@ public class Player extends Movable {
 	public int[] getKeys() {
 		return keys;
 	}
-	
+
 	public boolean getKilled() {
 		return this.killed;
-	}	
+	}
+
 	public boolean getCompleted() {
 		return this.completed;
 	}

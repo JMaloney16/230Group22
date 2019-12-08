@@ -1,19 +1,18 @@
 /**
- * ColouredDoor.java
- * Holds information about a coloured door on the board
+ * ColouredDoor.java Holds information about a coloured door on the board
+ * 
  * @version 1.0
  * @author Gino Sesia
  * @author Jack Maloney
  *
  */
 public class ColouredDoor extends Door {
-
 	private String colour;
 
 	/**
-	 * @param x, 		the x coordinate of the coloured door tile.
-	 * @param y, 		the y coordinate of the coloured door tile.
-	 * @param colour,	the colour of the door.
+	 * @param x,      the x coordinate of the coloured door tile.
+	 * @param y,      the y coordinate of the coloured door tile.
+	 * @param colour, the colour of the door.
 	 */
 	public ColouredDoor(int x, int y, String colour) {
 		super(x, y, "assets\\Door.png");
@@ -64,6 +63,9 @@ public class ColouredDoor extends Door {
 		}
 	}
 
+	/**
+	 * @return String of the colour this door is
+	 */
 	public String getColour() {
 		return colour;
 	}

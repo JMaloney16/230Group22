@@ -50,7 +50,7 @@ public class GameManager {
 	private int lastKey = -1;
 
 	private int frameCount = 100;
-	
+
 	private Image TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself;
 
 	/**
@@ -58,7 +58,7 @@ public class GameManager {
 	 * size.
 	 * 
 	 * @param primaryStage, the stage for the game to be drawn to
-	 * @param boardLevel,    the number of the current level
+	 * @param boardLevel,   the number of the current level
 	 * @param windowWidth,  width of the screen to be played on
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen
@@ -71,8 +71,10 @@ public class GameManager {
 		this.player = player;
 //		this.player.setName(playerName);
 
-		//File imageLoader = new File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
-		//this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new Image(imageLoader.toURI().toString());
+		// File imageLoader = new
+		// File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
+		// this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new
+		// Image(imageLoader.toURI().toString());
 		this.startTime = System.currentTimeMillis();
 
 		if (boardLevel == -1) {
@@ -81,7 +83,7 @@ public class GameManager {
 			this.time = this.player.getCurrentTime();
 			this.previousTime = this.time;
 			this.boardFile = "levels\\" + Integer.toString(this.player.getCurrentLevel()) + ".txt";
-		} else {	
+		} else {
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 //			this.player.setMaxLevel(maxLevel);
@@ -103,6 +105,7 @@ public class GameManager {
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
+
 	/**
 	 * Allows the keyboard to be given to the gameManager
 	 * 
@@ -121,7 +124,6 @@ public class GameManager {
 		return this.moves;
 	}
 
-
 	/**
 	 * Draws and Updates all parts of the board, draws and handles input for the
 	 * player
@@ -135,30 +137,31 @@ public class GameManager {
 		this.player.draw(this.gc);
 
 		if (this.frameCount < 20) {
-			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth, this.windowHeight);
+			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth,
+					this.windowHeight);
 		}
 
-		//Gets inventory before a move is made
+		// Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
 
 		this.gameScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> InputManager.processKeyEvent(event, this));
 		if (this.lastKey != -1) {
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 			currentTime = System.currentTimeMillis();
-			time = (int)((currentTime - startTime)/1000);
+			time = (int) ((currentTime - startTime) / 1000);
 			time += previousTime;
 			this.moves += 1;
 			this.player.setCurrentMoves(this.moves);
 			this.player.setCurrentTime(time);
 			this.board.updateInteractables(this.player, this.lastKey);
-			
+
 			if (this.player.update(this.board, this.lastKey) == 0) {
 				SoundEffect.playSound("assets\\Sounds\\Bump.wav");
 			}
 
 			this.board.updateBoard(this.player, this.lastKey);
 			this.board.updateMovables(this.player, this.lastKey);
-			
+
 			if (this.player.getKilled()) {
 				this.restart();
 			}
@@ -171,17 +174,16 @@ public class GameManager {
 		this.lastKey = -1;
 
 		this.player.draw(this.gc);
-		
-		//Gets inventory after move is made
+
+		// Gets inventory after move is made
 		String[] currentInventory = this.getPlayerInventory();
-		
-		//Compares whether the player inventory has changed and updates if it has
-		if(!Arrays.equals(previousInventory, currentInventory)) {
+
+		// Compares whether the player inventory has changed and updates if it has
+		if (!Arrays.equals(previousInventory, currentInventory)) {
 			this.toolbar.getChildren().add(this.drawInventory(false));
 		}
-		
+
 	}
-	
 
 	/**
 	 * Sets up the gameScene so that the gameManager can draw the board to the
@@ -226,12 +228,11 @@ public class GameManager {
 		restartButton.setOnAction(e -> {
 			this.restart();
 		});
-		
+
 		this.toolbar.getChildren().add(drawInventory(true));
 
 		return root;
 	}
-
 
 	/**
 	 * Restarts the game
@@ -259,7 +260,7 @@ public class GameManager {
 	 */
 	private void nextLevel() throws IOException {
 
-		//Get the leaderboard and compare the players time to each of the high scores
+		// Get the leaderboard and compare the players time to each of the high scores
 
 		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.time);
 
@@ -269,7 +270,10 @@ public class GameManager {
 
 		this.restart();
 	}
-	
+
+	/**
+	 * Updates the players current and max levels
+	 */
 	private void updateLeveling() {
 		this.player.setCurrentLevel(this.board.getLevelNumber());
 
@@ -279,56 +283,56 @@ public class GameManager {
 		}
 
 	}
-	
-	//Getting the whole player inventory (for comparisons)
+
+	/**
+	 * Gets the full player inventory in one array
+	 * 
+	 * @return String array of the players inventory
+	 */
 	private String[] getPlayerInventory() {
-		String[] inventory = new String[] {
-				Integer.toString(this.time),
-				"", "", "", "", //Keys to be added later in method
-				Integer.toString(this.player.getTokens()),
-				Boolean.toString(this.player.getBoots()),
-				Boolean.toString(this.player.getFlippers()),
-				Boolean.toString(this.player.getKatanna())
-				
+		String[] inventory = new String[] { Integer.toString(this.time), "", "", "", "", // Keys to be added later in
+																							// method
+				Integer.toString(this.player.getTokens()), Boolean.toString(this.player.getBoots()),
+				Boolean.toString(this.player.getFlippers()), Boolean.toString(this.player.getKatanna())
+
 		};
-		
-		for(int i = 1; i < 5; i++) {
+
+		for (int i = 1; i < 5; i++) {
 			inventory[i] = Integer.toString(this.player.getKeys()[i - 1]);
 		}
-		
+
 		return inventory;
 	}
-	
-	
-	//Drawing the inventory at the top of the screen
+
+	/**
+	 * Draws the inventory to the screen
+	 * 
+	 * @param firstDraw, true if the first time this method has been called for this
+	 *                   gameManager
+	 * @return HBox containing the inventory
+	 */
 	private HBox drawInventory(boolean firstDraw) {
 		HBox inventoryHBox = new HBox();
 		inventoryHBox.setSpacing(8);
-		String[] labelNames = new String[]{"TIME", "R", "B", "Y", "G",
-				"TOKEN", "BOOTS", "FLIPPER", "KATANNA"};
+		String[] labelNames = new String[] { "TIME", "R", "B", "Y", "G", "TOKEN", "BOOTS", "FLIPPER", "KATANNA" };
 		Font font = new Font("Arial", 12);
-		
-		if(firstDraw == false) {
+
+		if (firstDraw == false) {
 			this.toolbar.getChildren().remove(this.toolbar.getChildren().size() - 1);
 		}
-		
-		
-		for(int i = 0; i < 8; i++) {
+
+		for (int i = 0; i < 8; i++) {
 			VBox box = new VBox();
 			box.setAlignment(javafx.geometry.Pos.CENTER);
 			Label name = new Label(labelNames[i]);
 			name.setFont(font);
 			Label value = new Label(this.getPlayerInventory()[i]);
 			value.setFont(font);
-			
+
 			box.getChildren().addAll(name, value);
 			inventoryHBox.getChildren().add(box);
 		}
-		
-		
+
 		return inventoryHBox;
-		
 	}
-	
-	
 }

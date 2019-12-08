@@ -55,6 +55,9 @@ public abstract class Drawable {
 		return this.blockable;
 	}
 
+	/** Sets the blocking value of this drawable, (0-free movement, 1-blocks enemies, 2-blocks all)
+	 * @param integer newBlocking value to be assigned
+	 */
 	public void setBlocking(int newBlocking) {
 		if (newBlocking >= 0 && newBlocking <= 2) {
 			this.blockable = newBlocking;
@@ -70,22 +73,37 @@ public abstract class Drawable {
 		gc.drawImage(this.spriteImage, (this.xCoord - offsetX) * 64, (this.yCoord - offsetY) * 64, 64, 64);
 	}
 
+	/**
+	 * @return the x coordinate of this
+	 */
 	public int getxCoord() {
 		return xCoord;
 	}
 
+	/**
+	 * @return the y coordinate of this
+	 */
 	public int getyCoord() {
 		return yCoord;
 	}
 
+	/** Set a new x coordinate
+	 * @param x value to be assigned
+	 */
 	public void setxCoord(int x) {
 		this.xCoord = x;
 	}
 
+	/** Set a new y coordinate
+	 * @param y value to be assigned
+	 */
 	public void setyCoord(int y) {
 		this.yCoord = y;
 	}
 
+	/** Updates/Loads the sprite ready to be drawn
+	 * @param sprite, file path to the image file
+	 */
 	protected void updateSprite(String sprite) {
 		this.spritePath = sprite;
 		File imageLoader = new File(spritePath);
