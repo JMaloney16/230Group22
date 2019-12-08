@@ -63,6 +63,9 @@ public class Player extends Movable {
 				this.nextX = this.xCoord;
 				this.nextY = this.yCoord - 1;
 			}
+			else {
+				return 0;
+			}
 			break;
 		case 1:
 			search = board.getBlocking(this.xCoord + 1, this.yCoord);
@@ -71,6 +74,9 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord + 1;
 				this.nextY = this.yCoord;
+			}
+			else {
+				return 0;
 			}
 			break;
 		case 2:
@@ -81,6 +87,9 @@ public class Player extends Movable {
 				this.nextX = this.xCoord;
 				this.nextY = this.yCoord + 1;
 			}
+			else {
+				return 0;
+			}
 			break;
 		case 3:
 			search = board.getBlocking(this.xCoord - 1, this.yCoord);
@@ -89,6 +98,9 @@ public class Player extends Movable {
 			} else if (search < 2) {
 				this.nextX = this.xCoord - 1;
 				this.nextY = this.yCoord;
+			}
+			else {
+				return 0;
 			}
 			break;
 		}
