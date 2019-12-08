@@ -13,18 +13,9 @@ import java.util.Scanner;
  * saves player data to a file
  *
  * @author Jack Maloney
- * @version 0.9
+ * @version 1
  */
 
-//TODO
-// make class fully static please bb <3
-// and make a savePlayerFile(Player, Board) that saves the game state, suga' plum ;)
-// needs a method to update the leaderboard
-// needs a method to get a leaderboard from a filename
-// player file needs to store filepath to the level and store the highest level achieved variable
-
-// ----> needs get all profiles method too
-// sorry boo
 public class FileManager {
 
 	public static class FileReading {
@@ -37,7 +28,7 @@ public class FileManager {
 		private static ArrayList<String> leaderboard = new ArrayList<String>();
 
 		/**
-		 * Validates filepath given and creates a scanner if valid
+		 * Validates filepath given and creates a scanner if valid.
 		 *
 		 * @param filename Filepath of file to use
 		 * @return Scanner of file
@@ -57,7 +48,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Reads and generates the common section of the player and map files
+		 * Reads and generates the common section of the player and map files.
 		 *
 		 * @param in      Scanner of file to read
 		 * @param divider The keyword to stop reading the file
@@ -79,11 +70,13 @@ public class FileManager {
 					switch (current) {
 						case "#":
 							System.out.print("#");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/StoneBrickWall.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/StoneBrickWall.png", 2);
 							break;
 						case ".":
 							System.out.print(".");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 0);
 							break;
 						case "F":
 							System.out.print("F");
@@ -95,11 +88,13 @@ public class FileManager {
 							break;
 						case "T":
 							System.out.print("T");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 1);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 1);
 							break;
 						case "D":
 							System.out.print("D");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/Floor.png", 0);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/Floor.png", 0);
 							break;
 						case "G":
 							System.out.print("G");
@@ -107,7 +102,8 @@ public class FileManager {
 							break;
 						default:
 							System.out.print("?");
-							boardDrawables[j][i] = new StaticEntity(j, i, "assets/placeholder.png", 2);
+							boardDrawables[j][i] = new StaticEntity(j, i,
+								"assets/placeholder.png", 2);
 					}
 				}
 				System.out.println();
@@ -162,11 +158,13 @@ public class FileManager {
 						String doorType = line.next();
 						if (doorType.equals("TOKEN")) {
 							int tokensRequired = line.nextInt();
-							System.out.println("It's a door that uses " + tokensRequired + " token(s)!");
+							System.out.println("It's a door that uses " + tokensRequired
+								+ " token(s)!");
 							interactables.add(new TokenDoor(posX, posY, tokensRequired));
 						} else {
 							String doorColour = line.next();
-							System.out.println("It's a " + doorType.toLowerCase() + " door of colour: "
+							System.out.println("It's a " + doorType.toLowerCase()
+								+ " door of colour: "
 								+ doorColour);
 							interactables.add(new ColouredDoor(posX, posY, doorColour));
 						}
@@ -216,11 +214,13 @@ public class FileManager {
 								break;
 							case "FOLLOW":
 								System.out.println("Follow enemy");
-								movables.add(new FollowEnemy(posX, posY, directionInt, line.nextInt()));
+								movables.add(new FollowEnemy(posX, posY, directionInt,
+									line.nextInt()));
 								break;
 							case "DUMB":
 								System.out.println("Dumb enemy");
-								movables.add(new DumbEnemy(posX, posY, directionInt));
+								movables.add(new DumbEnemy(posX, posY,
+									directionInt));
 								break;
 							default:
 								System.out.print("I haven't added this enemy type to the filereader!");
@@ -236,7 +236,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a new map from a file
+		 * Loads a new map from a file.
 		 *
 		 * @param filepath location of file to read from
 		 * @param board    board to be populated
@@ -255,7 +255,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a map and player's stats from a file
+		 * Loads a map and player's stats from a file.
 		 *
 		 * @param filepath location of file to read
 		 * @param player   player to edit
@@ -273,7 +273,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Loads a player's stats from a file
+		 * Loads a player's stats from a file.
 		 *
 		 * @param filepath location of file to read
 		 * @param player   player to edit
@@ -291,7 +291,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Gets the information for the player object only from the player save file
+		 * Gets the information for the player object only from the player save file.
 		 *
 		 * @param player      PLayer object to edit
 		 * @param in          Scanner containing file
@@ -338,7 +338,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Reads a map file and returns a list of the top 3 players and their times
+		 * Reads a map file and returns a list of the top 3 players and their times.
 		 *
 		 * @param filepath Location of the map file
 		 * @return ArrayList containing top 3 players and their times
@@ -396,7 +396,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Creates a new player's save file
+		 * Creates a new player's save file.
 		 *
 		 * @param playerName The player's name
 		 */
@@ -424,14 +424,13 @@ public class FileManager {
 		}
 
 		/**
-		 * Saves the player's game to a textfile
+		 * Saves the player's game to a textfile.
 		 *
 		 * @param filename Name of the file to save to
 		 * @param player   The player's object
 		 * @param board    The board to save
 		 */
-		public static void savePlayerFile(String filename, Player player, Board board) { // TODO Have saveProfileFile// for new profile (no board
-			// available)
+		public static void savePlayerFile(String filename, Player player, Board board) {
 			System.out.println("SAVING FILE: " + filename);
 			BufferedWriter writer = null;
 			Drawable[][] boardArray = board.getBoard();
@@ -481,7 +480,8 @@ public class FileManager {
 								currentLine += "G";
 								break;
 							default:
-								System.out.println("Not accounted for: " + boardArray[j][i].getClass().getName());
+								System.out.println("Not accounted for: "
+									+ boardArray[j][i].getClass().getName());
 						}
 					}
 					writer.write(currentLine + System.lineSeparator());
@@ -527,7 +527,8 @@ public class FileManager {
 						case "TELEPORTER":
 							// TODO: Get the teleporter's partner
 							Teleporter partner = ((Teleporter) interactable).getPartner();
-							String partnerPos = "," + (partner.xCoord + 1) + "," + (partner.yCoord + 1);
+							String partnerPos = "," + (partner.xCoord + 1) + ","
+								+ (partner.yCoord + 1);
 							writer.write(prefix + "TELE" + partnerPos);
 							break;
 						case "KATANNA":
@@ -640,12 +641,14 @@ public class FileManager {
 
 		/**
 		 * Updates the leaderboard after a level has been completed
-		 * @param boardFile filepath of the board to update
+		 *
+		 * @param boardFile  filepath of the board to update
 		 * @param playerName Name of the player who has completed the level
-		 * @param moves Amount of moves the player made
+		 * @param moves      Amount of moves the player made
 		 * @throws IOException File cannot be found
 		 */
-		public static void updateLeaderboard(String boardFile, String playerName, int moves) throws IOException {
+		public static void updateLeaderboard(String boardFile, String playerName, int moves)
+			throws IOException {
 			ArrayList<String> leaderboard = FileManager.FileReading.getLeaderboard(boardFile);
 			//We create a string of the old leaderboard to use in the replacetext method
 			String oldLeaderboard = leaderboard.get(0) + "," + leaderboard.get(1)
@@ -690,14 +693,15 @@ public class FileManager {
 		}
 
 		/**
-		 * Replaces a specified string in a text file
+		 * Replaces a specified string in a text file.
 		 *
 		 * @param filepath File to be edited
 		 * @param oldText  String to be replaced
 		 * @param newText  New string to add
 		 * @throws IOException
 		 */
-		private static void replaceText(String filepath, String oldText, String newText) throws IOException {
+		private static void replaceText(String filepath, String oldText, String newText)
+			throws IOException {
 			File file = new File(filepath);
 			String oldFile = copyFileContents(filepath);
 			//Get a string of the contents of the whole file
@@ -715,7 +719,7 @@ public class FileManager {
 		}
 
 		/**
-		 * Copies all text in a file to a string
+		 * Copies all text in a file to a string.
 		 *
 		 * @param filepath file to copy
 		 * @return String containing file's contents
