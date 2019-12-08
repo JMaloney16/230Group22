@@ -8,7 +8,6 @@
  */
 
 public class Goal extends Tile {
-
 	/**
 	 * Creates a Goal tile.
 	 * 

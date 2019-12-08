@@ -38,10 +38,6 @@ public class MenuManager {
 		private static int levelSelected; // int used to check if user has chosen a level
 		private static ArrayList<Player> players = new ArrayList<Player>();
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// Create the GUI
 		public static Pane buildMenuGUI(Stage stage, int width, int height) {
 			// Create top-level panel that will hold all GUI
 			BorderPane root = new BorderPane();
@@ -142,12 +138,10 @@ public class MenuManager {
 			return root;
 		}
 
-		// Set stage
 		public static void setStage(Stage stage) {
 			MenuManager.Menu.primaryStage = stage;
 		}
 
-		// Set window size
 		public static void setWindowSize(int width, int height) {
 			MenuManager.Menu.windowWidth = width;
 			MenuManager.Menu.windowHeight = height;
@@ -201,7 +195,6 @@ public class MenuManager {
 		}
 
 		private static void createProfile() {
-
 			VBox subRoot = new VBox();
 			subRoot.setSpacing(10);
 			subRoot.setPadding(PADDING);
@@ -223,7 +216,6 @@ public class MenuManager {
 				}
 			});
 			subRoot.getChildren().addAll(profileNameLabel, profileNameBox, createProfileButton, warning);
-
 		}
 
 		private static void deleteProfile() {
@@ -270,7 +262,6 @@ public class MenuManager {
 		}
 
 		private static void drawProfileList() {
-
 			players.clear();
 			ArrayList<String> profiles = FileManager.FileReading.getAllProfiles();
 			for (String s : profiles) {

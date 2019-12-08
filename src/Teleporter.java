@@ -7,7 +7,6 @@
  * @author Jack Maloney
  */
 public class Teleporter extends Tile {
-
 	private Teleporter partner;
 
 	/**
@@ -40,24 +39,24 @@ public class Teleporter extends Tile {
 			case 0:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 					player.setxCoord(this.partner.xCoord);
-					player.setyCoord(this.partner.yCoord-1);
+					player.setyCoord(this.partner.yCoord - 1);
 				}
 				break;
 			case 1:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-					player.setxCoord(this.partner.xCoord+1);
+					player.setxCoord(this.partner.xCoord + 1);
 					player.setyCoord(this.partner.yCoord);
 				}
 				break;
 			case 2:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 					player.setxCoord(this.partner.xCoord);
-					player.setyCoord(this.partner.yCoord+1);
+					player.setyCoord(this.partner.yCoord + 1);
 				}
 				break;
 			case 3:
 				if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
-					player.setxCoord(this.partner.xCoord-1);
+					player.setxCoord(this.partner.xCoord - 1);
 					player.setyCoord(this.partner.yCoord);
 				}
 				break;
@@ -65,6 +64,9 @@ public class Teleporter extends Tile {
 		}
 	}
 
+	/**
+	 * @return the partner this teleporter is paired with
+	 */
 	public Teleporter getPartner() {
 		return partner;
 	}

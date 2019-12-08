@@ -7,7 +7,6 @@
  * @author William Marsh
  */
 public class Token extends Collectable {
-
 	/**
 	 * Creates a new token from with just a positon
 	 * 
@@ -28,5 +27,4 @@ public class Token extends Collectable {
 			board.removeInteractable(this);
 		}
 	}
-
 }

@@ -7,7 +7,6 @@
  * @author Will Marsh
  */
 public class Collectable extends Interactable {
-
 	/**
 	 * Constructs a new Collectable
 	 * 

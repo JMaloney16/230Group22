@@ -15,7 +15,6 @@ import java.net.UnknownHostException;
  */
 
 public class Networking {
-
 	/**
 	 * Retrieves the message of the day.
 	 *
@@ -46,7 +45,6 @@ public class Networking {
 		} catch (UnknownHostException e) {
 			return "Cannot connect to specified URL!";
 		}
-
 	}
 
 	/**

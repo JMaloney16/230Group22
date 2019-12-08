@@ -1,4 +1,3 @@
-
 /**
  * FollowEnemy.java, implements the follow enemy behaviour
  * 

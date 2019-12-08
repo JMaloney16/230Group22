@@ -43,7 +43,6 @@ public class Board {
 		for (int y = Math.max(0, playerY - 3); y <= Math.min(board[0].length - 1, playerY + 3); y++) {
 			for (int x = Math.max(0, playerX - 3); x <= Math.min(board.length - 1, playerX + 3); x++) {
 				board[x][y].draw(gc, playerX - 3, playerY - 3);
-
 			}
 		}
 	}
@@ -107,9 +106,6 @@ public class Board {
 	 *                    1 three o'clock etc)
 	 */
 	public void updateInteractables(Player player, int keyboardIn) {
-		// individually updates the interactables
-		// this is required over a for each loop as this way does not
-		// result in checkForComodification being called, raising an error
 		for (int i = 0; i < this.interactables.size(); i++) {
 			this.interactables.get(i).update(this, player, keyboardIn);
 		}

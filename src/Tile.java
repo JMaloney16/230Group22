@@ -6,7 +6,6 @@
  */
 
 public abstract class Tile extends Interactable {
-	
 	/**
 	 * Creates a tile on the board
 	 * 
@@ -19,5 +18,4 @@ public abstract class Tile extends Interactable {
 	public Tile(int x, int y, String sprite, int blockable) {
 		super(x, y, sprite, blockable);
 	}
-
 }

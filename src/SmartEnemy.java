@@ -171,5 +171,4 @@ public class SmartEnemy extends Enemy {
 			}
 		}
 	}
-
 }

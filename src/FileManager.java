@@ -17,9 +17,7 @@ import java.util.Scanner;
  */
 
 public class FileManager {
-
 	public static class FileReading {
-
 		private static Drawable[][] boardDrawables;
 		private static ArrayList<Movable> movables;
 		private static ArrayList<Interactable> interactables;
@@ -176,7 +174,6 @@ public class FileManager {
 				default:
 					System.out.println("Unrecognized!");
 				}
-
 			}
 		}
 
@@ -383,7 +380,6 @@ public class FileManager {
 					System.out.println(ex);
 				}
 			}
-
 		}
 
 		/**
@@ -592,7 +588,6 @@ public class FileManager {
 					System.out.println(ex);
 				}
 			}
-
 		}
 
 		/**
@@ -689,6 +684,5 @@ public class FileManager {
 			writer.write(newFile);
 			writer.close();
 		}
-
 	}
 }

@@ -182,7 +182,6 @@ public class GameManager {
 		if (!Arrays.equals(previousInventory, currentInventory)) {
 			this.toolbar.getChildren().add(this.drawInventory(false));
 		}
-
 	}
 
 	/**
@@ -281,7 +280,6 @@ public class GameManager {
 			this.player.setMaxLevel(this.player.getCurrentLevel());
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 		}
-
 	}
 
 	/**
@@ -293,9 +291,7 @@ public class GameManager {
 		String[] inventory = new String[] { Integer.toString(this.time), "", "", "", "", // Keys to be added later in
 																							// method
 				Integer.toString(this.player.getTokens()), Boolean.toString(this.player.getBoots()),
-				Boolean.toString(this.player.getFlippers()), Boolean.toString(this.player.getKatanna())
-
-		};
+				Boolean.toString(this.player.getFlippers()), Boolean.toString(this.player.getKatanna()) };
 
 		for (int i = 1; i < 5; i++) {
 			inventory[i] = Integer.toString(this.player.getKeys()[i - 1]);

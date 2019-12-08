@@ -327,14 +327,23 @@ public class Player extends Movable {
 		return keys;
 	}
 
+	/** Gets if the player is dead
+	 * @return true if player is dead, false otherwise
+	 */
 	public boolean getKilled() {
 		return this.killed;
 	}
 
+	/** Gets if the level has been completed
+	 * @return true if level is done, false otherwise
+	 */
 	public boolean getCompleted() {
 		return this.completed;
 	}
 
+	/**
+	 * @return the current amount of moves this player has made
+	 */
 	public int getCurrentTime() {
 		return currentTime;
 	}

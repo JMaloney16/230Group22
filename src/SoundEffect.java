@@ -16,7 +16,6 @@ import javax.sound.sampled.LineUnavailableException;
  */
 
 public class SoundEffect {
-
 	// Used to record the frame position of the track.
 	private long clipTimePosition;
 
@@ -72,7 +71,6 @@ public class SoundEffect {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
 	}
 
 	/**

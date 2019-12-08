@@ -1,4 +1,3 @@
-
 /**
  * Fire.java implements the fire tile
  * 
@@ -31,5 +30,4 @@ public class Fire extends Tile {
 			}
 		}
 	}
-
 }
