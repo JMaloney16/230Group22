@@ -26,7 +26,6 @@ public abstract class Door extends Tile {
 	 * @param keyboardIn, the current key pressed.
 	 */
 
-	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 
 	}

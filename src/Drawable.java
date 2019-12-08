@@ -14,6 +14,7 @@ public abstract class Drawable {
 	protected int xCoord;
 	protected int yCoord;
 	private String spritePath;
+	
 	// blockable = 0-all can move on, 1-enemies cannot move on, 2-no one can move on
 	private int blockable;
 	private Image spriteImage;
@@ -33,7 +34,7 @@ public abstract class Drawable {
 		this.spritePath = sprite;
 		this.blockable = blockable;
 
-		if (sprite != "") { // add a check to make sure image has been loaded
+		if (sprite != "") {
 			this.updateSprite(sprite);
 		}
 	}
@@ -41,7 +42,7 @@ public abstract class Drawable {
 	protected void updateSprite(String sprite) {
 		this.spritePath = sprite;
 		File imageLoader = new File(spritePath);
-		this.spriteImage = new Image(imageLoader.toURI().toString()); // "../assest/sprite.png"
+		this.spriteImage = new Image(imageLoader.toURI().toString());
 	}
 
 	/**
@@ -73,7 +74,6 @@ public abstract class Drawable {
 	 * @param gc graphics context to be drawn to
 	 */
 	public void draw(GraphicsContext gc, int offsetX, int offsetY) {
-//		System.out.println(this.spriteImage.isError());
 		gc.drawImage(this.spriteImage, (this.xCoord - offsetX) * 64, (this.yCoord - offsetY) * 64, 64, 64);
 	}
 
