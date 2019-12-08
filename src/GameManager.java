@@ -273,7 +273,7 @@ public class GameManager {
 	}
 
 	/**
-	 * Progesses the game to the next level
+	 * Progresses the game to the next level
 	 */
 	private void nextLevel() throws IOException {
 //		System.out.println("Level has been completed");
