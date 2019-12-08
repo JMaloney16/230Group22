@@ -24,7 +24,6 @@ public class Fire extends Tile {
 	 * @param player,     the player.
 	 * @param keyboardIn, the current key pressed.
 	 */
-	@Override
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord()) {
 			if (player.getBoots() == false) {

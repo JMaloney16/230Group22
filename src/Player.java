@@ -29,7 +29,6 @@ public class Player extends Movable {
 	 */
 	public Player(int x, int y, int maxLevel) {
 		super(x, y, "assets\\player.png", 0);
-		this.name = name;
 		this.maxLevel = maxLevel;
 	}
 
@@ -44,9 +43,7 @@ public class Player extends Movable {
 	 */
 	public int update(Board board, int keyboardIn) { // return codes, 0 didn't move, 1 moved, 2 dead, 3 level completed
 		System.out.println(board.getBlocking(this.xCoord, this.yCoord));
-//		if (board.getBlocking(this.xCoord, this.yCoord) > 0) { // makes sure player is not inside an
-//			this.killed = true;
-//		}
+
 		if (this.completed == true) {
 			return 3;
 		}
@@ -214,7 +211,7 @@ public class Player extends Movable {
 			break;
 		default:
 			System.out.println(keyColour);
-			System.out.println("Cant add that key"); // maybe raise an error?
+			System.out.println("Cant add that key");
 		}
 	}
 
@@ -298,19 +295,6 @@ public class Player extends Movable {
 		return this.katanna;
 	}
 
-//	public void setPosX(int x) {
-//		this.xCoord = x;
-//	}
-//
-//	public void setPosY(int y) {
-//		this.yCoord = y;
-//	}
-//	public int getPosX() {
-//		return this.xCoord;
-//	}
-//	public int getPosY() {
-//		return this.yCoord;
-//	}
 	public void setCurrentMoves(int moves) {
 		this.currentMoves = moves;
 	}

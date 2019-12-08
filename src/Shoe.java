@@ -1,7 +1,6 @@
 /**
- * Shoe.java Holds information about a key - no jack it doesnt
+ * Shoe.java Holds information about a shoe.
  * 
- * ######################################################################################################
  *
  * @author Jack Maloney
  * @version 0.5

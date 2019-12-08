@@ -71,7 +71,6 @@ public class GameManager {
 		this.windowHeight = windowHeight;
 		this.cellSize = cellSize;
 
-//		this.player = new Player(1, 1, "assets\\player.png", "test", 0);
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
 		this.player = new Player(0, 0, 0);
 		this.player.setName(playerName);
@@ -137,11 +136,6 @@ public class GameManager {
 			this.moves += 1;
 			this.player.setCurrentMoves(this.moves);
 			this.player.setCurrentTime(time);
-//			System.out.print("key: ");
-//			System.out.println(this.lastKey);
-//			
-//			System.out.print("player move: ");
-//			System.out.println(this.player.update(this.board, this.lastKey));
 			this.board.updateInteractables(this.player, this.lastKey);
 			
 			if (this.player.update(this.board, this.lastKey) == 0) {
@@ -159,7 +153,6 @@ public class GameManager {
 			} else {
 				this.board.updateInteractables(this.player, -1);
 			}
-//			System.out.printf("Player pos: %dx%d\n", this.player.getxCoord(), this.player.getyCoord());
 		}
 		this.lastKey = -1;
 
@@ -195,14 +188,6 @@ public class GameManager {
 		root.setCenter(canvas);
 
 		this.gc = canvas.getGraphicsContext2D();
-
-//		File imageLoader = new File("src\\Lava.png");
-//		Image test = new Image(imageLoader.toURI().toString());
-////	System.out.println(test.isError());
-////	System.out.println(test.exceptionProperty());
-//		this.gc.drawImage(test, 100, 100, 64, 64);
-
-//		this.board.drawBoard(this.gc);
 
 		// HBar at top for Buttons
 		this.toolbar = new HBox();
@@ -267,7 +252,6 @@ public class GameManager {
 		this.player.setName(oldPlayerName);
 		System.out.println("dont die next time.");
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
-//		this.player = new Player(0, 0, 0);
 		FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
 		this.updateLeveling();
 	}
@@ -276,7 +260,7 @@ public class GameManager {
 	 * Progresses the game to the next level
 	 */
 	private void nextLevel() throws IOException {
-//		System.out.println("Level has been completed");
+
 		//Get the leaderboard and compare the players time to each of the high scores
 
 		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.time);
@@ -285,9 +269,6 @@ public class GameManager {
 		this.boardFile = "levels\\" + Integer.toString(this.board.getLevelNumber()) + ".txt";
 		System.out.println(this.boardFile);
 
-//		if (this.board.getLevelNumber() > this.player.getMaxLevel()) {
-//			this.player.setMaxLevel(this.board.getLevelNumber());
-//		}
 		this.restart();
 	}
 	
@@ -298,9 +279,7 @@ public class GameManager {
 			this.player.setMaxLevel(this.player.getCurrentLevel());
 			FileManager.FileWriting.savePlayerFile(this.player, this.board);
 		}
-//		if (boardLevel > this.player.getCurrentLevel()) {
-//			this.player.setCurrentLevel(boardLevel);
-//		}
+
 	}
 	
 	//Getting the whole player inventory (for comparisons)
