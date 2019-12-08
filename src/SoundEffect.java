@@ -5,7 +5,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
-import javax.swing.JOptionPane;
 
 /**
  * SoundEffect.java A class designed to hold the methods for calling sounds. Has
@@ -42,7 +41,6 @@ public class SoundEffect {
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 				gainControl.setValue(-15.0f);
 
-				// JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 			} else {
 				System.out.println("can't find file");
 			}
@@ -68,7 +66,6 @@ public class SoundEffect {
 				clip.open(audioinput);
 				clip.start();
 
-				// JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 			} else {
 				System.out.println("can't find file");
 			}

@@ -1,9 +1,9 @@
 /**
- * Shoe.java Holds information about a shoe or flipper item
- * 
- * ######################################################################################################
+ * Shoe.java Holds information about a shoe or flipper item.
+ *
  *
  * @author Jack Maloney
+ * @author William Marsh
  * @version 0.5
  * @see Collectable
  * @see Interactable

@@ -34,10 +34,6 @@ public class Main extends Application {
 		SoundEffect test = new SoundEffect();
 
 		String soundplay = "assets/Sounds/Intro_002.wav";
-
-		// single play sound
-		// test.playSound(soundplay);
-		// play loop
 		test.playLoop(soundplay);
 	}
 

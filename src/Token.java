@@ -4,6 +4,7 @@
  * 
  * @version 0.1
  * @author Ewan Bradford
+ * @author William Marsh
  */
 public class Token extends Collectable {
 
