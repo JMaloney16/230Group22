@@ -125,8 +125,8 @@ public class Player extends Movable {
 			}
 			return false;
 		case "green":
-			if (this.keys[2] > 0) {
-				this.keys[2] -= 1;
+			if (this.keys[3] > 0) {
+				this.keys[3] -= 1;
 				return true;
 			}
 			return false;
