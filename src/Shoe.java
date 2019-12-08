@@ -4,6 +4,7 @@
  * ######################################################################################################
  *
  * @author Jack Maloney
+ * @author William Marsh
  * @version 0.5
  * @see Collectable
  * @see Interactable
