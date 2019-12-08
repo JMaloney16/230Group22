@@ -4,7 +4,7 @@
  * @version 0.2
  * @author Gino Sesia
  * @author Ewan Bradford
- *
+ * @author Jack Maloney
  */
 public class Teleporter extends Tile {
 

@@ -1,8 +1,9 @@
 /**
- * Coloured.java
- * 
- * @version 0.1
+ * ColouredDoor.java
+ * Holds information about a coloured door on the board
+ * @version 1.0
  * @author Gino Sesia
+ * @author Jack Maloney
  *
  */
 public class ColouredDoor extends Door {

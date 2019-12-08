@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Board.java Stores and updates the playing board of the game.
  * 
- * @version 0.5
+ * @version 0.9
  * @author Ewan Bradford
  * @author Sam Forster
  * @author Luke Francis

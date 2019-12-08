@@ -1,5 +1,5 @@
 /**
- * Shoe.java Holds information about a key - no jack it doesnt
+ * Shoe.java Holds information about a shoe or flipper item
  * 
  * ######################################################################################################
  *
