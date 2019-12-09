@@ -98,7 +98,6 @@ public class FileManager {
 				String[] currentPlayer = currentLine.split(",");
 				String playerName = currentPlayer[0];
 				String playerTime = currentPlayer[1];
-				System.out.println(playerName + " completed the level in: " + playerTime);
 				leaderboard.add(playerName);
 				leaderboard.add(playerTime);
 				if (i < 2) {
@@ -152,23 +151,18 @@ public class FileManager {
 				String itemType = line.next();
 				switch (itemType) {
 				case "FLIPPER":
-					System.out.println("Flippers");
 					player.addFlippers();
 					break;
 				case "BOOTS":
-					System.out.println("Boots");
 					player.addBoots();
 					break;
 				case "TOKEN":
-					System.out.println("Token");
 					player.addToken(line.nextInt());
 					break;
 				case "KEY":
-					System.out.println("Key");
 					player.addKey(line.next().toLowerCase());
 					break;
 				case "KATANNA":
-					System.out.println("Katanna");
 					player.addKatanna();
 					break;
 				default:
@@ -608,7 +602,6 @@ public class FileManager {
 			int secondTime = Integer.parseInt(leaderboard.get(3));
 			int thirdTime = Integer.parseInt(leaderboard.get(5));
 			if (moves < firstTime) {
-				System.out.println("First place");
 				if (leaderboard.get(0).equals(playerName)) {
 					leaderboard.remove(1);
 					leaderboard.remove(0);
@@ -616,17 +609,15 @@ public class FileManager {
 				leaderboard.add(0, playerName);
 				leaderboard.add(1, String.valueOf(moves));
 			} else if (moves > firstTime && moves < secondTime) {
-				System.out.println("Second place");
 				if (leaderboard.get(0).equals(playerName)) {
-					System.out.println("Player already has a faster time on the leaderboard.");
+//					System.out.println("Player already has a faster time on the leaderboard.");
 				} else {
 					leaderboard.add(2, playerName);
 					leaderboard.add(3, String.valueOf(moves));
 				}
 			} else if (moves > secondTime && moves < thirdTime) {
-				System.out.println("Third Place");
 				if ((leaderboard.get(0).equals(playerName)) || leaderboard.get(3).equals(playerName)) {
-					System.out.println("Player already has a faster time on the leaderboard.");
+//					System.out.println("Player already has a faster time on the leaderboard.");
 				} else {
 					leaderboard.add(4, playerName);
 					leaderboard.add(5, String.valueOf(moves));
