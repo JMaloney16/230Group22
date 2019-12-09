@@ -156,7 +156,7 @@ public class MenuManager {
 		 * Setting the stage so the scene is displayed
 		 * @param stage The stage to display the scene
 		 */
-		public static void setStage(Stage stage) {
+		private static void setStage(Stage stage) {
 			MenuManager.Menu.primaryStage = stage;
 		}
 
@@ -165,7 +165,7 @@ public class MenuManager {
 		 * @param width The width of the display in pixels
 		 * @param height The height of the display in pixels
 		 */
-		public static void setWindowSize(int width, int height) {
+		private static void setWindowSize(int width, int height) {
 			MenuManager.Menu.windowWidth = width;
 			MenuManager.Menu.windowHeight = height;
 		}
@@ -174,7 +174,7 @@ public class MenuManager {
 		 * Displays the levels available to the user based on the maxLevel available to the player
 		 * @param p The player profile the user has chosen
 		 */
-		public static void buildLevelSelectPane(Player p) {
+		private static void buildLevelSelectPane(Player p) {
 			BorderPane innerRoot = new BorderPane();
 			VBox levelList = new VBox();
 
