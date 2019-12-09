@@ -41,7 +41,6 @@ public class GameManager {
 	private int windowWidth;
 	private int windowHeight;
 
-	private int moves = 0;
 	private int time = 0;
 	private int previousTime = 0;
 	private long startTime;
@@ -79,7 +78,6 @@ public class GameManager {
 
 		if (boardLevel == -1) {
 			FileManager.FileReading.readPlayerFile("profiles\\" + player.getName() + ".txt", this.player, this.board);
-			this.moves = this.player.getCurrentMoves();
 			this.time = this.player.getCurrentTime();
 			this.previousTime = this.time;
 			this.boardFile = "levels\\" + Integer.toString(this.player.getCurrentLevel()) + ".txt";
@@ -116,15 +114,6 @@ public class GameManager {
 	}
 
 	/**
-	 * Gets the current moves the player has made during their life
-	 * 
-	 * @return Int of the moves since last start
-	 */
-	public int getMoves() {
-		return this.moves;
-	}
-
-	/**
 	 * Draws and Updates all parts of the board, draws and handles input for the
 	 * player
 	 */
@@ -150,8 +139,7 @@ public class GameManager {
 			currentTime = System.currentTimeMillis();
 			time = (int) ((currentTime - startTime) / 1000);
 			time += previousTime;
-			this.moves += 1;
-			this.player.setCurrentMoves(this.moves);
+
 			this.player.setCurrentTime(time);
 			this.board.updateInteractables(this.player, this.lastKey);
 
@@ -241,7 +229,6 @@ public class GameManager {
 		String oldPlayerName = this.player.getName();
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
-		this.moves = 0;
 		this.time = 0;
 		this.previousTime = 0;
 		this.startTime = System.currentTimeMillis();
