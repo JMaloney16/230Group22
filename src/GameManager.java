@@ -48,10 +48,6 @@ public class GameManager {
 
 	private int lastKey = -1;
 
-	private int frameCount = 100;
-
-	private Image TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself;
-
 	/**
 	 * Creates a new GameManager with a stage, boardfile, window size and a cell
 	 * size.
@@ -68,12 +64,7 @@ public class GameManager {
 
 		this.board = new Board(null, new ArrayList<Movable>(), new ArrayList<Interactable>());
 		this.player = player;
-//		this.player.setName(playerName);
 
-		// File imageLoader = new
-		// File("assets\\TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself.jpg");
-		// this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself = new
-		// Image(imageLoader.toURI().toString());
 		this.startTime = System.currentTimeMillis();
 
 		if (boardLevel == -1) {
@@ -84,7 +75,6 @@ public class GameManager {
 		} else {
 			this.boardFile = "levels\\" + Integer.toString(boardLevel) + ".txt";
 			FileManager.FileReading.readMapFile(this.boardFile, this.board, this.player);
-//			this.player.setMaxLevel(maxLevel);
 		}
 		this.updateLeveling();
 
@@ -118,17 +108,11 @@ public class GameManager {
 	 * player
 	 */
 	private void update() throws IOException {
-		this.frameCount++;
 		gc.clearRect(0, 0, this.windowWidth, this.windowWidth);
 		this.board.drawBoard(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawMovables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.board.drawInteractables(this.gc, this.player.getxCoord(), this.player.getyCoord());
 		this.player.draw(this.gc);
-
-		if (this.frameCount < 20) {
-			this.gc.drawImage(this.TheAlmightyLiamOreillyLadOfAllLadsAndSaviourHimself, 0, 0, this.windowWidth,
-					this.windowHeight);
-		}
 
 		// Gets inventory before a move is made
 		String[] previousInventory = this.getPlayerInventory();
@@ -225,7 +209,6 @@ public class GameManager {
 	 * Restarts the game
 	 */
 	private void restart() {
-		this.frameCount = 0;
 		String oldPlayerName = this.player.getName();
 		int oldPlayerLevel = this.player.getCurrentLevel();
 		int oldPlayerMaxLevel = this.player.getMaxLevel();
@@ -245,9 +228,7 @@ public class GameManager {
 	 * Progresses the game to the next level
 	 */
 	private void nextLevel() throws IOException {
-
 		// Get the leaderboard and compare the players time to each of the high scores
-
 		FileManager.FileWriting.updateLeaderboard(this.boardFile, player.getName(), this.time);
 
 		this.board.setLevelNumber(this.board.getLevelNumber() + 1);
