@@ -21,7 +21,7 @@ public class Goal extends Tile {
 	/**
 	 * Updates the goal tile, checks player position and behaves accordingly
 	 * 
-	 * @param board,      the board object for the player to be "placed" in.
+	 * @param board,      the board object for the Goal to be "placed" in.
 	 * @param player,     the player.
 	 * @param keyboardIn, the current key pressed.
 	 * 

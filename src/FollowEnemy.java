@@ -25,6 +25,9 @@ public class FollowEnemy extends Enemy {
 
 	/**
 	 * Does one step of the follow enemy's behaviour
+	 * @param board,      the board object for the fire to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		normaliseDir();

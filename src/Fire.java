@@ -19,7 +19,7 @@ public class Fire extends Tile {
 	/**
 	 * Checks if the player is standing on this fire tile.
 	 * 
-	 * @param board,      the board object for the player to be "placed" in.
+	 * @param board,      the board object for the fire to be "placed" in.
 	 * @param player,     the player.
 	 * @param keyboardIn, the current key pressed.
 	 */

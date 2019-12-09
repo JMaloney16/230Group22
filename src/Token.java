@@ -19,6 +19,9 @@ public class Token extends Collectable {
 
 	/**
 	 * Handles the token pickup
+	 * @param board,      the board object for the fire to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	@Override
 	public void update(Board board, Player player, int keyboardIn) {

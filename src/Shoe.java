@@ -25,6 +25,9 @@ public class Shoe extends Collectable {
 
 	/**
 	 * Handles the pick up of the shoe
+	 * @param board,      the board object for the Shoe to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (this.xCoord == player.getxCoord() && this.yCoord == player.getyCoord() && this.type.equals("flippers")) {
@@ -37,6 +40,10 @@ public class Shoe extends Collectable {
 		}
 	}
 
+	/**
+	 * Gets the type of show
+	 * @return The type of shoe as a String
+	 */
 	public String getType() {
 		return type;
 	}

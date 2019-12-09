@@ -74,7 +74,7 @@ public class SoundEffect {
 	}
 
 	/**
-	 * Method for stopping sounds. ***Not sure if it works yet***
+	 * Method for stopping sounds.
 	 */
 	public void stopSound() {
 		Clip clip = null;
@@ -88,7 +88,7 @@ public class SoundEffect {
 	}
 
 	/**
-	 * Method for resuming sounds ***Not sure if it works yet***
+	 * Method for resuming sounds.
 	 */
 	public void resumeSound() {
 		Clip clip = null;

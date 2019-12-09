@@ -13,6 +13,7 @@ public abstract class Door extends Tile {
 	 * 
 	 * @param x, the x coordinate of the Door tile.
 	 * @param y, the y coordinate of the Door tile.
+	 * @param sprite, the name of the sprite file
 	 */
 	public Door(int x, int y, String sprite) {
 		super(x, y, sprite, 2);
@@ -27,6 +28,5 @@ public abstract class Door extends Tile {
 	 */
 
 	public void update(Board board, Player player, int keyboardIn) {
-
 	}
 }

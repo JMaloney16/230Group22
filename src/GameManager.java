@@ -58,6 +58,7 @@ public class GameManager {
 	 * 
 	 * @param primaryStage, the stage for the game to be drawn to
 	 * @param boardLevel,   the number of the current level
+	 * @param player,		the player instance
 	 * @param windowWidth,  width of the screen to be played on
 	 * @param windowHeight, height of the screen to be played on
 	 * @param cellSize,     size of each tile on the screen

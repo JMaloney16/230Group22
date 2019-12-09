@@ -3,7 +3,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * InputManager.java Handles inputs from the user
  * 
- * @author Sam Forster
+ * @author Sam Forster, Ewan Bradford
  * @version 1.0
  */
 public class InputManager {

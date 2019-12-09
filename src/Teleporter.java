@@ -30,6 +30,9 @@ public class Teleporter extends Tile {
 
 	/**
 	 * Updates the teleporter and moves the player if needed
+	 * @param board,      the board object for the Teleporter to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 
 	public void update(Board board, Player player, int keyboardIn) {
@@ -65,6 +68,7 @@ public class Teleporter extends Tile {
 	}
 
 	/**
+	 * Returns the partner of this Teleporter
 	 * @return the partner this teleporter is paired with
 	 */
 	public Teleporter getPartner() {

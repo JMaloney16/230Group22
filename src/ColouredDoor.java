@@ -35,6 +35,10 @@ public class ColouredDoor extends Door {
 
 	/**
 	 * Updates the door, checks player position and behaves accordingly
+	 * 
+	 * @param board The board that is being played on
+	 * @param player The player that the user is controlling
+	 * @param keyboardIn The assigned value of each input from the user
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		if (player.checkKey(this.colour) == true && this.opened == false) {
@@ -64,6 +68,7 @@ public class ColouredDoor extends Door {
 	}
 
 	/**
+	 * 
 	 * @return String of the colour this door is
 	 */
 	public String getColour() {

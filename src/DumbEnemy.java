@@ -19,6 +19,9 @@ public class DumbEnemy extends Enemy {
 
 	/**
 	 * Does one step of the dumb enemy's behaviour
+	 * @param board,      the board object for the enemy to be "placed" in.
+	 * @param player,     the player.
+	 * @param keyboardIn, the current key pressed.
 	 */
 	public void update(Board board, Player player, int keyboardIn) {
 		normaliseDir();
